@@ -1,24 +1,49 @@
-import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import Vue from "vue";
 
 Vue.use(Router);
-
 export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      name: "index",
+      redirect: "/components/button",
+      components: require("@/views/index.vue"),
+      children: [
+        {
+          path: "/components/:id",
+          name: "/components",
+          components: require("@/views/assembly/assembly.vue")
+        },
+        {
+          path: "/chart/:id",
+          name: "/chart",
+          components: require("@/views/chart/chart.vue")
+        },
+        {
+          path: "/modular/:id",
+          name: "/modular",
+          components: require("@/views/modular/modular.vue")
+        },
+        {
+          path: "/plate/:id",
+          name: "/plate",
+          components: require("@/views/plate/plate.vue")
+        }
+      ]
     },
     {
-      path: "/about",
-      name: "about",
+      path: "/home",
+      name: "/home",
+      components: require("@/views/home/home.vue")
+    },
+    {
+      path: "/login",
+      name: "login",
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      component: () => import("@/views/login/login.vue")
     }
   ]
 });

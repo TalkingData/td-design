@@ -1,0 +1,70 @@
+.layout {
+    &-content{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        top: 72px;
+        width: 100%;
+        min-height: 200px;
+        overflow: hidden;
+        text-align: left;
+        &-main{
+            position:relative;
+            height: inherit;
+            overflow-y:auto;
+    
+            // .ivu-tabs{
+            //     // height: inherit;
+            //     margin-bottom:50px;
+            //     .ivu-tabs-tab{
+            //         margin-right:10px;
+            //         font-size: 12px;
+            //     };
+            //     .ivu-tabs-nav-container{
+            //         overflow: initial;
+            //     }
+            //     .chart-content,.map-content,.table-content{
+            //         width:auto;
+            //         height:500px;
+            //     };
+            // };
+            .ivu-table td{
+                border-bottom-color:@table-border-color;
+            }
+            .table-odd-highlight td {
+                background: @table-odd-color !important;
+            };
+            .table-even-highlight td{
+                background: @table-even-color !important;
+            }
+        };
+    }
+}
+.vertical-center-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .ivu-modal {
+        top: 0;
+    }
+}
+.plateview-cluster-chart{
+    /*height: 300px;*/
+    .chart-content{
+        height: 270px !important;
+    }
+}
+// 板块理解-房价指数右侧chart高度
+.plateview-cluster-chart-30{
+    height: 270px;
+    .chart-content{
+        height: 190px !important;
+    }
+}
+// 板块理解-圈层对比右侧chart高度
+.hierarchicalContrast{
+    // height: 270px;
+    .chart-content{
+        height: 400px !important;
+    }
+}

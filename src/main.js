@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
+import "./plugins/iview.js";
+import "./styles/common.less";
 
 Vue.config.productionTip = false;
 

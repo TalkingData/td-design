@@ -1,0 +1,153 @@
+.layout-head {
+    position: relative;
+    background-image: linear-gradient(143deg, #2945CB 20%, #2C83F9 81%, #3A9DFF 100%);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
+    min-width: 1260px;
+    z-index:1;
+    .layout-logo{
+        // width: 170px;
+        // height: 72px;
+        // background:url(../assets/images/head-logo.png) no-repeat center center;
+        // background-size:170px auto;
+        // text-indent:-9999em;
+        font-family: Roboto-Regular;
+        font-size: 20px;
+        color: #FFFFFF;
+        letter-spacing: 0.55px;
+        line-height: 72px;
+    };
+    .layout-nav{
+        float: right;
+        margin-right: 62px;
+        .ivu-menu-light{
+            height: auto;
+            background: transparent;
+        };
+        .ivu-menu{
+            .ivu-menu-item{
+            font-size: 16px;
+            color:rgba(255,255,255,.7);
+            padding:0 2px;
+            margin:8px 20px 0;
+            border-bottom:4px solid transparent;
+            -webkit-font-smoothing:auto;
+            -webkit-transition:all linear .5s;
+                i {
+                    font-size: 17px;
+                    &.ivu-icon-ios-people{
+                        font-size: 22px;
+                        vertical-align: middle;
+                        position: relative;
+                        top: -2px;
+                    }
+                    &.icon-building {
+                        font-size: 22px;
+                        vertical-align: middle;
+                        position: relative;
+                        top: -2px;
+                    }
+                }
+            };
+            .ivu-menu-item:hover,.ivu-menu-item-active{
+                color:#fff;
+                border-bottom:4px solid #fff;
+            };
+        };
+        &-search{
+            padding-top: 22px;
+            position: relative;
+            width: 160px;
+            margin-right: 16px;
+            .ivu-select{
+                position: absolute;
+                left: 0;
+                z-index: 2;
+            }
+            &>i{
+                position: absolute;
+                right: 0px;
+                top: 26px;
+                font-size: 23px;
+                color: #fff;
+                z-index: 1;
+            }
+        }
+    };
+    .ivu-dropdown{
+        height: 72px;
+        line-height: 72px;
+        i{
+          cursor: pointer;
+          font-size: 26px;
+        }
+        .ivu-dropdown-item{
+            padding: 7px 16px 7px 10px;
+            i{
+                color: #5697f1;
+                margin-right:5px;
+                font-weight: bold;
+                position: relative;
+                top:-1px;
+                font-size: 12px;
+            }
+        }
+      
+        .ivu-dropdown-menu{
+            line-height: initial;
+        }
+    }
+    .ivu-select-item {
+      text-align:left;
+      box-shadow: none;
+    }
+    .ivu-select-input{
+      background-color: transparent;
+      color: #fff;
+      font-size: 14px;
+    }
+    .ivu-select-selection{
+      background-color: transparent;
+      border:none;
+      box-shadow:none;
+    }
+    
+    .layout-dropdown{
+        display: inline-block;
+        color: #fff;
+        padding-right: 12px;
+        padding-left: 21px;
+        height: 100%;
+        box-sizing: border-box;
+        position: absolute;
+        right:10px;
+        span{
+            cursor: pointer;
+        }
+    }
+}
+// @font-face {
+//     font-family: 'icomoon';
+//     src:  url('../icon-font/icomoon.eot?p6qa6i');
+//     src:  url('../icon-font/icomoon.eot?p6qa6i#iefix') format('embedded-opentype'),
+//     url('../icon-font/icomoon.ttf?p6qa6i') format('truetype'),
+//     url('../icon-font/icomoon.woff?p6qa6i') format('woff'),
+//     url('../icon-font/icomoon.svg?p6qa6i#icomoon') format('svg');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// [class^="icon-"], [class*=" icon-"] {
+//     /* use !important to prevent issues with browser extensions that change fonts */
+//     font-family: 'icomoon' !important;
+//     speak: none;
+//     font-style: normal;
+//     font-weight: normal;
+//     font-variant: normal;
+//     text-transform: none;
+//     line-height: 1;
+
+//     /* Better Font Rendering =========== */
+//     -webkit-font-smoothing: antialiased;
+//     -moz-osx-font-smoothing: grayscale;
+// }
+
