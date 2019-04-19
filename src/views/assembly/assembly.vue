@@ -25,7 +25,7 @@
           @on-emit-data="usageContent = $event"
         ></editor-markdown>
       </TabPane>
-      <TabPane label="code" name="1">3</TabPane>
+      <TabPane label="代码" name="1">代码</TabPane>
     </Tabs>
   </main>
 </template>
