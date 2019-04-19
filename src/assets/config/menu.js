@@ -18,7 +18,7 @@ export default {
         {
           id: "2-1",
           name: "按钮",
-          nameEnglish: "buttom",
+          nameEnglish: "button",
           href: "button",
           icon: "images",
           child: []
@@ -26,7 +26,7 @@ export default {
         {
           id: "2-2",
           name: "文本框",
-          nameEnglish: "Test fields",
+          nameEnglish: "Input",
           href: "input",
           icon: "images",
           child: []
