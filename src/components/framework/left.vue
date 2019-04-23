@@ -17,11 +17,14 @@
             v-for="(item, index) in val.child"
             :key="index"
           >
-            <router-link :to="item.href || ''">
+            <a @click="onRouterChange(item.href)">
               <!-- <Icon type="ios-paper" /> -->
               {{ item.name }}
               <b v-if="item.nameEnglish">{{ item.nameEnglish }}</b>
-            </router-link>
+            </a>
+            <!-- <router-link :to="item.href || ''"> -->
+
+            <!-- </router-link> -->
           </MenuItem>
         </template>
         <!-- <template v-if="val.submenu">
@@ -115,6 +118,9 @@ export default {
         this.activeName = activeName;
         console.log("请求数据");
       }
+    },
+    onRouterChange(id) {
+      this.$router.push(`/components/${id}`);
     }
   }
 };

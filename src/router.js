@@ -29,6 +29,11 @@ export default new Router({
           path: "/plate/:id",
           name: "/plate",
           components: require("@/views/plate/plate.vue")
+        },
+        {
+          path: "/components/:id/addAssembly",
+          name: "/components",
+          components: require("@/views/assembly/add-assembly.vue")
         }
       ]
     },
