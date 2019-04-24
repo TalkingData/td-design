@@ -1,11 +1,19 @@
 <template>
   <div style="width:100%;height:100%">
-    <i-editor v-model="content" v-if="editor" :autosize="autosize"></i-editor>
+    <i-editor
+      v-model="content"
+      v-if="editor"
+      :autosize="autosize"
+      :highlight="highlight"
+    ></i-editor>
     <div v-html="html" v-show="!editor" class="i-editor-md"></div>
   </div>
 </template>
 <script>
 import marked from "marked";
+import hljs from "highlightjs/highlight.pack.js";
+import md5 from "js-md5";
+
 export default {
   props: {
     data: {
@@ -37,22 +45,30 @@ export default {
   methods: {
     renderMd() {
       const renderer = new marked.Renderer();
-      // renderer.heading = function(text, level) {
-      //   let id = pinyinUtil.getFirstLetter(text);
-      //   id = id.replace(/\s/g, "_").replace(/\?|？|,/g, "");
-      //   return `<h${level} id="${id}">${text}</h${level}>`;
-      // };
 
-      //const _this = this;
+      renderer.heading = (text, level) => {
+        let id = this.getFirstLetter(text);
+        // id = id.replace(/\s/g, "_").replace(/\?|？|,/g, "");
+        return `<h${level} id="${id}">${text}</h${level}>`;
+      };
 
       this.html = marked(this.content, {
         breaks: true,
         headerIds: false,
-        // highlight(code) {
-        //   return _this.highlight(code);
-        // },
+        highlight(code) {
+          // return _this.highlight(code);
+          return hljs.highlightAuto(code).value;
+        },
         renderer: renderer
       });
+      // console.log(this.html);
+      // debugger;
+    },
+    getFirstLetter(str) {
+      return md5(str);
+    },
+    highlight(code) {
+      return hljs.highlightAuto(code).value;
     }
   },
   mounted() {
