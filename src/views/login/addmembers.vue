@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { ajax } from "@/util/ajax";
 export default {
   data() {
     // 校验密码
@@ -101,22 +102,24 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.switchType();
-          // wsPostUser({
-          //   name: this.formValidate.name,
-          //   email: this.formValidate.email,
-          //   password: this.formValidate.password,
-          //   rePassword: this.formValidate.rePassword,
-          // }).then((data) => {
-          //   if (data.status === 200) {
-          //     this.$Message.success('注册成功!');
-          //     this.$bus.emit('on-userName', this.formValidate.name);
-          //     this.switchType();
-          //   } else {
-          //     this.errorNews = data.errorMessage;
-          //   }
-          // }).catch(() => {
-          //   this.$Message.error('注册失败!');
-          // });
+          const formValidate = this.formValidate;
+          ajax({
+            urlKey: "/api/user",
+            methods: "POST",
+            data: {
+              name: formValidate.name,
+              email: formValidate.email,
+              pass: formValidate.password,
+              rePass: formValidate.rePassword
+            }
+          }).then(res => {
+            if (res.status === 1) {
+              this.$Message.error("注册成功!");
+              this.$emit("switch-type", "signIn");
+            } else {
+              this.$Message.error(res.message);
+            }
+          });
         }
       });
     },

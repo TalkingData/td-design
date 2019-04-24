@@ -79,13 +79,15 @@ h2 {
   </div>
 </template>
 <script>
+import { ajax } from "@/util/ajax";
+import cookie from "js-cookie";
 export default {
   name: "LoginForm",
   props: {
     userNameRules: {
       type: Array,
       // eslint-disable-next-line
-      default: () => {
+            default: () => {
         return [
           {
             required: true,
@@ -98,7 +100,7 @@ export default {
     passwordRules: {
       type: Array,
       // eslint-disable-next-line
-      default: () => {
+            default: () => {
         return [
           {
             required: true,
@@ -131,22 +133,30 @@ export default {
     handleSubmit() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.$router.push("/components/button");
-          // wsPostLogin({
-          //   name: this.form.userName,
-          //   password: this.form.password
-          // }).then(data => {
-          //   if (data.status === 200) {
-          //     if (data.result === "SUCCESS") {
-          //       this.$Message.success("登录成功!");
-          //       this.$router.push("/home");
-          //     } else {
-          //       this.errorNews = data.errorMessage;
-          //     }
-          //   } else {
-          //     this.$Message.error("登录失败，请重新登录!");
-          //   }
-          // });
+          const form = this.form;
+          ajax({
+            urlKey: "/api/login",
+            methods: "POST",
+            data: {
+              name: form.userName,
+              pass: form.password
+            }
+          }).then(res => {
+            if (res.status === 1) {
+              this.$router.push("/components/button");
+              const authorization = JSON.parse(res.data.Authorization);
+              cookie.set("token", authorization.token, {
+                expires: 365,
+                path: ""
+              });
+              cookie.set("user_info", authorization, {
+                expires: 365,
+                path: ""
+              });
+            } else {
+              this.$Message.error(res.message);
+            }
+          });
         }
       });
     },
