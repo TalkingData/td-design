@@ -5,7 +5,17 @@
 </template>
 <script>
 export default {
-  mounted() {}
+  mounted() {},
+  provide() {
+    return {
+      app: this
+    };
+  },
+  data() {
+    return {
+      componentMenu: []
+    };
+  }
 };
 </script>
 <style lang="less">
