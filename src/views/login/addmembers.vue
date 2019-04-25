@@ -114,7 +114,6 @@ export default {
           }).then(res => {
             if (res.status === 1) {
               this.switchType();
-              this.$emit("switch-type", "signIn");
             } else {
               this.$Message.error(res.message);
             }
