@@ -1,6 +1,13 @@
 <template>
   <div>
     <Input type="text" v-model="component_id" placeholder="component_id" />
+    <Input type="text" v-model="title" placeholder="title" />
+    <Input
+      type="textarea"
+      v-model="desc"
+      :autosize="{ minRows: 4 }"
+      placeholder="desc"
+    />
     <Input
       type="textarea"
       v-model="content"
@@ -16,6 +23,8 @@ export default {
   data() {
     return {
       component_id: "",
+      title: "",
+      desc: "",
       content: ""
     };
   },
@@ -26,7 +35,9 @@ export default {
         methods: "POST",
         data: {
           id: this.component_id,
-          content: this.content
+          content: this.content,
+          title: this.title,
+          desc: this.desc
         }
       }).then(res => {
         console.log(res);

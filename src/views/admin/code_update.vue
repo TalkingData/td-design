@@ -1,6 +1,13 @@
 <template>
   <div>
-    <Input type="text" v-model="code_id" placeholder="code_id" />
+    <Input type="text" v-model="component_id" placeholder="component_id" />
+    <Input type="text" v-model="title" placeholder="title" />
+    <Input
+      type="textarea"
+      v-model="desc"
+      :autosize="{ minRows: 4 }"
+      placeholder="desc"
+    />
     <Input
       type="textarea"
       v-model="content"
@@ -15,18 +22,22 @@ import { ajax } from "@/util/ajax";
 export default {
   data() {
     return {
-      code_id: "",
+      component_id: "",
+      title: "",
+      desc: "",
       content: ""
     };
   },
   methods: {
     create() {
       ajax({
-        urlKey: "/api/code/create",
+        urlKey: "/api/code/update",
         methods: "POST",
         data: {
-          code_id: this.code_id,
-          content: this.content
+          id: this.component_id,
+          content: this.content,
+          title: this.title,
+          desc: this.desc
         }
       }).then(res => {
         console.log(res);
