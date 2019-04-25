@@ -13,14 +13,22 @@ export default {
       code: ""
     };
   },
-  mounted() {
-    this.code = this.$refs.code.innerHTML.replace(/\n/, "");
-    this.$refs.code.innerHTML = this.code;
-    hljs.highlightBlock(this.$refs.code);
+  props: {
+    value: String
+  },
+  methods: {
+    init() {
+      this.code = this.$refs.code.innerHTML;
+      this.$refs.code.innerHTML = this.code;
+      hljs.highlightBlock(this.$refs.code);
 
-    this.$nextTick(() => {
-      this.$emit("height", this.$refs.code.clientHeight);
-    });
+      this.$nextTick(() => {
+        this.$emit("height", this.$refs.code.clientHeight);
+      });
+    }
+  },
+  mounted() {
+    this.init();
   }
 };
 </script>

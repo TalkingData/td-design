@@ -33,7 +33,13 @@
   <div class="myTransition">
     <div class="myTransition-split"></div>
     <div class="myTransition-content" :style="{ height: height + 'px' }">
-      <render-code @height="oCodeHeight">{{ value }}</render-code>
+      <render-code
+        @height="oCodeHeight"
+        ref="code"
+        :value="value"
+        v-if="toggleCode"
+        >{{ value }}</render-code
+      >
     </div>
     <div class="myTransition-code">
       <p
@@ -74,7 +80,8 @@ export default {
     return {
       height: 0,
       codeHeight: 0,
-      open: true
+      open: true,
+      toggleCode: true
     };
   },
   components: { renderCode },
@@ -88,6 +95,14 @@ export default {
         return false;
       }
       this.height = this.codeHeight;
+    }
+  },
+  watch: {
+    value() {
+      this.toggleCode = false;
+      this.$nextTick(() => {
+        this.toggleCode = true;
+      });
     }
   }
 };

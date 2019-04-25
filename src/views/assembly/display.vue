@@ -89,6 +89,11 @@ export default {
   },
   beforeDestroy() {
     this.destroyCode();
+  },
+  watch: {
+    code() {
+      this.renderCode();
+    }
   }
 };
 </script>
