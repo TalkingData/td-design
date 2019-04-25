@@ -124,22 +124,26 @@ export default {
           this.$Message.error(res.message);
         }
       });
+    },
+    updateData() {
+      this.getDocument();
+      this.getUsage();
+      this.getCode();
     }
   },
   mounted() {
-    this.getDocument();
-    this.getUsage();
-    this.getCode();
+    this.updateData();
   },
   watch: {
     componentInfo: {
       handler() {
-        this.getDocument();
-        this.getUsage();
-        this.getCode();
+        this.updateData();
       },
       immediate: true,
       deep: true
+    },
+    $route() {
+      this.updateData();
     }
   }
 };

@@ -6,6 +6,7 @@
         v-for="item in app.componentMenu"
         :key="item.text"
         :name="item.text"
+        :to="'/components/' + item.text"
       >
         {{ item.label }}
       </MenuItem>
