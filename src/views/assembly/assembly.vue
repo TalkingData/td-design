@@ -33,7 +33,9 @@
         ></editor-markdown>
       </TabPane>
 
-      <TabPane label="代码" name="code"><my-code></my-code></TabPane>
+      <TabPane label="代码" name="code"
+        ><my-code v-if="tabName === 'code'"></my-code
+      ></TabPane>
     </Tabs>
   </main>
 </template>
