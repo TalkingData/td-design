@@ -3,18 +3,18 @@
     <div v-for="(option, index) in code" :key="index" class="myCode-content">
       <Card>
         <div class="myCode-case">
-          <my-display :code="option.template"></my-display>
+          <my-display :code="option.content"></my-display>
         </div>
 
         <header class="myCode-header">
-          <span>{{ option.name }}</span>
+          <span>{{ option.title }}</span>
         </header>
 
         <div class="myCode-desc">
-          <p>{{ option.details }}</p>
+          <p>{{ option.desc }}</p>
         </div>
 
-        <my-transition :value="option.template"></my-transition>
+        <my-transition :value="option.content"></my-transition>
       </Card>
     </div>
   </main>
@@ -22,13 +22,11 @@
 
 <script>
 import myDisplay from "./display";
-import defaultCode from "../../../public/lib/default-code.js";
+// import defaultCode from "../../../public/lib/default-code.js";
 import myTransition from "./my-transition";
 export default {
-  data() {
-    return {
-      code: defaultCode
-    };
+  props: {
+    code: Array
   },
   components: { myDisplay, myTransition }
 };

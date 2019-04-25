@@ -34,7 +34,7 @@ export default {
         urlKey: "/api/code/update",
         methods: "POST",
         data: {
-          id: this.code_id,
+          code_id: this.code_id,
           content: this.content,
           title: this.title,
           desc: this.desc

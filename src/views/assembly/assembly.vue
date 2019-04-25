@@ -36,7 +36,7 @@
       </TabPane>
 
       <TabPane label="代码" name="code"
-        ><my-code v-if="tabName === 'code'"></my-code
+        ><my-code v-if="tabName === 'code'" :code="code"></my-code
       ></TabPane>
     </Tabs>
   </main>
@@ -109,7 +109,22 @@ export default {
         }
       });
     },
-    getCode() {}
+    getCode() {
+      if (!this.app.componentMenu.length) return;
+      ajax({
+        urlKey: "/api/code/get",
+        methods: "POST",
+        data: {
+          id: this.componentInfo.id
+        }
+      }).then(res => {
+        if (res.status === 1) {
+          this.code = res.data;
+        } else {
+          this.$Message.error(res.message);
+        }
+      });
+    }
   },
   mounted() {
     this.getDocument();
@@ -121,6 +136,7 @@ export default {
       handler() {
         this.getDocument();
         this.getUsage();
+        this.getCode();
       },
       immediate: true,
       deep: true
