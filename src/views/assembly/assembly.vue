@@ -1,6 +1,8 @@
 <template>
   <main class="assembly">
-    <h2 class="assembly-title">Button</h2>
+    <h2 class="assembly-title">
+      {{ componentInfo ? componentInfo.text : "" }}
+    </h2>
     <div class="assembly-bg"></div>
     <div class="assembly-operation">
       <Button type="primary" @click="add()" v-if="tabName === 'code'"
@@ -17,19 +19,19 @@
     <Tabs :animated="false" :value="tabName" @on-click="onTagsChange">
       <TabPane label="文档" name="file">
         <editor-markdown
-          :data="fileContent"
+          :data="document"
           :editor="editor"
           v-if="tabName === 'file'"
-          @on-emit-data="fileContent = $event"
+          @on-emit-data="document = $event"
         ></editor-markdown>
       </TabPane>
 
       <TabPane label="用法" name="usage">
         <editor-markdown
-          :data="usageContent"
+          :data="usage"
           :editor="editor"
           v-if="tabName === 'usage'"
-          @on-emit-data="usageContent = $event"
+          @on-emit-data="usage = $event"
         ></editor-markdown>
       </TabPane>
 
@@ -42,18 +44,27 @@
 <script>
 import editorMarkdown from "./editor-markdown.vue";
 import myCode from "./my-code.vue";
+import { ajax } from "@/util/ajax";
 
 export default {
+  inject: ["app"],
   components: { editorMarkdown, myCode },
   data() {
     return {
-      fileContent: "# 按钮 Button",
-      usageContent: "# 输入框 input",
       editor: false,
-      tabName: "file"
+      tabName: "file",
+      document: "",
+      usage: "",
+      code: []
     };
   },
-  mounted() {},
+  computed: {
+    componentInfo() {
+      return this.app.componentMenu.find(
+        item => item.text === this.$route.params.id
+      );
+    }
+  },
   methods: {
     editorChange() {
       this.editor = !this.editor;
@@ -65,6 +76,54 @@ export default {
       this.$router.push(
         `/components/${this.$router.currentRoute.params.id}/addAssembly`
       );
+    },
+    getDocument() {
+      if (!this.app.componentMenu.length) return;
+      ajax({
+        urlKey: "/api/document/get",
+        methods: "POST",
+        data: {
+          id: this.componentInfo.id
+        }
+      }).then(res => {
+        if (res.status === 1) {
+          this.document = res.data[0].content;
+        } else {
+          this.$Message.error(res.message);
+        }
+      });
+    },
+    getUsage() {
+      if (!this.app.componentMenu.length) return;
+      ajax({
+        urlKey: "/api/usage/get",
+        methods: "POST",
+        data: {
+          id: this.componentInfo.id
+        }
+      }).then(res => {
+        if (res.status === 1) {
+          this.usage = res.data[0].content;
+        } else {
+          this.$Message.error(res.message);
+        }
+      });
+    },
+    getCode() {}
+  },
+  mounted() {
+    this.getDocument();
+    this.getUsage();
+    this.getCode();
+  },
+  watch: {
+    componentInfo: {
+      handler() {
+        this.getDocument();
+        this.getUsage();
+      },
+      immediate: true,
+      deep: true
     }
   }
 };
