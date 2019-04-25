@@ -101,7 +101,6 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
-          this.switchType();
           const formValidate = this.formValidate;
           ajax({
             urlKey: "/api/user",
@@ -114,8 +113,7 @@ export default {
             }
           }).then(res => {
             if (res.status === 1) {
-              this.$Message.error("注册成功!");
-              this.$emit("switch-type", "signIn");
+              this.switchType();
             } else {
               this.$Message.error(res.message);
             }
