@@ -34,7 +34,7 @@ export default {
         urlKey: "/api/code/create",
         methods: "POST",
         data: {
-          id: this.component_id,
+          component_id: this.component_id,
           content: this.content,
           title: this.title,
           desc: this.desc

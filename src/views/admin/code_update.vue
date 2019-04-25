@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Input type="text" v-model="component_id" placeholder="component_id" />
+    <Input type="text" v-model="code_id" placeholder="code_id" />
     <Input type="text" v-model="title" placeholder="title" />
     <Input
       type="textarea"
@@ -22,7 +22,7 @@ import { ajax } from "@/util/ajax";
 export default {
   data() {
     return {
-      component_id: "",
+      code_id: "",
       title: "",
       desc: "",
       content: ""
@@ -34,7 +34,7 @@ export default {
         urlKey: "/api/code/update",
         methods: "POST",
         data: {
-          id: this.component_id,
+          id: this.code_id,
           content: this.content,
           title: this.title,
           desc: this.desc
