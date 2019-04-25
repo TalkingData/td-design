@@ -83,6 +83,7 @@ import { ajax } from "@/util/ajax";
 import cookie from "js-cookie";
 export default {
   name: "LoginForm",
+  inject: ["app"],
   props: {
     userNameRules: {
       type: Array,
@@ -143,7 +144,6 @@ export default {
             }
           }).then(res => {
             if (res.status === 1) {
-              this.$router.push("/components/button");
               const authorization = JSON.parse(res.data.Authorization);
               cookie.set("token", authorization.token, {
                 expires: 365,
@@ -153,6 +153,7 @@ export default {
                 expires: 365,
                 path: ""
               });
+              this.app.getComponentMenu(true);
             } else {
               this.$Message.error(res.message);
             }

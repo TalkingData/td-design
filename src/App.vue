@@ -4,8 +4,8 @@
   </div>
 </template>
 <script>
+import { ajax } from "@/util/ajax";
 export default {
-  mounted() {},
   provide() {
     return {
       app: this
@@ -15,6 +15,26 @@ export default {
     return {
       componentMenu: []
     };
+  },
+  methods: {
+    getComponentMenu(fromLogin) {
+      ajax({
+        urlKey: "/api/component",
+        methods: "POST"
+      }).then(res => {
+        if (res.status === 1) {
+          this.componentMenu = res.data;
+          if (fromLogin) {
+            this.$router.push(`/components/${this.componentMenu[0].text}`);
+          }
+        } else {
+          this.$Message.error(res.message);
+        }
+      });
+    }
+  },
+  mounted() {
+    this.getComponentMenu();
   }
 };
 </script>

@@ -49,6 +49,14 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import("@/views/login/login.vue")
+    },
+    {
+      path: "/admin/component/menu",
+      components: require("@/views/admin/add_component_menu.vue")
+    },
+    {
+      path: "/admin/document/add",
+      components: require("@/views/admin/add_document.vue")
     }
   ]
 });
