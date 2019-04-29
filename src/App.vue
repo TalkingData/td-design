@@ -44,7 +44,7 @@ export default {
           token: token
         }
       }).then(res => {
-        console.log(res);
+        this.userInfo = res.data;
       });
     }
   },

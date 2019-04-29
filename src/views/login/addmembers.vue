@@ -103,7 +103,7 @@ export default {
         if (valid) {
           const formValidate = this.formValidate;
           ajax({
-            urlKey: "/api/user",
+            urlKey: "/api/user/register",
             methods: "POST",
             data: {
               name: formValidate.name,
