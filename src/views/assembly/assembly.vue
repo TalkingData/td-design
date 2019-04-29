@@ -5,9 +5,9 @@
     </h2>
     <div class="assembly-bg"></div>
     <div class="assembly-operation">
-      <Button type="primary" @click="add()" v-if="tabName === 'code'"
-        >新建</Button
-      >
+      <!--      <Button type="primary" @click="add()" v-if="tabName === 'code'"-->
+      <!--        >新建</Button-->
+      <!--      >-->
       <!--      <Button-->
       <!--        type="primary"-->
       <!--        @click="editorChange()"-->

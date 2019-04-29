@@ -49,7 +49,7 @@ export default {
       );
       const style = this.getSource(this.code, "style");
       const template =
-        '<div id="app">' + this.getSource(this.code, "template") + "</div>";
+        '<div id="appCode">' + this.getSource(this.code, "template") + "</div>";
 
       this.js = script;
       this.css = style;
