@@ -16,6 +16,14 @@ export default {
   },
   methods: {
     create() {
+      if (this.label === "") {
+        this.$Message.error("label 不能为空");
+        return;
+      }
+      if (this.text === "") {
+        this.$Message.error("text 不能为空");
+        return;
+      }
       ajax({
         urlKey: "/api/component/create",
         methods: "POST",

@@ -8,12 +8,12 @@
       <Button type="primary" @click="add()" v-if="tabName === 'code'"
         >新建</Button
       >
-      <Button
-        type="primary"
-        @click="editorChange()"
-        v-if="tabName !== 'code'"
-        >{{ editor ? "保存" : "编辑" }}</Button
-      >
+      <!--      <Button-->
+      <!--        type="primary"-->
+      <!--        @click="editorChange()"-->
+      <!--        v-if="tabName !== 'code'"-->
+      <!--        >{{ editor ? "保存" : "编辑" }}</Button-->
+      <!--      >-->
     </div>
 
     <Tabs :animated="false" :value="tabName" @on-click="onTagsChange">

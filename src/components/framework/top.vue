@@ -54,6 +54,44 @@
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
+        <Dropdown trigger="click" @on-click="handleOpenAdmin">
+          <span>
+            管理员
+            <Icon type="ios-arrow-down"></Icon>
+          </span>
+          <DropdownMenu slot="list">
+            <DropdownItem
+              name="/admin/component/menu"
+              to="/admin/component/menu"
+              target="_blank"
+              >创建组件</DropdownItem
+            >
+            <DropdownItem
+              name="/admin/document/add"
+              to="/admin/document/add"
+              target="_blank"
+              >添加文档</DropdownItem
+            >
+            <DropdownItem
+              name="/admin/usage/add"
+              to="/admin/usage/add"
+              target="_blank"
+              >添加用法</DropdownItem
+            >
+            <DropdownItem
+              name="/admin/code/add"
+              to="/admin/code/add"
+              target="_blank"
+              >添加示例</DropdownItem
+            >
+            <DropdownItem
+              name="/admin/code/update"
+              to="/admin/code/update"
+              target="_blank"
+              >修改示例</DropdownItem
+            >
+          </DropdownMenu>
+        </Dropdown>
       </div>
     </Col>
   </Row>
@@ -191,6 +229,9 @@ export default {
       if (data === "logOff") {
         this.$router.push("/login");
       }
+    },
+    handleOpenAdmin(name) {
+      this.$router.push(name);
     }
   }
 };

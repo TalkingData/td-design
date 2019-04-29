@@ -21,6 +21,14 @@ export default {
   },
   methods: {
     create() {
+      if (this.component_id === "") {
+        this.$Message.error("component_id 不能为空");
+        return;
+      }
+      if (this.content === "") {
+        this.$Message.error("content 不能为空");
+        return;
+      }
       ajax({
         urlKey: "/api/document/update",
         methods: "POST",
