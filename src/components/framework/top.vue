@@ -1,9 +1,9 @@
 <template>
   <Row class="layout-head">
-    <Col span="3">
+    <Col span="4">
       <div class="layout-logo">TD Design</div>
     </Col>
-    <Col span="21">
+    <Col span="20">
       <div class="layout-nav">
         <!-- 导航 -->
         <nav class="fr">
@@ -59,9 +59,8 @@
           @on-click="handleOpenAdmin"
           v-if="app.userInfo.status === 2"
         >
-          <span>
-            管理员
-            <Icon type="ios-arrow-down"></Icon>
+          <span style="margin-left: 16px">
+            <Icon type="md-apps" />
           </span>
           <DropdownMenu slot="list">
             <DropdownItem
