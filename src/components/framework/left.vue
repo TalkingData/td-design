@@ -1,7 +1,7 @@
 <template>
   <div>
     <search-components></search-components>
-    <Menu>
+    <Menu :active-name="activeName" ref="menu">
       <MenuItem
         v-for="item in app.componentMenu"
         :key="item.text"
@@ -32,6 +32,23 @@ export default {
       subActiveName: [],
       subKey: "tempkey"
     };
+  },
+  watch: {
+    $route: {
+      handler() {
+        this.activeName = this.$route.params.id;
+        this.$nextTick(() => {
+          this.$refs.menu.updateActiveName();
+        });
+      },
+      immediate: true,
+      deep: true
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$refs.menu.updateActiveName();
+    }, 200);
   }
 };
 </script>
