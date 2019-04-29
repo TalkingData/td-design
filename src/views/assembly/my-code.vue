@@ -6,7 +6,7 @@
           <my-display :code="option.content"></my-display>
         </div>
 
-        <header class="myCode-header">
+        <header class="myCode-header" @click="handleCopyCodeId(option.id)">
           <span>{{ option.title }}</span>
         </header>
 
@@ -24,10 +24,27 @@
 import myDisplay from "./display";
 // import defaultCode from "../../../public/lib/default-code.js";
 import myTransition from "./my-transition";
+import Clipboard from "clipboard";
+
 export default {
   props: {
     code: Array
   },
-  components: { myDisplay, myTransition }
+  components: { myDisplay, myTransition },
+  methods: {
+    handleCopyCodeId(id) {
+      const clipboard = new Clipboard(".myCode-header", {
+        text() {
+          return id;
+        }
+      });
+
+      clipboard.on("success", e => {
+        e.clearSelection();
+        clipboard.destroy();
+        this.$Message.success("code_id 已复制");
+      });
+    }
+  }
 };
 </script>

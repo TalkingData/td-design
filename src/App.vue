@@ -5,6 +5,7 @@
 </template>
 <script>
 import { ajax } from "@/util/ajax";
+// import cookie from "js-cookie";
 export default {
   provide() {
     return {
@@ -13,7 +14,9 @@ export default {
   },
   data() {
     return {
-      componentMenu: []
+      componentMenu: [],
+      userInfo: {},
+      token: ""
     };
   },
   methods: {
@@ -31,10 +34,21 @@ export default {
           this.$Message.error(res.message);
         }
       });
+    },
+    getUserInfo() {
+      // const userInfo = cookie.get("user_info");
+      // const token = cookie.get("token");
+      // this.userInfo = userInfo ? JSON.parse(userInfo) : {};
+      // this.token = token;
+      ajax({
+        urlKey: "/api/component",
+        methods: "POST"
+      });
     }
   },
   mounted() {
     this.getComponentMenu();
+    this.getUserInfo();
   }
 };
 </script>

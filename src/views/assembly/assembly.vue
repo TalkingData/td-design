@@ -1,6 +1,6 @@
 <template>
   <main class="assembly">
-    <h2 class="assembly-title">
+    <h2 class="assembly-title" @click="handleCopyComponentID">
       {{ componentInfo ? componentInfo.text : "" }}
     </h2>
     <div class="assembly-bg"></div>
@@ -45,6 +45,7 @@
 import editorMarkdown from "./editor-markdown.vue";
 import myCode from "./my-code.vue";
 import { ajax } from "@/util/ajax";
+import Clipboard from "clipboard";
 
 export default {
   inject: ["app"],
@@ -66,6 +67,20 @@ export default {
     }
   },
   methods: {
+    handleCopyComponentID() {
+      const id = this.componentInfo.id;
+      const clipboard = new Clipboard(".assembly-title", {
+        text() {
+          return id;
+        }
+      });
+
+      clipboard.on("success", e => {
+        e.clearSelection();
+        clipboard.destroy();
+        this.$Message.success("component_id 已复制");
+      });
+    },
     editorChange() {
       this.editor = !this.editor;
     },

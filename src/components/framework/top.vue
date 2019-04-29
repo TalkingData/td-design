@@ -54,7 +54,11 @@
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <Dropdown trigger="click" @on-click="handleOpenAdmin">
+        <Dropdown
+          trigger="click"
+          @on-click="handleOpenAdmin"
+          v-if="app.userInfo.status === 2"
+        >
           <span>
             管理员
             <Icon type="ios-arrow-down"></Icon>
@@ -101,6 +105,7 @@ import menu from "@/assets/config/menu.js";
 import filterPath from "./setpath";
 import bus from "../../bus.js";
 export default {
+  inject: ["app"],
   data() {
     return {
       data: [],
