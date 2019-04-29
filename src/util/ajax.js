@@ -1,5 +1,5 @@
 import axios from "axios";
-// import cookies from 'js-cookie';
+import cookies from "js-cookie";
 import { baseUrl } from "../config/config";
 
 const baseAjax = (() => {
@@ -42,6 +42,7 @@ const baseAjax = (() => {
     }
 
     if (options.data) {
+      options.data.token = cookies.get("token");
       if (methods === "GET" || options.data2string) {
         if (typeof options.data === "string") {
           url =
