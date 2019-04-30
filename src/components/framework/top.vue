@@ -7,15 +7,22 @@
       <div class="layout-nav">
         <!-- 导航 -->
         <nav class="fr">
-          <Menu
-            mode="horizontal"
-            :active-name="activeName"
-            ref="topmenu"
-            @on-select="menuChange"
-          >
-            <MenuItem v-for="(val, index) in data" :name="val.id" :key="index">
-              <!-- <Icon :class="val.iviewIcon===false?'icon-'+val.icon:''" :type="val.icon" ></Icon> -->
-              {{ val.name }}
+          <Menu mode="horizontal" :active-name="activeName" ref="topmenu">
+            <!--            <Menu-->
+            <!--                    mode="horizontal"-->
+            <!--                    :active-name="activeName"-->
+            <!--                    ref="topmenu"-->
+            <!--                    @on-select="menuChange"-->
+            <!--            >-->
+            <!--            <MenuItem v-for="(val, index) in data" :name="val.id" :key="index">-->
+            <!--              &lt;!&ndash; <Icon :class="val.iviewIcon===false?'icon-'+val.icon:''" :type="val.icon" ></Icon> &ndash;&gt;-->
+            <!--              {{ val.name }}-->
+            <!--            </MenuItem>-->
+            <MenuItem name="1" to="index">
+              首页
+            </MenuItem>
+            <MenuItem name="2" :to="'/components/' + app.componentMenu[0].text">
+              组件
             </MenuItem>
           </Menu>
         </nav>
