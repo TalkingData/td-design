@@ -7,3 +7,4 @@ Vue.use(iEditor);
 
 import "iview/dist/styles/iview.css";
 import "iview-editor/dist/iview-editor.css";
+import "../styles/component-style.css";

@@ -59,8 +59,16 @@ export default new Router({
       components: require("@/views/admin/add_document.vue")
     },
     {
+      path: "/admin/document/update",
+      components: require("@/views/admin/update_document.vue")
+    },
+    {
       path: "/admin/usage/add",
       components: require("@/views/admin/add_usage.vue")
+    },
+    {
+      path: "/admin/usage/update",
+      components: require("@/views/admin/update_usage.vue")
     },
     {
       path: "/admin/code/add",

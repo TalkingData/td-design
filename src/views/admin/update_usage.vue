@@ -1,14 +1,6 @@
 <template>
   <div>
-    <Input type="text" v-model="code_id" placeholder="code_id" />
-    <Input type="text" v-if="showInfo" v-model="title" placeholder="title" />
-    <Input
-      v-if="showInfo"
-      type="textarea"
-      v-model="desc"
-      :autosize="{ minRows: 4 }"
-      placeholder="desc"
-    />
+    <Input type="text" v-model="component_id" placeholder="component_id" />
     <Input
       v-if="showInfo"
       type="textarea"
@@ -17,7 +9,7 @@
       placeholder="content"
     />
     <Button @click="search" v-if="!showInfo">查询内容</Button>
-    <Button @click="create" v-if="showInfo">修改代码</Button>
+    <Button @click="create" v-if="showInfo">修改用法</Button>
   </div>
 </template>
 <script>
@@ -25,47 +17,51 @@ import { ajax } from "@/util/ajax";
 export default {
   data() {
     return {
-      code_id: "",
-      title: "",
-      desc: "",
+      component_id: "",
       content: "",
       showInfo: false
     };
   },
   methods: {
     create() {
+      if (this.component_id === "") {
+        this.$Message.error("component_id 不能为空");
+        return;
+      }
+      if (this.content === "") {
+        this.$Message.error("content 不能为空");
+        return;
+      }
       ajax({
-        urlKey: "/api/code/update",
+        urlKey: "/api/usage/update",
         methods: "POST",
         data: {
-          code_id: this.code_id,
-          content: this.content,
-          title: this.title,
-          desc: this.desc
+          id: this.component_id,
+          content: this.content
         }
       }).then(res => {
         console.log(res);
         if (res.status === 1) {
-          this.$Message.success("修改成功");
+          this.$Message.success("创建成功");
         } else {
           this.$Message.error(res.message);
         }
       });
     },
     search() {
+      if (this.component_id === "") {
+        this.$Message.error("component_id 不能为空");
+        return;
+      }
       ajax({
-        urlKey: "/api/code/find",
+        urlKey: "/api/usage/get",
         methods: "POST",
         data: {
-          id: this.code_id
+          id: this.component_id
         }
       }).then(res => {
-        console.log(res);
         if (res.status === 1) {
-          const data = res.data;
-          this.title = data.title;
-          this.desc = data.desc;
-          this.content = data.content;
+          this.content = res.data[0].content;
           this.showInfo = true;
         } else {
           this.$Message.error(res.message);

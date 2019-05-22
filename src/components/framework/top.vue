@@ -68,6 +68,7 @@
           </DropdownMenu>
         </Dropdown>
         <Dropdown
+          placement="bottom-end"
           trigger="click"
           @on-click="handleOpenAdmin"
           v-if="app.userInfo && app.userInfo.status === 2"
@@ -86,6 +87,7 @@
               name="/admin/document/add"
               to="/admin/document/add"
               target="_blank"
+              divided
               >添加文档</DropdownItem
             >
             <DropdownItem
@@ -99,6 +101,19 @@
               to="/admin/code/add"
               target="_blank"
               >添加示例</DropdownItem
+            >
+            <DropdownItem
+              name="/admin/document/update"
+              to="/admin/document/update"
+              target="_blank"
+              divided
+              >修改文档</DropdownItem
+            >
+            <DropdownItem
+              name="/admin/usage/update"
+              to="/admin/usage/update"
+              target="_blank"
+              >修改用法</DropdownItem
             >
             <DropdownItem
               name="/admin/code/update"
