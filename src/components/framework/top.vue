@@ -1,9 +1,11 @@
 <template>
   <Row class="layout-head">
-    <Col span="4">
-      <div class="layout-logo">TD Design</div>
+    <Col span="2">
+      <div class="layout-logo">
+        <img src="../../assets/logo.svg" alt="" />
+      </div>
     </Col>
-    <Col span="20">
+    <Col span="22">
       <div class="layout-nav">
         <!-- 导航 -->
         <nav class="fr">
@@ -21,7 +23,11 @@
             <MenuItem name="1" to="index">
               首页
             </MenuItem>
-            <MenuItem name="2" :to="'/components/' + app.componentMenu[0].text">
+            <MenuItem
+              name="2"
+              :to="'/components/' + app.componentMenu[0].text"
+              v-if="app.componentMenu[0]"
+            >
               组件
             </MenuItem>
           </Menu>
@@ -64,7 +70,7 @@
         <Dropdown
           trigger="click"
           @on-click="handleOpenAdmin"
-          v-if="app.userInfo.status === 2"
+          v-if="app.userInfo && app.userInfo.status === 2"
         >
           <span style="margin-left: 16px">
             <Icon type="md-apps" />
@@ -121,60 +127,17 @@ export default {
       selectedValue: "",
       loading: false,
       options: [],
-      list: [
-        "Alabama",
-        "Alaska",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "Florida",
-        "Georgia",
-        "Hawaii",
-        "Idaho",
-        "Illinois",
-        "Indiana",
-        "Iowa",
-        "Kansas",
-        "Kentucky",
-        "Louisiana",
-        "Maine",
-        "Maryland",
-        "Massachusetts",
-        "Michigan",
-        "Minnesota",
-        "Mississippi",
-        "Missouri",
-        "Montana",
-        "Nebraska",
-        "Nevada",
-        "New hampshire",
-        "New jersey",
-        "New mexico",
-        "New york",
-        "North carolina",
-        "North dakota",
-        "Ohio",
-        "Oklahoma",
-        "Oregon",
-        "Pennsylvania",
-        "Rhode island",
-        "South carolina",
-        "South dakota",
-        "Tennessee",
-        "Texas",
-        "Utah",
-        "Vermont",
-        "Virginia",
-        "Washington",
-        "West virginia",
-        "Wisconsin",
-        "Wyoming"
-      ],
+      list: [],
       placeholder: ""
     };
+  },
+  watch: {
+    "app.componentMenu": {
+      handler() {
+        this.init();
+      },
+      deep: true
+    }
   },
   mounted() {
     this.init();

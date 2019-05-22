@@ -7,7 +7,9 @@
     <div class="login-con">
       <div class="login-con-form">
         <!-- <img src="../../../public/img/login-logo.png" alt="" /> -->
-        <div class="login-con-form-title">TD Design</div>
+        <div class="login-con-form-title">
+          <img src="../../assets/logo.svg" alt="" />
+        </div>
         <login-form
           v-if="loginType === 'signIn'"
           @switch-type="switchType($event)"

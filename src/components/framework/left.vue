@@ -1,7 +1,7 @@
 <template>
   <div>
     <search-components></search-components>
-    <Menu :active-name="activeName" ref="menu">
+    <Menu :active-name="activeName" ref="menu" width="auto">
       <MenuItem
         v-for="item in app.componentMenu"
         :key="item.text"

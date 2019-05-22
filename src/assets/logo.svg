@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320px" height="320px" viewBox="0 0 320 320" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>LOGO/产品logo/产品标志/短信营销平台/全彩</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M54.2216042,0 C24.2058024,0.383650111 0,24.8349505 0,54.9386959 L0,320 L265.060363,320 C295.399785,320 320,295.40547 320,265.061304 L320,54.9386959 C320,24.8349505 295.789141,0.383650111 265.773339,0 L54.2216042,0 Z" id="path-1"></path>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="桌面-宽屏" transform="translate(-1000.000000, -120.000000)">
+            <g id="LOGO/公司logo/图标/白色" transform="translate(1000.000000, 120.000000)">
+                <g id="TD-logo">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Clip-2" fill="#FFFFFF" xlink:href="#path-1"></use>
+                    <path d="M122,73.43 C116.785,73.43 112.565,77.605 112.565,82.75 L112.565,104.765 C112.565,109.88 116.755,114.015 121.92,114.015 L143.215,114.015 L143.215,254.405 L184.23,254.405 C184.26,254.405 184.275,254.385 184.275,254.365 L184.275,114.015 L245.865,114.015 C250.975,114.015 255.125,109.92 255.125,104.865 L255.125,73.43 L122,73.43 Z" id="Clip-5" fill="#2D8CEF"></path>
+                    <path d="M58.82,73.43 L58.82,104.74 C58.82,109.89 63.04,114.06 68.245,114.06 L90.5,114.06 C95.705,114.06 99.925,109.89 99.925,104.74 L99.925,82.75 C99.925,77.6 95.705,73.43 90.5,73.43 L58.82,73.43 Z" id="Clip-8" fill="#2DF5BE"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
