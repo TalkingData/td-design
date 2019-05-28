@@ -1,6 +1,6 @@
 <template>
   <div>
-    <search-components></search-components>
+    <search-components :data="app.componentMenu"></search-components>
     <Menu :active-name="activeName" ref="menu" width="auto">
       <MenuItem
         v-for="item in app.componentMenu"

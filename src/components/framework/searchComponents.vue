@@ -3,12 +3,15 @@
     <header><label>组件</label>Components</header>
     <div class="searchComponents-select">
       <Select
+        ref="iSelect"
         placeholder="搜索"
         v-model="selectedValue"
+        clearable
         filterable
         remote
         :remote-method="remoteMethod"
         :loading="loading"
+        @on-change="onSearchRouterChange"
       >
         <Option
           v-for="(option, index) in options"
@@ -23,63 +26,19 @@
 </template>
 <script>
 export default {
+  props: {
+    data: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
+  },
   data() {
     return {
       selectedValue: "",
       loading: false,
-      options: [],
-      list: [
-        "Alabama",
-        "Alaska",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "Florida",
-        "Georgia",
-        "Hawaii",
-        "Idaho",
-        "Illinois",
-        "Indiana",
-        "Iowa",
-        "Kansas",
-        "Kentucky",
-        "Louisiana",
-        "Maine",
-        "Maryland",
-        "Massachusetts",
-        "Michigan",
-        "Minnesota",
-        "Mississippi",
-        "Missouri",
-        "Montana",
-        "Nebraska",
-        "Nevada",
-        "New hampshire",
-        "New jersey",
-        "New mexico",
-        "New york",
-        "North carolina",
-        "North dakota",
-        "Ohio",
-        "Oklahoma",
-        "Oregon",
-        "Pennsylvania",
-        "Rhode island",
-        "South carolina",
-        "South dakota",
-        "Tennessee",
-        "Texas",
-        "Utah",
-        "Vermont",
-        "Virginia",
-        "Washington",
-        "West virginia",
-        "Wisconsin",
-        "Wyoming"
-      ]
+      options: []
     };
   },
   methods: {
@@ -88,10 +47,10 @@ export default {
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
-          const list = this.list.map(item => {
+          const list = this.data.map(item => {
             return {
-              value: item,
-              label: item
+              value: item.label,
+              label: item.label
             };
           });
           this.options = list.filter(
@@ -101,6 +60,16 @@ export default {
       } else {
         this.options = [];
       }
+    },
+    onSearchRouterChange(data) {
+      if (!data) return;
+      let selected = this.data.find(item => {
+        if (item.label === data) {
+          return item;
+        }
+      });
+      this.$refs.iSelect.clearSingleSelect();
+      this.$router.push(`/components/${selected.text}`);
     }
   }
 };

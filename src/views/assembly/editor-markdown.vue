@@ -49,7 +49,7 @@ export default {
       renderer.heading = (text, level) => {
         let id = this.getFirstLetter(text);
         // id = id.replace(/\s/g, "_").replace(/\?|？|,/g, "");
-        return `<h${level} id="${id}">${text}</h${level}>`;
+        return `<h${level} id="${id}" class='tdDessign-example-header'>${text}</h${level}>`;
       };
 
       this.html = marked(this.content, {
@@ -61,8 +61,11 @@ export default {
         },
         renderer: renderer
       });
-      // console.log(this.html);
-      // debugger;
+      if (this.content) {
+        this.$nextTick(() => {
+          this.$emit("dom-loaded", true);
+        });
+      }
     },
     getFirstLetter(str) {
       return md5(str);

@@ -1,11 +1,16 @@
 <template>
   <main class="myCode">
-    <div v-for="(option, index) in code" :key="index" class="myCode-content">
+    <div
+      v-for="(option, index) in code"
+      :key="index"
+      class="myCode-content"
+      :id="option.id"
+      :name="option.title"
+    >
       <Card>
         <div class="myCode-case">
           <my-display :code="option.content"></my-display>
         </div>
-
         <header class="myCode-header" @click="handleCopyCodeId(option.id)">
           <span>{{ option.title }}</span>
         </header>
@@ -44,7 +49,20 @@ export default {
         clipboard.destroy();
         this.$Message.success("code_id 已复制");
       });
+    },
+    setDomLoaded() {
+      this.$nextTick(() => {
+        this.$emit("dom-loaded", true);
+      });
     }
+  },
+  watch: {
+    code: function() {
+      this.setDomLoaded();
+    }
+  },
+  mounted() {
+    this.setDomLoaded();
   }
 };
 </script>

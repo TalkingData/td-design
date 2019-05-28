@@ -18,12 +18,18 @@
 
     <Tabs :animated="false" :value="tabName" @on-click="onTagsChange">
       <TabPane label="文档" name="file">
-        <editor-markdown
-          :data="document"
-          :editor="editor"
+        <container
           v-if="tabName === 'file'"
-          @on-emit-data="document = $event"
-        ></editor-markdown>
+          :anchorLink="anchorLink"
+          className=".tdDessign-example-header"
+        >
+          <editor-markdown
+            :data="document"
+            :editor="editor"
+            @on-emit-data="document = $event"
+            @dom-loaded="anchorLink = $event"
+          ></editor-markdown>
+        </container>
       </TabPane>
 
       <TabPane label="用法" name="usage">
@@ -35,28 +41,37 @@
         ></editor-markdown>
       </TabPane>
 
-      <TabPane label="代码" name="code"
-        ><my-code v-if="tabName === 'code'" :code="code"></my-code
-      ></TabPane>
+      <TabPane label="代码" name="code">
+        <container
+          v-if="tabName === 'code'"
+          :anchorLink="anchorLink"
+          attributeName
+          className=".myCode-content"
+        >
+          <my-code :code="code" @dom-loaded="anchorLink = $event"></my-code>
+        </container>
+      </TabPane>
     </Tabs>
   </main>
 </template>
 <script>
 import editorMarkdown from "./editor-markdown.vue";
+import container from "./container";
 import myCode from "./my-code.vue";
 import { ajax } from "@/util/ajax";
 import Clipboard from "clipboard";
 
 export default {
   inject: ["app"],
-  components: { editorMarkdown, myCode },
+  components: { editorMarkdown, myCode, container },
   data() {
     return {
       editor: false,
       tabName: "file",
       document: "",
       usage: "",
-      code: []
+      code: [],
+      anchorLink: false
     };
   },
   computed: {
@@ -85,6 +100,7 @@ export default {
       this.editor = !this.editor;
     },
     onTagsChange(data) {
+      this.anchorLink = false;
       this.tabName = data;
     },
     add() {
@@ -141,6 +157,7 @@ export default {
       });
     },
     updateData() {
+      this.anchorLink = false;
       this.getDocument();
       this.getUsage();
       this.getCode();
