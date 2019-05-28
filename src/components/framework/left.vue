@@ -1,7 +1,12 @@
 <template>
   <div>
     <search-components :data="app.componentMenu"></search-components>
-    <Menu :active-name="activeName" ref="menu" width="auto">
+    <Menu
+      :active-name="activeName"
+      ref="menu"
+      width="auto"
+      @on-select="onSelectedChange"
+    >
       <MenuItem
         v-for="item in app.componentMenu"
         :key="item.text"
@@ -49,6 +54,11 @@ export default {
     setTimeout(() => {
       this.$refs.menu.updateActiveName();
     }, 200);
+  },
+  methods: {
+    onSelectedChange() {
+      document.documentElement.scrollTop = 0;
+    }
   }
 };
 </script>

@@ -6,11 +6,9 @@
         top: 72px;
         width: 100%;
         min-height: 200px;
-      //  overflow: hidden;
         text-align: left;
         &-main{
             position:relative;
-            height: inherit;
            // overflow-y:auto;
     
             // .ivu-tabs{
@@ -37,6 +35,16 @@
             .table-even-highlight td{
                 background: @table-even-color !important;
             }
+            &::after {
+                content: "";
+                display: block;
+                width: 1px;
+                background: #d7dde4;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: -1px;
+              }
         };
     }
 }

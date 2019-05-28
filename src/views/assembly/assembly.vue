@@ -16,42 +16,47 @@
       <!--      >-->
     </div>
 
-    <Tabs :animated="false" :value="tabName" @on-click="onTagsChange">
-      <TabPane label="文档" name="file">
-        <container
-          v-if="tabName === 'file'"
-          :anchorLink="anchorLink"
-          className=".tdDessign-example-header"
-        >
-          <editor-markdown
-            :data="document"
-            :editor="editor"
-            @on-emit-data="document = $event"
-            @dom-loaded="anchorLink = $event"
-          ></editor-markdown>
-        </container>
-      </TabPane>
+    <Tabs
+      :animated="false"
+      :value="tabName"
+      @on-click="onTagsChange"
+      class="assembly-tabs"
+    >
+      <TabPane label="文档" name="file"> </TabPane>
 
-      <TabPane label="用法" name="usage">
-        <editor-markdown
-          :data="usage"
-          :editor="editor"
-          v-if="tabName === 'usage'"
-          @on-emit-data="usage = $event"
-        ></editor-markdown>
-      </TabPane>
+      <TabPane label="用法" name="usage"> </TabPane>
 
-      <TabPane label="代码" name="code">
-        <container
-          v-if="tabName === 'code'"
-          :anchorLink="anchorLink"
-          attributeName
-          className=".myCode-content"
-        >
-          <my-code :code="code" @dom-loaded="anchorLink = $event"></my-code>
-        </container>
-      </TabPane>
+      <TabPane label="代码" name="code"> </TabPane>
     </Tabs>
+
+    <container
+      v-if="tabName === 'file'"
+      :anchorLink="anchorLink"
+      className=".tdDessign-example-header"
+    >
+      <editor-markdown
+        :data="document"
+        :editor="editor"
+        @on-emit-data="document = $event"
+        @dom-loaded="anchorLink = $event"
+      ></editor-markdown>
+    </container>
+
+    <editor-markdown
+      :data="usage"
+      :editor="editor"
+      v-if="tabName === 'usage'"
+      @on-emit-data="usage = $event"
+    ></editor-markdown>
+
+    <container
+      v-if="tabName === 'code'"
+      :anchorLink="anchorLink"
+      attributeName
+      className=".myCode-content"
+    >
+      <my-code :code="code" @dom-loaded="anchorLink = $event"></my-code>
+    </container>
   </main>
 </template>
 <script>

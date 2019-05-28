@@ -1,5 +1,5 @@
 <template>
-  <Anchor v-if="show" show-ink affix :offset-top="86" :scroll-offset="-152">
+  <Anchor v-if="show" show-ink affix :offset-top="86" :scroll-offset="-136">
     <AnchorLink
       v-for="(item, index) in data"
       :href="item.href"
