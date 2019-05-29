@@ -16,9 +16,14 @@
         <Option
           v-for="(option, index) in options"
           :value="option.value"
+          :label="option.label"
           :key="index"
-          >{{ option.label }}</Option
-        >
+          >{{ option.value }}
+
+          <span style="padding-left:2px;color: #808695;">{{
+            option.label
+          }}</span>
+        </Option>
       </Select>
       <Icon type="md-search" />
     </div>
@@ -47,24 +52,29 @@ export default {
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
-          const list = this.data.map(item => {
-            return {
-              value: item.label,
-              label: item.label
-            };
+          let options = [];
+          this.data.forEach(item => {
+            if (
+              item.label.indexOf(query) > -1 ||
+              item.text.toLowerCase().indexOf(query.toLowerCase()) > -1
+            ) {
+              options.push({
+                label: item.label,
+                value: item.text
+              });
+            }
           });
-          this.options = list.filter(
-            item => item.label.toLowerCase().indexOf(query.toLowerCase()) > -1
-          );
+          this.$set(this, "options", options);
         }, 200);
       } else {
         this.options = [];
       }
     },
+
     onSearchRouterChange(data) {
       if (!data) return;
       let selected = this.data.find(item => {
-        if (item.label === data) {
+        if (item.text === data) {
           return item;
         }
       });

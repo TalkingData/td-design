@@ -13,7 +13,8 @@
         :name="item.text"
         :to="'/components/' + item.text"
       >
-        {{ item.label }}
+        {{ item.text }}
+        <span class="layout-left-span"> {{ item.label }}</span>
       </MenuItem>
     </Menu>
   </div>
