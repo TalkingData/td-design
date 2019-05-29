@@ -99,12 +99,6 @@ export default {
   position: relative;
   height: 32px;
 
-  .ivu-select {
-    position: absolute;
-    left: 0;
-    z-index: 2;
-    border: none;
-  }
   .ivu-select-single .ivu-select-input {
     padding-left: 35px;
     font-size: 14px;
@@ -114,6 +108,7 @@ export default {
     background: rgba(45, 140, 240, 0.06);
     border-radius: 4px;
     border: none;
+    box-shadow: none !important;
   }
   & > i {
     position: absolute;

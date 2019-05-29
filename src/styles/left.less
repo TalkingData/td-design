@@ -1,10 +1,17 @@
 .layout-left{
-    height:inherit;
     border-right:1px solid #dee6ed;
     font-size: 16px;
-    overflow-y:auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    top: 72px;
+    width: 16%;
+    min-height: 200px;
     text-align: left;
-
+    overflow-y:auto;
+    &>div{
+        padding-bottom: 16px;
+    }
     &::-webkit-scrollbar{
         width: 0px;
     }
@@ -52,26 +59,27 @@
             color:#3399ff;
         }
     }
-}
-.ivu-menu-item-active .ivu-menu-submenu-title {
-    color:#3399ff;
-    font-weight: bold;
-    -webkit-font-smoothing: auto;
-    i {
+    .ivu-menu-item-active .ivu-menu-submenu-title {
         color:#3399ff;
+        font-weight: bold;
+        -webkit-font-smoothing: auto;
+        i {
+            color:#3399ff;
+        }
+    }
+    .ivu-menu-vertical .ivu-menu-item, .ivu-menu-vertical .ivu-menu-submenu-title {
+        font-size: 12px;
+    }
+    
+    .ivu-menu-submenu-title span>i, .ivu-menu-submenu-title>i {
+        font-size: 20px;
+        vertical-align: middle;
+        color:#9da6b3;
+    }
+    
+    .ivu-menu-vertical .ivu-menu-submenu-title-icon {
+        top:auto;
+        font-size: 16px;
     }
 }
-.ivu-menu-vertical .ivu-menu-item, .ivu-menu-vertical .ivu-menu-submenu-title {
-    font-size: 12px;
-}
 
-.ivu-menu-submenu-title span>i, .ivu-menu-submenu-title>i {
-    font-size: 20px;
-    vertical-align: middle;
-    color:#9da6b3;
-}
-
-.ivu-menu-vertical .ivu-menu-submenu-title-icon {
-    top:auto;
-    font-size: 16px;
-}

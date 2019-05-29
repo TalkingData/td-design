@@ -7,7 +7,13 @@ import "./plugins/iview.js";
 import "./styles/common.less";
 
 Vue.config.productionTip = false;
-
+// 全局定义bus
+var eventBus = {
+  install(Vue) {
+    Vue.prototype.$bus = new Vue();
+  }
+};
+Vue.use(eventBus);
 new Vue({
   router,
   store,

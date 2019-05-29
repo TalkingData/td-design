@@ -22,7 +22,6 @@
 // import menu from "../../assets/config/menu.js";
 // import filterPath from "./setpath";
 import searchComponents from "./searchComponents";
-// import bus from "../../bus";
 export default {
   components: {
     searchComponents
@@ -58,6 +57,7 @@ export default {
   methods: {
     onSelectedChange() {
       document.documentElement.scrollTop = 0;
+      this.$bus.$emit("init-Anchor-scrollTop-notice", false);
     }
   }
 };

@@ -23,17 +23,11 @@
 <template>
   <div class="layout">
     <top></top>
+    <div class="layout-left">
+      <left></left>
+    </div>
     <div class="layout-content">
-      <Row style="height: 100%;">
-        <i-col span="4" class="layout-left">
-          <left></left>
-        </i-col>
-        <i-col span="20" style="height: inherit;" class="">
-          <div class="layout-content-main">
-            <router-view ref="routerview"></router-view>
-          </div>
-        </i-col>
-      </Row>
+      <router-view ref="routerview"></router-view>
     </div>
   </div>
 </template>

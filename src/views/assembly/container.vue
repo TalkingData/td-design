@@ -4,14 +4,16 @@
       <slot></slot>
     </Col>
     <Col span="3">
-      <my-anchor-link :data="data" ref="myAnchorLink"></my-anchor-link>
+      <my-anchor-link
+        :data="data"
+        v-if="showAnchor && data.length"
+      ></my-anchor-link>
     </Col>
   </Row>
 </template>
 
 <script>
 import myAnchorLink from "./my-anchor-link";
-
 export default {
   props: {
     anchorLink: {
@@ -31,7 +33,8 @@ export default {
   },
   data() {
     return {
-      data: []
+      data: [],
+      showAnchor: false
     };
   },
   watch: {
@@ -40,12 +43,20 @@ export default {
     }
   },
   mounted() {
+    // 接收左侧导航触发scrollTop=0后，为重新渲染锚点anchor做准备
+    this.$bus.$on("init-Anchor-scrollTop-notice", data => {
+      this.showAnchor = data;
+    });
     this.getDocumentList();
   },
   components: {
     myAnchorLink
   },
   methods: {
+    /**
+     * 获取指定class名的节点
+     * 节点属性id以及内容
+     */
     getDocumentList() {
       if (!this.anchorLink) return false;
       let allEles = document.querySelectorAll(this.className);
@@ -59,7 +70,8 @@ export default {
         });
       });
       this.data = accumulator;
-      this.$refs.myAnchorLink.setShow();
+      // 渲染锚点anchor
+      this.showAnchor = true;
     }
   }
 };

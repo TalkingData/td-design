@@ -130,7 +130,6 @@
 <script>
 import menu from "@/assets/config/menu.js";
 import filterPath from "./setpath";
-import bus from "../../bus.js";
 export default {
   inject: ["app"],
   data() {
@@ -181,7 +180,7 @@ export default {
       const path = this.isChild(key - 1);
       this.$router.push(path);
       if (key === "1") return;
-      bus.$emit("menu-change", key);
+      this.$bus.$emit("menu-change", key);
     },
 
     logOff() {

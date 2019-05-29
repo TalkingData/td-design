@@ -139,7 +139,7 @@ export default {
         }
       }).then(res => {
         if (res.status === 1) {
-          this.usage = res.data[0].content;
+          this.usage = res.data.length ? res.data[0].content : "";
         } else {
           this.$Message.error(res.message);
         }

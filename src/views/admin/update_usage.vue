@@ -61,7 +61,7 @@ export default {
         }
       }).then(res => {
         if (res.status === 1) {
-          this.content = res.data[0].content;
+          this.content = res.data.length ? res.data[0].content : "";
           this.showInfo = true;
         } else {
           this.$Message.error(res.message);
