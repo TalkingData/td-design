@@ -2,7 +2,15 @@ import Vue from "vue";
 import iView from "iview";
 import iEditor from "iview-editor";
 
-Vue.use(iView);
+Vue.use(iView, {
+  select: {
+    customArrow: "i-td i-td-arrow_drop_down_px",
+    arrowSize: 24
+  },
+  datePicker: {
+    customIcon: "i-td i-td-date"
+  }
+});
 Vue.use(iEditor);
 
 import "iview/dist/styles/iview.css";
