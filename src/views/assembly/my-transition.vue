@@ -63,7 +63,7 @@
         "
       >
         <Icon type="ios-arrow-down" />
-        Show Code
+        Code
       </p>
     </div>
   </div>
