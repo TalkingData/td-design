@@ -77,6 +77,14 @@ export default new Router({
     {
       path: "/admin/code/update",
       components: require("@/views/admin/code_update.vue")
+    },
+    {
+      path: "/admin/article/add",
+      components: require("@/views/admin/add_article.vue")
+    },
+    {
+      path: "/admin/article/update",
+      components: require("@/views/admin/update_article.vue")
     }
   ]
 });

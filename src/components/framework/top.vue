@@ -121,6 +121,19 @@
               target="_blank"
               >修改示例</DropdownItem
             >
+            <DropdownItem
+              name="/admin/article/add"
+              to="/admin/article/add"
+              target="_blank"
+              divided
+              >添加文章</DropdownItem
+            >
+            <DropdownItem
+              name="/admin/article/update"
+              to="/admin/article/update"
+              target="_blank"
+              >修改文章</DropdownItem
+            >
           </DropdownMenu>
         </Dropdown>
       </div>
