@@ -9,26 +9,18 @@
       <div class="layout-nav">
         <!-- 导航 -->
         <nav class="fr">
-          <Menu mode="horizontal" :active-name="activeName" ref="topmenu">
-            <!--            <Menu-->
-            <!--                    mode="horizontal"-->
-            <!--                    :active-name="activeName"-->
-            <!--                    ref="topmenu"-->
-            <!--                    @on-select="menuChange"-->
-            <!--            >-->
-            <!--            <MenuItem v-for="(val, index) in data" :name="val.id" :key="index">-->
-            <!--              &lt;!&ndash; <Icon :class="val.iviewIcon===false?'icon-'+val.icon:''" :type="val.icon" ></Icon> &ndash;&gt;-->
-            <!--              {{ val.name }}-->
-            <!--            </MenuItem>-->
-            <MenuItem name="1" to="index">
-              首页
-            </MenuItem>
-            <MenuItem
-              name="2"
-              :to="'/components/' + app.componentMenu[0].text"
-              v-if="app.componentMenu[0]"
-            >
-              组件
+          <Menu
+            mode="horizontal"
+            :active-name="activeName"
+            ref="topmenu"
+            @on-select="menuChange"
+          >
+            <MenuItem v-for="(val, index) in data" :name="val.id" :key="index">
+              <!-- <Icon
+                :class="val.iviewIcon === false ? 'icon-' + val.icon : ''"
+                :type="val.icon"
+              ></Icon> -->
+              {{ val.name }}
             </MenuItem>
           </Menu>
         </nav>
@@ -143,11 +135,13 @@
 <script>
 import menu from "@/assets/config/menu.js";
 import filterPath from "./setpath";
+import { ajax } from "@/util/ajax";
+import { mapActions } from "vuex";
 export default {
   inject: ["app"],
   data() {
     return {
-      data: [],
+      data: JSON.parse(JSON.stringify(menu.child)),
       activeName: 1,
       acitveCityName: "",
       cityList: [],
@@ -158,41 +152,74 @@ export default {
       placeholder: ""
     };
   },
-  watch: {
-    "app.componentMenu": {
-      handler() {
-        this.init();
-      },
-      deep: true
-    }
-  },
+  watch: {},
   mounted() {
-    this.init();
+    // // let list = ["components"];
+    // let name = this.$router.currentRoute.name;
+    this.getTabularData().then(() => {
+      this.$bus.$emit("top-getData-end", this.data);
+      this.setMenuData(this.data);
+      this.init();
+    });
   },
   methods: {
+    ...mapActions(["setMenuData"]),
+    getTabularData() {
+      return new Promise(resolve => {
+        ajax({
+          urlKey: "/api/component",
+          methods: "POST"
+        }).then(res => {
+          if (res.status === 1) {
+            this.setData(res.data);
+            resolve();
+          } else {
+            resolve([]);
+          }
+        });
+      });
+    },
+    setData(data) {
+      let name = "components";
+      let idx = -1;
+      this.data.forEach((item, index) => {
+        if (item.path === name) {
+          idx = index;
+        }
+      });
+
+      var list = data.map(item => {
+        return {
+          id: item.id,
+          name: item.label,
+          href: item.text,
+          child: []
+        };
+      });
+      this.data[idx].child[0].child = list;
+    },
     init() {
-      this.data = menu.child;
-      const pathName = this.$router.currentRoute.name;
-      const temppath = filterPath.setPath(pathName, "top");
+      const pathName = this.$router.currentRoute.params.id;
+      const temppath = filterPath.setPath(pathName, this.data);
       const index = temppath.firstCurrent;
       this.activeName = index;
       this.$nextTick(() => {
         this.$refs.topmenu.updateActiveName();
       });
     },
-    isChild(index) {
-      let path = this.data[index].href;
-      const data = this.data[index].child;
 
-      if (data.length) {
-        path = path + "/" + data[0].href;
+    isChild(index) {
+      let path = "";
+      const data = this.data[index].child;
+      if (data[0].child.length) {
+        path = data[0].child[0].href;
       }
-      return path;
+
+      return "/" + this.data[index].path + "/" + path;
     },
     menuChange(key) {
       const path = this.isChild(key - 1);
       this.$router.push(path);
-      if (key === "1") return;
       this.$bus.$emit("menu-change", key);
     },
 

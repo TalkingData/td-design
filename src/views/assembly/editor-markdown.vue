@@ -26,33 +26,36 @@ export default {
   data() {
     return {
       html: "",
-      content: this.data,
       autosize: { minRows: 15 }
     };
   },
   watch: {
-    data: function(nV) {
-      this.content = nV;
-      this.renderMd();
+    data: {
+      handler(nV) {
+        if (nV) {
+          this.renderMd();
+        }
+      },
+      immediate: true,
+      deep: true
     },
     editor: function(nV) {
       if (!nV) {
         this.renderMd();
-        this.$emit("on-emit-data", this.content);
       }
     }
   },
   methods: {
     renderMd() {
       const renderer = new marked.Renderer();
-
+      // console.log(this.data);
       renderer.heading = (text, level) => {
         let id = this.getFirstLetter(text);
         // id = id.replace(/\s/g, "_").replace(/\?|？|,/g, "");
         return `<h${level} id="${id}" class='tdDessign-example-header'>${text}</h${level}>`;
       };
 
-      this.html = marked(this.content, {
+      this.html = marked(this.data, {
         breaks: true,
         headerIds: false,
         highlight(code) {
@@ -61,11 +64,9 @@ export default {
         },
         renderer: renderer
       });
-      if (this.content) {
-        this.$nextTick(() => {
-          this.$emit("dom-loaded", true);
-        });
-      }
+      this.$nextTick(() => {
+        this.$emit("dom-loaded", true);
+      });
     },
     getFirstLetter(str) {
       return md5(str);
@@ -74,8 +75,6 @@ export default {
       return hljs.highlightAuto(code).value;
     }
   },
-  mounted() {
-    this.renderMd();
-  }
+  mounted() {}
 };
 </script>
