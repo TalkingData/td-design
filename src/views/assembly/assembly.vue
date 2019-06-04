@@ -82,7 +82,7 @@ export default {
   },
   computed: {
     componentInfo() {
-      console.log(this.$store.state.menuData);
+      // console.log(this.$store.state.menuData);
       let data = filterPath.setPath(
         this.$route.params.id,
         this.$store.state.menuData
@@ -131,7 +131,7 @@ export default {
       }).then(res => {
         if (res.status === 1) {
           this.document = res.data[0].content;
-          console.log("请求到数据了");
+          // console.log("请求到数据了");
         } else {
           this.$Message.error(res.message);
         }
@@ -180,7 +180,7 @@ export default {
       handler() {
         this.updateData();
       },
-      immediate: true,
+      // immediate: true,
       deep: true
     },
     $route() {
