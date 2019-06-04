@@ -4,6 +4,7 @@
       <editor-markdown
         :data="dataList"
         @dom-loaded="anchorLink = $event"
+        class="i-editor-md-article"
       ></editor-markdown>
     </container>
   </div>
