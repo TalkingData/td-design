@@ -1,7 +1,7 @@
 <template>
   <main class="assembly">
     <h2 class="assembly-title" @click="handleCopyComponentID">
-      {{ componentInfo ? componentInfo.text : "" }}
+      {{ componentInfo ? componentInfo.name : "" }}
     </h2>
     <div class="assembly-bg"></div>
     <div class="assembly-operation">
@@ -37,7 +37,6 @@
       <editor-markdown
         :data="document"
         :editor="editor"
-        @on-emit-data="document = $event"
         @dom-loaded="anchorLink = $event"
       ></editor-markdown>
     </container>
@@ -65,6 +64,7 @@ import container from "./container";
 import myCode from "./my-code.vue";
 import { ajax } from "@/util/ajax";
 import Clipboard from "clipboard";
+import filterPath from "../../components/framework/setpath.js";
 
 export default {
   inject: ["app"],
@@ -77,13 +77,21 @@ export default {
       usage: "",
       code: [],
       anchorLink: false
+      // componentInfo: {}
     };
   },
   computed: {
     componentInfo() {
-      return this.app.componentMenu.find(
-        item => item.text === this.$route.params.id
+      console.log(this.$store.state.menuData);
+      let data = filterPath.setPath(
+        this.$route.params.id,
+        this.$store.state.menuData
       );
+      if (data && data.childObj) {
+        return data.childObj;
+      } else {
+        return {};
+      }
     }
   },
   methods: {
@@ -114,7 +122,6 @@ export default {
       );
     },
     getDocument() {
-      if (!this.app.componentMenu.length) return;
       ajax({
         urlKey: "/api/document/get",
         methods: "POST",
@@ -124,13 +131,13 @@ export default {
       }).then(res => {
         if (res.status === 1) {
           this.document = res.data[0].content;
+          console.log("请求到数据了");
         } else {
           this.$Message.error(res.message);
         }
       });
     },
     getUsage() {
-      if (!this.app.componentMenu.length) return;
       ajax({
         urlKey: "/api/usage/get",
         methods: "POST",
@@ -146,7 +153,6 @@ export default {
       });
     },
     getCode() {
-      if (!this.app.componentMenu.length) return;
       ajax({
         urlKey: "/api/code/get",
         methods: "POST",
@@ -168,9 +174,7 @@ export default {
       this.getCode();
     }
   },
-  mounted() {
-    this.updateData();
-  },
+  mounted() {},
   watch: {
     componentInfo: {
       handler() {

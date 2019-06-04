@@ -20,21 +20,6 @@ export default {
     };
   },
   methods: {
-    getComponentMenu(fromLogin) {
-      ajax({
-        urlKey: "/api/component",
-        methods: "POST"
-      }).then(res => {
-        if (res.status === 1) {
-          this.componentMenu = res.data;
-          if (fromLogin) {
-            this.$router.push(`/components/${this.componentMenu[0].text}`);
-          }
-        } else {
-          this.$Message.error(res.message);
-        }
-      });
-    },
     getUserInfo() {
       const token = cookie.get("token");
       ajax({
@@ -49,7 +34,6 @@ export default {
     }
   },
   mounted() {
-    this.getComponentMenu();
     this.getUserInfo();
   }
 };

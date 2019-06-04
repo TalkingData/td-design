@@ -55,12 +55,12 @@ export default {
           let options = [];
           this.data.forEach(item => {
             if (
-              item.label.indexOf(query) > -1 ||
-              item.text.toLowerCase().indexOf(query.toLowerCase()) > -1
+              item.name.indexOf(query) > -1 ||
+              item.href.toLowerCase().indexOf(query.toLowerCase()) > -1
             ) {
               options.push({
-                label: item.label,
-                value: item.text
+                label: item.name,
+                value: item.href
               });
             }
           });
@@ -72,14 +72,16 @@ export default {
     },
 
     onSearchRouterChange(data) {
-      if (!data) return;
-      let selected = this.data.find(item => {
-        if (item.text === data) {
-          return item;
-        }
-      });
-      this.$refs.iSelect.clearSingleSelect();
-      this.$router.push(`/components/${selected.text}`);
+      if (data) {
+        let selected = this.data.find(item => {
+          if (item.href === data) {
+            return item;
+          }
+        });
+        this.$refs.iSelect.clearSingleSelect();
+        this.$emit("on-search-change", selected.id);
+        this.$router.push(`/components/${selected.href}`);
+      }
     }
   }
 };

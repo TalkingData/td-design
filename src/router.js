@@ -12,7 +12,7 @@ export default new Router({
       children: [
         {
           path: "/components/:id",
-          name: "/components",
+          name: "components",
           components: require("@/views/assembly/assembly.vue")
         },
         {
@@ -34,6 +34,11 @@ export default new Router({
           path: "/components/:id/addAssembly",
           name: "/components",
           components: require("@/views/assembly/add-assembly.vue")
+        },
+        {
+          path: "/article/:id",
+          name: "article",
+          components: require("@/views/article/article.vue")
         }
       ]
     },
