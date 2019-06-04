@@ -22,7 +22,7 @@
           <template v-for="item in obj.child">
             <template v-if="!item.child.length">
               <Menu-item :name="item.id" :key="item.id" :to="item.href">
-                {{ item.href }}
+                {{ item.englishName }}
                 <span class="layout-left-span"> {{ item.name }}</span>
               </Menu-item>
             </template>

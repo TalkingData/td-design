@@ -82,7 +82,6 @@ export default {
   },
   computed: {
     componentInfo() {
-      // console.log(this.$store.state.menuData);
       let data = filterPath.setPath(
         this.$route.params.id,
         this.$store.state.menuData
@@ -168,6 +167,7 @@ export default {
       });
     },
     updateData() {
+      if (!this.componentInfo.id) return false;
       this.anchorLink = false;
       this.getDocument();
       this.getUsage();
@@ -180,7 +180,7 @@ export default {
       handler() {
         this.updateData();
       },
-      // immediate: true,
+      immediate: true,
       deep: true
     },
     $route() {

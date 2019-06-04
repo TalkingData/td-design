@@ -192,6 +192,7 @@ export default {
         return {
           id: item.id,
           name: item.label,
+          englishName: item.text,
           href: item.text,
           child: []
         };

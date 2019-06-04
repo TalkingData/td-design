@@ -56,7 +56,7 @@ export default {
           this.data.forEach(item => {
             if (
               item.name.indexOf(query) > -1 ||
-              item.href.toLowerCase().indexOf(query.toLowerCase()) > -1
+              item.englishName.toLowerCase().indexOf(query.toLowerCase()) > -1
             ) {
               options.push({
                 label: item.name,

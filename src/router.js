@@ -36,9 +36,9 @@ export default new Router({
           components: require("@/views/assembly/add-assembly.vue")
         },
         {
-          path: "/article/:id",
-          name: "article",
-          components: require("@/views/article/article.vue")
+          path: "/design/:id",
+          name: "design",
+          components: require("@/views/design/design.vue")
         }
       ]
     },
