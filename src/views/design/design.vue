@@ -24,21 +24,37 @@ export default {
       dataList: ""
     };
   },
-  mounted() {
-    let id = this.$route.params.id;
-    ajax({
-      urlKey: "/api/article/get",
-      methods: "POST",
-      data: {
-        name: id
-      }
-    }).then(res => {
-      if (res.status === 1) {
-        this.dataList = res.data ? res.data.content : "";
-      } else {
-        this.$Message.error(res.message);
-      }
-    });
+  watch: {
+    componentInfo: {
+      handler() {
+        this.getDocument();
+      },
+      immediate: true,
+      deep: true
+    },
+    $route() {
+      this.getDocument();
+    }
+  },
+  mounted() {},
+  methods: {
+    getDocument() {
+      let id = this.$route.params.id;
+      this.anchorLink = false;
+      ajax({
+        urlKey: "/api/article/get",
+        methods: "POST",
+        data: {
+          name: id
+        }
+      }).then(res => {
+        if (res.status === 1) {
+          this.dataList = res.data ? res.data.content : "";
+        } else {
+          this.$Message.error(res.message);
+        }
+      });
+    }
   }
 };
 </script>

@@ -13,9 +13,23 @@ export default {
           child: [
             {
               id: "1-1-1",
-              name: "文档",
-              englishName: "File",
+              name: "标志",
+              englishName: "Logo",
               href: "guide-logo",
+              child: []
+            },
+            {
+              id: "1-1-2",
+              name: "颜色",
+              englishName: "Color",
+              href: "guide-color",
+              child: []
+            },
+            {
+              id: "1-1-3",
+              name: "字体",
+              englishName: "Font",
+              href: "guide-font",
               child: []
             }
           ]
