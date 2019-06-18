@@ -140,6 +140,12 @@ import { ajax } from "@/util/ajax";
 import { mapActions } from "vuex";
 export default {
   inject: ["app"],
+  props: {
+    isHome: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       data: JSON.parse(JSON.stringify(menu.child)),
@@ -150,8 +156,7 @@ export default {
       loading: false,
       options: [],
       list: [],
-      placeholder: "",
-      isHome: true
+      placeholder: ""
     };
   },
   mounted() {
@@ -161,9 +166,6 @@ export default {
       this.$bus.$emit("top-getData-end", this.data);
       this.setMenuData(this.data);
       this.init();
-    });
-    this.$on("navCha", e => {
-      console.log(e);
     });
   },
   methods: {

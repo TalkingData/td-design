@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <!-- 公共头部 -->
-    <top></top>
+    <!-- <top></top> -->
     <!-- 首页容器 -->
     <div class="index-box">
       <div class="index-banner">
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import top from "@/components/framework/top";
+// import top from "@/components/framework/top";
 export default {
-  components: {
-    top
-  },
+  // components: {
+  //   top
+  // },
   data() {
     return {
       key: 1
