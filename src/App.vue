@@ -12,6 +12,17 @@ export default {
       app: this
     };
   },
+  watch: {
+    $route() {
+      console.log("app:", this.$route.path);
+      let re;
+      if (this.$route.path !== "/home") re = false;
+      else re = true;
+      this.$nextTick(() => {
+        this.$emit("navCha", re);
+      });
+    }
+  },
   data() {
     return {
       componentMenu: [],

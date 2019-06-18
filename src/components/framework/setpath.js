@@ -15,7 +15,8 @@ export default {
       const _data = data[i];
       const child = _data.child;
       _menu.searchOpen = _data.search;
-      _menu.searchList = _data.child[0].child;
+      if (!child) continue;
+      _menu.searchList = child[0].child;
       for (let j = 0; j < child.length; j++) {
         var _jdata = [];
         _jdata = child[j];
