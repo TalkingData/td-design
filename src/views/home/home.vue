@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <!-- 公共头部 -->
-    <!-- <top></top> -->
+    <top :isHome="true"></top>
     <!-- 首页容器 -->
     <div class="index-box">
       <div class="index-banner">
@@ -13,9 +13,9 @@
           <div class="index-nav" v-for="(row, i) in col.child" :key="i">
             <div class="nav-title">
               <router-link :to="row.link">
-                <span :class="['nav', cpType(row.type, row.extra)]">{{
-                  row.type
-                }}</span>
+                <span :class="['nav', cpType(row.type, row.extra)]">
+                  {{ row.type }}
+                </span>
                 <span>{{ row.title }}</span>
               </router-link>
             </div>
@@ -39,12 +39,12 @@
 </template>
 
 <script>
-// import top from "@/components/framework/top";
+import top from "@/components/framework/top";
 import { HOMENAV } from "@/config/home-nav";
 export default {
-  // components: {
-  //   top
-  // },
+  components: {
+    top
+  },
   data() {
     return {
       nav: HOMENAV
@@ -109,6 +109,12 @@ export default {
         background: #ffffff;
         box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
           0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+        &:hover {
+          transition: 0.3s box-shadow;
+          box-shadow: 0 8px 10px 10px rgba(0, 0, 0, 0.14),
+            0 3px 14px 2px rgba(0, 0, 0, 0.12),
+            0 5px 5px -3px rgba(0, 0, 0, 0.2);
+        }
         .nav-title {
           height: 65px;
           line-height: 65px;

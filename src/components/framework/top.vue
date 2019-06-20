@@ -207,8 +207,13 @@ export default {
     },
     init() {
       const pathName = this.$router.currentRoute.params.id;
-      const temppath = filterPath.setPath(pathName, this.data);
-      const index = temppath.firstCurrent;
+      let index;
+      if (pathName) {
+        const temppath = filterPath.setPath(pathName, this.data);
+        index = temppath.firstCurrent;
+      } else {
+        index = 0;
+      }
       this.activeName = index;
       this.$nextTick(() => {
         this.$refs.topmenu.updateActiveName();

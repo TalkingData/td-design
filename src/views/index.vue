@@ -22,7 +22,7 @@
 </style>
 <template>
   <div class="layout">
-    <!-- <top></top> -->
+    <top></top>
     <div class="layout-left">
       <left></left>
     </div>
@@ -32,12 +32,12 @@
   </div>
 </template>
 <script>
-// import top from "@/components/framework/top";
+import top from "@/components/framework/top";
 import left from "@/components/framework/left";
 
 export default {
   components: {
-    // top,
+    top,
     left
   },
   data() {

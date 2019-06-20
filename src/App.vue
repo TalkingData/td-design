@@ -1,15 +1,14 @@
 <template>
   <div id="app">
-    <div class="layout">
-      <top :isHome="isHome"></top>
-      <router-view />
-    </div>
+    <router-view />
+    <feedback></feedback>
   </div>
 </template>
 <script>
 import { ajax } from "@/util/ajax";
 import cookie from "js-cookie";
-import top from "@/components/framework/top";
+
+import feedback from "@/components/framework/feedback";
 export default {
   provide() {
     return {
@@ -17,21 +16,20 @@ export default {
     };
   },
   components: {
-    top
+    feedback
   },
-  watch: {
-    $route() {
-      console.log("app:", this.$route.path);
-      if (this.$route.path !== "/home") this.isHome = false;
-      else this.isHome = true;
-    }
-  },
+  // watch: {
+  //   $route() {
+  //     console.log("app:", this.$route.path);
+  //     if (this.$route.path !== "/home") this.isHome = false;
+  //     else this.isHome = true;
+  //   }
+  // },
   data() {
     return {
       componentMenu: [],
       userInfo: {},
-      token: "",
-      isHome: true
+      token: ""
     };
   },
   methods: {
