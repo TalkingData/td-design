@@ -7,7 +7,7 @@ export default new Router({
     {
       path: "/",
       name: "index",
-      redirect: "/components/Button",
+      redirect: "/home",
       components: require("@/views/index.vue"),
       children: [
         {

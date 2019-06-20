@@ -1,8 +1,10 @@
 <template>
-  <Row class="layout-head">
+  <Row :class="['layout-head', { 'layout-head-index': isHome }]">
     <Col span="2">
       <div class="layout-logo">
-        <img src="../../assets/logo.svg" alt="" />
+        <router-link to="/home">
+          <img src="../../assets/img/logo.svg" alt />
+        </router-link>
       </div>
     </Col>
     <Col span="22">
@@ -19,7 +21,7 @@
               <!-- <Icon
                 :class="val.iviewIcon === false ? 'icon-' + val.icon : ''"
                 :type="val.icon"
-              ></Icon> -->
+              ></Icon>-->
               {{ val.name }}
             </MenuItem>
           </Menu>
@@ -54,8 +56,7 @@
               <Icon type="ios-lock-outline" />修改密码
             </DropdownItem>
             <DropdownItem name="logOff">
-              <Icon type="ios-power" />
-              退出登录
+              <Icon type="ios-power" />退出登录
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -139,6 +140,12 @@ import { ajax } from "@/util/ajax";
 import { mapActions } from "vuex";
 export default {
   inject: ["app"],
+  props: {
+    isHome: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       data: JSON.parse(JSON.stringify(menu.child)),
@@ -152,7 +159,6 @@ export default {
       placeholder: ""
     };
   },
-  watch: {},
   mounted() {
     // // let list = ["components"];
     // let name = this.$router.currentRoute.name;
