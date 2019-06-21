@@ -21,6 +21,11 @@ export default new Router({
           components: require("@/views/chart/chart.vue")
         },
         {
+          path: "/stylelib/:id",
+          name: "/stylelib",
+          components: require("@/views/stylelib/stylelib.vue")
+        },
+        {
           path: "/modular/:id",
           name: "/modular",
           components: require("@/views/modular/modular.vue")
@@ -39,6 +44,11 @@ export default new Router({
           path: "/design/:id",
           name: "design",
           components: require("@/views/design/design.vue")
+        },
+        {
+          path: "/brand/:id",
+          name: "brand",
+          components: require("@/views/brand/brand.vue")
         }
       ]
     },

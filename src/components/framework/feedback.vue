@@ -17,7 +17,8 @@
 export default {
   data() {
     return {
-      feed: "https://kms.talkingdata.com/km/forum/index.jsp",
+      feed:
+        "https://kms.talkingdata.com/km/forum/indexCriteria.jsp?&timestamp=1561086276731#cri.q=categoryId:16b1cc8c1fc01a5b63f0c5b49d9841cd",
       qrcode: require("../../assets/img/td-qrcode.png")
     };
   }
@@ -53,7 +54,7 @@ export default {
         color: #fff;
       }
       &::before {
-        transition: all 0.4s ease;
+        transition: all 0.3s ease;
         opacity: 0;
         position: absolute;
         content: "";
@@ -67,7 +68,7 @@ export default {
         z-index: 100;
       }
       &::after {
-        transition: all 0.4s ease;
+        transition: all 0.3s ease;
         opacity: 0;
         position: absolute;
         content: "";
@@ -80,7 +81,7 @@ export default {
       }
       .fb-commun {
         transition: all 0.3s ease;
-        transform: scale(0);
+        opacity: 0;
         position: absolute;
         right: 68px;
         bottom: -2px;
@@ -102,9 +103,7 @@ export default {
         }
       }
       &:hover {
-        .fb-commun {
-          transform: scale(1);
-        }
+        .fb-commun,
         &::before,
         &::after {
           opacity: 1;

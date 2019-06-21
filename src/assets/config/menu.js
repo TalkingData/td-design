@@ -3,8 +3,8 @@ export default {
   child: [
     {
       id: "1",
-      name: "设计",
-      path: "design",
+      name: "品牌",
+      path: "brand",
       search: false,
       child: [
         {
@@ -38,32 +38,74 @@ export default {
     },
     {
       id: "2",
+      name: "设计",
+      path: "design",
+      search: false,
+      child: [
+        {
+          id: "2-1",
+          name: "设计",
+          child: [
+            {
+              id: "2-1-1",
+              name: "概述",
+              englishName: "overview",
+              href: "design-overview",
+              child: []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "3",
       name: "组件",
       path: "components",
       search: true,
       child: [
         {
-          id: "2-1",
+          id: "3-1",
           name: "组件",
           child: []
         }
       ]
     },
     {
-      id: "3",
+      id: "4",
       name: "图表",
       path: "chart",
       search: false,
       child: [
         {
-          id: "3-1",
+          id: "4-1",
           name: "图表",
           child: [
             {
-              id: "3-1-1",
+              id: "4-1-1",
               name: "图表",
               englishName: "chart",
               href: "chart-logo",
+              child: []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "5",
+      name: "样式库",
+      path: "",
+      search: false,
+      child: [
+        {
+          id: "5-1",
+          name: "样式库",
+          child: [
+            {
+              id: "5-1-1",
+              name: "样式库",
+              englishName: "",
+              href: "",
               child: []
             }
           ]
