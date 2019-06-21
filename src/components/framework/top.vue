@@ -194,7 +194,7 @@ export default {
         }
       });
 
-      var list = data.map(item => {
+      let list = data.map(item => {
         return {
           id: item.id,
           name: item.label,
@@ -203,7 +203,8 @@ export default {
           child: []
         };
       });
-      this.data[idx].child[0].child = list;
+      // 设置组件菜单
+      this.data[idx].child[1].child = list;
     },
     init() {
       const pathName = this.$router.currentRoute.params.id;
@@ -225,11 +226,14 @@ export default {
       const data = this.data[index].child;
       if (data[0].child.length) {
         path = data[0].child[0].href;
+      } else {
+        path = data[0].href;
       }
 
       return "/" + this.data[index].path + "/" + path;
     },
     menuChange(key) {
+      if (key == 5) return;
       const path = this.isChild(key - 1);
       this.$router.push(path);
       this.$bus.$emit("menu-change", key);

@@ -28,6 +28,7 @@ export default {
 <style lang="less" scoped>
 #feedback-box {
   position: fixed;
+  z-index: 1000;
   bottom: 25px;
   right: 25px;
   width: 44px;

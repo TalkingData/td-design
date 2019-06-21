@@ -14,19 +14,29 @@
         :open-names="subActiveName"
         @on-select="setActiveName"
       >
-        <Submenu v-for="obj in val.child" :name="obj.id" :key="obj.id">
-          <template slot="title">
-            <Icon :type="obj.icon"></Icon>
-            {{ obj.name }}
+        <template v-for="obj in val.child">
+          <!-- single -->
+          <template v-if="!obj.child.length">
+            <Menu-item :name="obj.id" :key="obj.id" :to="obj.href">
+              <span class="layout-left-span">{{ obj.name }}</span>
+              {{ obj.englishName }}
+            </Menu-item>
           </template>
-          <template v-for="item in obj.child">
-            <template v-if="!item.child.length">
-              <Menu-item :name="item.id" :key="item.id" :to="item.href">
-                {{ item.englishName }}
-                <span class="layout-left-span"> {{ item.name }}</span>
-              </Menu-item>
-            </template>
-            <!-- <template v-else>
+          <!-- multiple -->
+          <template v-else>
+            <Submenu :name="obj.id" :key="obj.id">
+              <template slot="title">
+                <Icon :type="obj.icon" />
+                {{ obj.name }}
+              </template>
+              <template v-for="item in obj.child">
+                <template v-if="!item.child.length">
+                  <Menu-item :name="item.id" :key="item.id" :to="item.href">
+                    <span class="layout-left-span">{{ item.name }}</span>
+                    {{ item.englishName }}
+                  </Menu-item>
+                </template>
+                <!-- <template v-else>
               <MenuGroup :title="item.name" style="marginLeft:25px">
                 <template v-for="(subItem, subItemKey) in item.child">
                   <Menu-item
@@ -40,9 +50,11 @@
                   </Menu-item>
                 </template>
               </MenuGroup>
-            </template> -->
+                </template>-->
+              </template>
+            </Submenu>
           </template>
-        </Submenu>
+        </template>
       </Menu>
     </template>
   </div>
@@ -92,14 +104,17 @@ export default {
       this.searchList = current.searchList;
       this.searchOpen = current.searchOpen;
       this.subActiveName = [current.leftCurrent];
-      this.setActiveName(current.childCurrent);
+      if (!current.childCurrent) this.setActiveName(current.leftCurrent);
+      else this.setActiveName(current.childCurrent);
     },
     isChild(index) {
       let id = "";
       const data = this.data[index].child;
       const firstId = data[0].id;
-      if (data[0].child) {
+      if (data[0].child.length) {
         id = data[0].child[0].id;
+      } else {
+        id = data[0].id;
       }
       return {
         id: id,

@@ -1,62 +1,75 @@
 <template>
-  <main class="assembly">
-    <h2 class="assembly-title" @click="handleCopyComponentID">
-      {{ componentInfo ? componentInfo.name : "" }}
-    </h2>
-    <div class="assembly-bg"></div>
-    <div class="assembly-operation">
-      <!--      <Button type="primary" @click="add()" v-if="tabName === 'code'"-->
-      <!--        >新建</Button-->
-      <!--      >-->
-      <!--      <Button-->
-      <!--        type="primary"-->
-      <!--        @click="editorChange()"-->
-      <!--        v-if="tabName !== 'code'"-->
-      <!--        >{{ editor ? "保存" : "编辑" }}</Button-->
-      <!--      >-->
-    </div>
+  <div>
+    <main v-if="!isDoc" class="assembly">
+      <h2 class="assembly-title" @click="handleCopyComponentID">
+        {{ componentInfo ? componentInfo.name : "" }}
+      </h2>
+      <div class="assembly-bg"></div>
+      <div class="assembly-operation">
+        <!--      <Button type="primary" @click="add()" v-if="tabName === 'code'"-->
+        <!--        >新建</Button-->
+        <!--      >-->
+        <!--      <Button-->
+        <!--        type="primary"-->
+        <!--        @click="editorChange()"-->
+        <!--        v-if="tabName !== 'code'"-->
+        <!--        >{{ editor ? "保存" : "编辑" }}</Button-->
+        <!--      >-->
+      </div>
 
-    <Tabs
-      :animated="false"
-      :value="tabName"
-      @on-click="onTagsChange"
-      class="assembly-tabs"
-    >
-      <TabPane label="文档" name="file"> </TabPane>
+      <Tabs
+        :animated="false"
+        :value="tabName"
+        @on-click="onTagsChange"
+        class="assembly-tabs"
+      >
+        <TabPane label="文档" name="file"></TabPane>
 
-      <TabPane label="用法" name="usage"> </TabPane>
+        <TabPane label="用法" name="usage"></TabPane>
 
-      <TabPane label="代码" name="code"> </TabPane>
-    </Tabs>
+        <TabPane label="代码" name="code"></TabPane>
+      </Tabs>
 
+      <container
+        v-if="tabName === 'file'"
+        :anchorLink="anchorLink"
+        class=".tdDessign-example-header"
+      >
+        <editor-markdown
+          :data="document"
+          :editor="editor"
+          @dom-loaded="anchorLink = $event"
+        ></editor-markdown>
+      </container>
+
+      <editor-markdown
+        :data="usage"
+        :editor="editor"
+        v-if="tabName === 'usage'"
+        @on-emit-data="usage = $event"
+      ></editor-markdown>
+
+      <container
+        v-if="tabName === 'code'"
+        :anchorLink="anchorLink"
+        attributeName
+        class=".myCode-content"
+      >
+        <my-code :code="code" @dom-loaded="anchorLink = $event"></my-code>
+      </container>
+    </main>
     <container
-      v-if="tabName === 'file'"
+      v-else
       :anchorLink="anchorLink"
-      className=".tdDessign-example-header"
+      class=".tdDessign-example-header"
     >
       <editor-markdown
-        :data="document"
-        :editor="editor"
+        :data="dataList"
         @dom-loaded="anchorLink = $event"
+        class="i-editor-md-article"
       ></editor-markdown>
     </container>
-
-    <editor-markdown
-      :data="usage"
-      :editor="editor"
-      v-if="tabName === 'usage'"
-      @on-emit-data="usage = $event"
-    ></editor-markdown>
-
-    <container
-      v-if="tabName === 'code'"
-      :anchorLink="anchorLink"
-      attributeName
-      className=".myCode-content"
-    >
-      <my-code :code="code" @dom-loaded="anchorLink = $event"></my-code>
-    </container>
-  </main>
+  </div>
 </template>
 <script>
 import editorMarkdown from "./editor-markdown.vue";
@@ -76,7 +89,9 @@ export default {
       document: "",
       usage: "",
       code: [],
-      anchorLink: false
+      anchorLink: false,
+      isDoc: false,
+      dataList: ""
       // componentInfo: {}
     };
   },
@@ -94,6 +109,23 @@ export default {
     }
   },
   methods: {
+    getArticle() {
+      let id = this.$route.params.id;
+      this.anchorLink = false;
+      ajax({
+        urlKey: "/api/article/get",
+        methods: "POST",
+        data: {
+          name: id
+        }
+      }).then(res => {
+        if (res.status === 1) {
+          this.dataList = res.data ? res.data.content : "";
+        } else {
+          this.$Message.error(res.message);
+        }
+      });
+    },
     handleCopyComponentID() {
       const id = this.componentInfo.id;
       const clipboard = new Clipboard(".assembly-title", {
@@ -174,7 +206,12 @@ export default {
       this.getCode();
     }
   },
-  mounted() {},
+  mounted() {
+    if (this.$route.params.id == "components-use") {
+      this.isDoc = true;
+      this.getArticle();
+    }
+  },
   watch: {
     componentInfo: {
       handler() {
@@ -183,8 +220,14 @@ export default {
       immediate: true,
       deep: true
     },
-    $route() {
-      this.updateData();
+    $route(to) {
+      if (to.params.id == "components-use") {
+        this.isDoc = true;
+        this.getArticle();
+      } else {
+        this.isDoc = false;
+        this.updateData();
+      }
     }
   }
 };
