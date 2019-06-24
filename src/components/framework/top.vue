@@ -27,25 +27,26 @@
           </Menu>
         </nav>
         <!-- 搜索组件 -->
-        <div class="layout-nav-search fr">
+        <!-- <div class="layout-nav-search fr">
           <Select
             :placeholder="placeholder"
             v-model="selectedValue"
+            clearable
             filterable
             remote
             :remote-method="remoteMethod"
             :loading="loading"
             @on-open-change="onSearch"
+            class="search-box"
           >
             <Option
               v-for="(option, index) in options"
               :value="option.value"
               :key="index"
-              >{{ option.label }}</Option
-            >
+            >{{ option.label }}</Option>
           </Select>
-          <Icon type="md-search" />
-        </div>
+          <Icon type="md-search"/>
+        </div>-->
       </div>
       <!-- 内部操作 -->
       <div class="layout-dropdown">
@@ -156,7 +157,7 @@ export default {
       loading: false,
       options: [],
       list: [],
-      placeholder: ""
+      placeholder: "搜索"
     };
   },
   mounted() {
@@ -263,11 +264,12 @@ export default {
       }
     },
     onSearch(data) {
-      if (data) {
-        this.placeholder = "搜索组件...";
-      } else {
-        this.placeholder = "";
-      }
+      console.log(data);
+      // if (data) {
+      //   this.placeholder = "搜索组件...";
+      // } else {
+      //   this.placeholder = "";
+      // }
     },
     operation(data) {
       if (data === "logOff") {

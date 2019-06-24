@@ -2,7 +2,7 @@
   <div>
     <search-components
       v-if="searchOpen"
-      :data="searchList"
+      :firstNav="firstNav"
       @on-search-change="setActiveName"
     ></search-components>
     <template v-for="val in data">
@@ -18,8 +18,8 @@
           <!-- single -->
           <template v-if="!obj.child.length">
             <Menu-item :name="obj.id" :key="obj.id" :to="obj.href">
-              <span class="layout-left-span">{{ obj.name }}</span>
-              {{ obj.englishName }}
+              <span>{{ obj.name }}</span>
+              <span class="layout-left-span">{{ obj.englishName }}</span>
             </Menu-item>
           </template>
           <!-- multiple -->
@@ -32,8 +32,8 @@
               <template v-for="item in obj.child">
                 <template v-if="!item.child.length">
                   <Menu-item :name="item.id" :key="item.id" :to="item.href">
-                    <span class="layout-left-span">{{ item.name }}</span>
-                    {{ item.englishName }}
+                    <span>{{ item.name }}</span>
+                    <span class="layout-left-span">{{ item.englishName }}</span>
                   </Menu-item>
                 </template>
                 <!-- <template v-else>
@@ -75,7 +75,8 @@ export default {
       activeName: "",
       //第三层菜单选中
       subActiveName: [],
-      searchList: [],
+      firstNav: null,
+      // searchList: [],
       searchOpen: false
     };
   },
@@ -92,7 +93,8 @@ export default {
       const current = filterPath.setPath(path, this.data);
       this.activeMenu = key;
       this.subActiveName = [current.leftCurrent];
-      this.searchList = current.searchList;
+      this.firstNav = current.firstNav;
+      // this.searchList = current.searchList;
       this.searchOpen = current.searchOpen;
     });
   },
@@ -101,7 +103,8 @@ export default {
       let path = this.$router.currentRoute.params.id;
       const current = filterPath.setPath(path, this.data);
       this.activeMenu = current.firstCurrent;
-      this.searchList = current.searchList;
+      this.firstNav = current.firstNav;
+      // this.searchList = current.searchList;
       this.searchOpen = current.searchOpen;
       this.subActiveName = [current.leftCurrent];
       if (!current.childCurrent) this.setActiveName(current.leftCurrent);

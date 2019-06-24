@@ -1,6 +1,11 @@
 <template>
   <div class="searchComponents">
-    <header><label>组件</label>Components</header>
+    <header>
+      <label>{{ firstNav.name }}</label>
+      {{
+        firstNav.path.substring(0, 1).toUpperCase() + firstNav.path.substring(1)
+      }}
+    </header>
     <div class="searchComponents-select">
       <Select
         ref="iSelect"
@@ -18,11 +23,11 @@
           :value="option.value"
           :label="option.label"
           :key="index"
-          >{{ option.value }}
-
-          <span style="padding-left:2px;color: #808695;">{{
-            option.label
-          }}</span>
+        >
+          <span>
+            {{ option.label }}
+          </span>
+          {{ option.en }}
         </Option>
       </Select>
       <Icon type="md-search" />
@@ -32,11 +37,22 @@
 <script>
 export default {
   props: {
-    data: {
-      type: Array,
+    // data: {
+    //   type: Array,
+    //   default: function() {
+    //     return [];
+    //   }
+    // },
+    firstNav: {
+      type: Object,
       default: function() {
-        return [];
+        return {};
       }
+    }
+  },
+  watch: {
+    $route() {
+      this.options.length && (this.options = []);
     }
   },
   data() {
@@ -53,34 +69,43 @@ export default {
         setTimeout(() => {
           this.loading = false;
           let options = [];
-          this.data.forEach(item => {
-            if (
-              item.name.indexOf(query) > -1 ||
-              item.englishName.toLowerCase().indexOf(query.toLowerCase()) > -1
-            ) {
-              options.push({
-                label: item.name,
-                value: item.href
-              });
-            }
-          });
+          this.searchList(this.firstNav.child, query, options);
           this.$set(this, "options", options);
         }, 200);
       } else {
         this.options = [];
       }
     },
+    searchList(data, query, box) {
+      data.forEach(item => {
+        if (item.child.length > 0) {
+          return this.searchList(item.child, query, box);
+        }
+        if (
+          item.name.indexOf(query) > -1 ||
+          item.englishName.toLowerCase().indexOf(query.toLowerCase()) > -1
+        ) {
+          box.push({
+            id: item.id,
+            label: item.name,
+            value: item.href,
+            en: item.englishName
+          });
+        }
+      });
+    },
 
     onSearchRouterChange(data) {
       if (data) {
-        let selected = this.data.find(item => {
-          if (item.href === data) {
+        let selected = this.options.find(item => {
+          if (item.value === data) {
             return item;
           }
         });
+        const curNav = this.$router.history.current.name;
         this.$refs.iSelect.clearSingleSelect();
         this.$emit("on-search-change", selected.id);
-        this.$router.push(`/components/${selected.href}`);
+        this.$router.push(`/${curNav}/${data}`);
       }
     }
   }

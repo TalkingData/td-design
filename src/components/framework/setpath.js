@@ -3,6 +3,7 @@ export default {
   setPath(path, menu) {
     const data = menu;
     const _menu = {
+      firstNav: null,
       firstCurrent: "",
       leftCurrent: "",
       childCurrent: "",
@@ -16,16 +17,17 @@ export default {
       const child = _data.child;
       _menu.searchOpen = _data.search;
       if (!child) continue;
-      _menu.searchList = child[0].child;
+      // _menu.searchList = child[0].child;
       for (let j = 0; j < child.length; j++) {
         var _jdata = [];
         _jdata = child[j];
 
         if (path === _jdata.href) {
+          _menu.firstNav = _data;
           _menu.firstCurrent = _data.id;
           _menu.leftCurrent = _jdata.id;
           _menu.firstChild = child;
-
+          _menu.searchList = child;
           return _menu;
         }
         for (let s = 0; s < _jdata.child.length; s++) {
