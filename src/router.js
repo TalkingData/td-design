@@ -18,12 +18,12 @@ export default new Router({
         {
           path: "/chart/:id",
           name: "/chart",
-          components: require("@/views/chart/chart.vue")
+          components: require("@/views/brand/brand.vue")
         },
         {
           path: "/stylelib/:id",
           name: "/stylelib",
-          components: require("@/views/stylelib/stylelib.vue")
+          components: require("@/views/brand/brand.vue")
         },
         {
           path: "/modular/:id",
@@ -43,7 +43,7 @@ export default new Router({
         {
           path: "/design/:id",
           name: "design",
-          components: require("@/views/design/design.vue")
+          components: require("@/views/brand/brand.vue")
         },
         {
           path: "/brand/:id",

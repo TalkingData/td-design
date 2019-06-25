@@ -97,9 +97,14 @@ export default {
   },
   computed: {
     componentInfo() {
+      let fname = this.$router.currentRoute.name;
+      if (fname && fname.indexOf("/") > -1) {
+        fname = fname.substring(1);
+      }
       let data = filterPath.setPath(
         this.$route.params.id,
-        this.$store.state.menuData
+        this.$store.state.menuData,
+        fname
       );
       if (data && data.childObj) {
         return data.childObj;
@@ -161,7 +166,9 @@ export default {
         }
       }).then(res => {
         if (res.status === 1) {
-          this.document = res.data[0].content;
+          if (res.data.length) {
+            this.document = res.data[0].content;
+          }
           // console.log("请求到数据了");
         } else {
           this.$Message.error(res.message);

@@ -5,7 +5,7 @@ export default {
       id: "1",
       name: "品牌",
       path: "brand",
-      search: false,
+      search: true,
       child: [
         {
           id: "1-1",
@@ -199,17 +199,86 @@ export default {
       id: "4",
       name: "图表",
       path: "chart",
-      search: false,
+      search: true,
       child: [
         {
           id: "4-1",
-          name: "图表",
+          name: "基础",
           child: [
             {
               id: "4-1-1",
-              name: "图表",
-              englishName: "chart",
-              href: "chart-logo",
+              name: "色彩",
+              englishName: "",
+              href: "chart-color",
+              child: []
+            },
+            {
+              id: "4-1-2",
+              name: "字体颜色",
+              englishName: "",
+              href: "chart-font-color",
+              child: []
+            }
+          ]
+        },
+        {
+          id: "4-2",
+          name: "图表",
+          child: [
+            {
+              id: "4-2-1",
+              name: "折线图",
+              englishName: "Line Chart",
+              href: "chart-line",
+              child: []
+            },
+            {
+              id: "4-2-2",
+              name: "柱状图",
+              englishName: "Histogram",
+              href: "chart-histogram",
+              child: []
+            },
+            {
+              id: "4-2-3",
+              name: "条形图",
+              englishName: "Bar Chart",
+              href: "chart-bar",
+              child: []
+            },
+            {
+              id: "4-2-4",
+              name: "面积图",
+              englishName: "Area Chart",
+              href: "chart-area",
+              child: []
+            },
+            {
+              id: "4-2-5",
+              name: "饼图",
+              englishName: "Pie Chart",
+              href: "chart-pie",
+              child: []
+            },
+            {
+              id: "4-2-6",
+              name: "雷达图",
+              englishName: "Radar Chart",
+              href: "chart-radar",
+              child: []
+            },
+            {
+              id: "4-2-7",
+              name: "热力图",
+              englishName: "Heatmap",
+              href: "chart-heatmap",
+              child: []
+            },
+            {
+              id: "4-2-8",
+              name: "漏斗图",
+              englishName: "Funnel Chart",
+              href: "chart-funnel",
               child: []
             }
           ]
@@ -220,7 +289,7 @@ export default {
       id: "5",
       name: "样式库",
       path: "",
-      search: false,
+      search: true,
       child: [
         {
           id: "5-1",

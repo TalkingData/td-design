@@ -1,10 +1,9 @@
 <template>
   <div class="searchComponents">
     <header>
+      <span :class="['nav-type', nav.bg]">{{ nav.type }}</span>
       <label>{{ firstNav.name }}</label>
-      {{
-        firstNav.path.substring(0, 1).toUpperCase() + firstNav.path.substring(1)
-      }}
+      <span class="nav-en">{{ nav.en }}</span>
     </header>
     <div class="searchComponents-select">
       <Select
@@ -24,9 +23,7 @@
           :label="option.label"
           :key="index"
         >
-          <span>
-            {{ option.label }}
-          </span>
+          <span>{{ option.label }}</span>
           {{ option.en }}
         </Option>
       </Select>
@@ -53,16 +50,41 @@ export default {
   watch: {
     $route() {
       this.options.length && (this.options = []);
+      this.handlerNav();
     }
   },
   data() {
     return {
       selectedValue: "",
       loading: false,
-      options: []
+      options: [],
+      nav: {
+        type: "",
+        bg: "",
+        en: ""
+      }
     };
   },
+  mounted() {
+    this.handlerNav();
+  },
   methods: {
+    handlerNav() {
+      this.nav.type = this.firstNav.path.substring(0, 1).toUpperCase();
+      this.nav.en = this.nav.type + this.firstNav.path.substring(1);
+      if (this.nav.type === "C" && this.firstNav.path === "components")
+        return (this.nav.bg = "component");
+      switch (this.nav.type) {
+        case "B":
+          return (this.nav.bg = "brand");
+        case "D":
+          return (this.nav.bg = "design");
+        case "C":
+          return (this.nav.bg = "chart");
+        case "S":
+          return (this.nav.bg = "style");
+      }
+    },
     remoteMethod(query) {
       if (query !== "") {
         this.loading = true;
@@ -102,7 +124,10 @@ export default {
             return item;
           }
         });
-        const curNav = this.$router.history.current.name;
+        let curNav = this.$router.history.current.name;
+        if (curNav && curNav.indexOf("/") > -1) {
+          curNav = curNav.substring(1);
+        }
         this.$refs.iSelect.clearSingleSelect();
         this.$emit("on-search-change", selected.id);
         this.$router.push(`/${curNav}/${data}`);
@@ -117,16 +142,27 @@ export default {
   padding: 20px 20px;
   header {
     font-family: Roboto-Regular;
-    font-size: 16px;
+    font-size: 18px;
     color: rgba(23, 35, 61, 0.55);
-    line-height: 24px;
-    padding-bottom: 14px;
+    height: 34px;
+    line-height: 34px;
+    margin-bottom: 20px;
     label {
       font-family: PingFangSC-Medium;
-      font-size: 16px;
       color: #17233d;
-      line-height: 24px;
-      padding-right: 8px;
+      padding: 0 8px 0 15px;
+    }
+    .nav-type {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 32px;
+      color: #fff;
+      text-align: center;
+    }
+    .nav-en {
+      font-size: 15px;
     }
   }
 }
