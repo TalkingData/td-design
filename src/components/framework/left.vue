@@ -90,7 +90,11 @@ export default {
       const data = this.isChild(key - 1);
       this.setActiveName(data.id);
       const path = this.$router.currentRoute.params.id;
-      const current = filterPath.setPath(path, this.data);
+      let fname = this.$router.currentRoute.name;
+      if (fname && fname.indexOf("/") > -1) {
+        fname = fname.substring(1);
+      }
+      const current = filterPath.setPath(path, this.data, fname);
       this.activeMenu = key;
       this.subActiveName = current.openNames;
       this.firstNav = current.firstNav;
@@ -101,7 +105,11 @@ export default {
   methods: {
     init() {
       let path = this.$router.currentRoute.params.id;
-      const current = filterPath.setPath(path, this.data);
+      let fname = this.$router.currentRoute.name;
+      if (fname && fname.indexOf("/") > -1) {
+        fname = fname.substring(1);
+      }
+      const current = filterPath.setPath(path, this.data, fname);
       this.activeMenu = current.firstCurrent;
       this.firstNav = current.firstNav;
       // this.searchList = current.searchList;

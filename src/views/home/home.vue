@@ -13,9 +13,9 @@
           <div class="index-nav" v-for="(row, i) in col.child" :key="i">
             <div class="nav-title">
               <router-link :to="row.link">
-                <span :class="['nav', cpType(row.type, row.extra)]">{{
-                  row.type
-                }}</span>
+                <span :class="['nav', cpType(row.type, row.extra)]">
+                  {{ row.type }}
+                </span>
                 <span>{{ row.title }}</span>
               </router-link>
             </div>
@@ -66,7 +66,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.nav);
+    // console.log(this.nav);
   }
 };
 </script>
