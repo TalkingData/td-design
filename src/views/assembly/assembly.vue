@@ -33,7 +33,7 @@
       <container
         v-if="tabName === 'file'"
         :anchorLink="anchorLink"
-        class=".tdDessign-example-header"
+        className=".tdDessign-example-header"
       >
         <editor-markdown
           :data="document"
@@ -53,7 +53,7 @@
         v-if="tabName === 'code'"
         :anchorLink="anchorLink"
         attributeName
-        class=".myCode-content"
+        className=".myCode-content"
       >
         <my-code :code="code" @dom-loaded="anchorLink = $event"></my-code>
       </container>
@@ -61,7 +61,7 @@
     <container
       v-else
       :anchorLink="anchorLink"
-      class=".tdDessign-example-header"
+      className=".tdDessign-example-header"
     >
       <editor-markdown
         :data="dataList"
