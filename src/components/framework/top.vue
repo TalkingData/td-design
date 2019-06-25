@@ -210,9 +210,13 @@ export default {
     },
     init() {
       const pathName = this.$router.currentRoute.params.id;
+      let fname = this.$router.currentRoute.name;
+      if (fname && fname.indexOf("/") > -1) {
+        fname = fname.substring(1);
+      }
       let index;
       if (pathName) {
-        const temppath = filterPath.setPath(pathName, this.data);
+        const temppath = filterPath.setPath(pathName, this.data, fname);
         index = temppath.firstCurrent;
       } else {
         index = 0;
