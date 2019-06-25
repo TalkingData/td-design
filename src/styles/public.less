@@ -1,28 +1,40 @@
 body {
     //font-family: "iconfont", "robotoregular", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", Arial, sans-serif;
-};
+}
+
+;
 
 .clearfix:before,
 .clearfix:after {
     content: "";
     display: table;
-};
+}
+
+;
 
 .clearfix:after {
     clear: both;
-};
+}
+
+;
 
 .clearfix {
     *zoom: 1;
-};
+}
+
+;
 
 .fl {
     float: left;
-};
+}
+
+;
 
 .fr {
     float: right;
-};
+}
+
+;
 
 
 /* 设置滚动条的样式*/
@@ -30,20 +42,55 @@ body {
 ::-webkit-scrollbar {
     //width: 6px;
     //height: 6px;
-};
+}
+
+;
 
 /* 滚动条滑块*/
 
 ::-webkit-scrollbar-thumb {
     //border-radius: 10px;
     //background: #a9a9a9;
-};
+}
+
+;
+
 .anchorBL {
     display: none;
-};
+}
+
+;
+
 /*内容区域.顶部方块*/
 .card-wrapper {
     text-align: center;
     overflow: hidden;
-};
+}
 
+;
+
+@brand: #2d8cf0;
+@design: #fba900;
+@chart: #f27036;
+@style: #663ab7;
+@component: #00d2b3;
+
+.brand {
+    background: @brand;
+}
+
+.design {
+    background: @design;
+}
+
+.chart {
+    background: @chart;
+}
+
+.style {
+    background: @style;
+}
+
+.component {
+    background: @component;
+}

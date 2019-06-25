@@ -13,9 +13,9 @@
           <div class="index-nav" v-for="(row, i) in col.child" :key="i">
             <div class="nav-title">
               <router-link :to="row.link">
-                <span :class="['nav', cpType(row.type, row.extra)]">
-                  {{ row.type }}
-                </span>
+                <span :class="['nav', cpType(row.type, row.extra)]">{{
+                  row.type
+                }}</span>
                 <span>{{ row.title }}</span>
               </router-link>
             </div>
@@ -72,11 +72,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@brand: #2d8cf0;
-@design: #fba900;
-@chart: #f27036;
-@style: #663ab7;
-@component: #00d2b3;
 .index-box {
   width: 100%;
   margin-top: 72px;
@@ -132,25 +127,9 @@ export default {
             height: 24px;
             line-height: 24px;
             border-radius: 24px;
-            background: red;
             color: #fff;
             font-size: 16px;
             text-align: center;
-          }
-          .brand {
-            background: @brand;
-          }
-          .design {
-            background: @design;
-          }
-          .chart {
-            background: @chart;
-          }
-          .style {
-            background: @style;
-          }
-          .component {
-            background: @component;
           }
         }
         .nav-con {

@@ -1,13 +1,14 @@
 <template>
   <Row :class="['layout-head', { 'layout-head-index': isHome }]">
-    <Col span="2">
+    <Col span="4">
       <div class="layout-logo">
         <router-link to="/home">
           <img src="../../assets/img/logo.svg" alt />
         </router-link>
+        <span>TD Design</span>
       </div>
     </Col>
-    <Col span="22">
+    <Col span="20">
       <div class="layout-nav">
         <!-- 导航 -->
         <nav class="fr">

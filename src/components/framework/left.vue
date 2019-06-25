@@ -92,7 +92,7 @@ export default {
       const path = this.$router.currentRoute.params.id;
       const current = filterPath.setPath(path, this.data);
       this.activeMenu = key;
-      this.subActiveName = [current.leftCurrent];
+      this.subActiveName = current.openNames;
       this.firstNav = current.firstNav;
       // this.searchList = current.searchList;
       this.searchOpen = current.searchOpen;
@@ -106,7 +106,7 @@ export default {
       this.firstNav = current.firstNav;
       // this.searchList = current.searchList;
       this.searchOpen = current.searchOpen;
-      this.subActiveName = [current.leftCurrent];
+      this.subActiveName = current.openNames;
       if (!current.childCurrent) this.setActiveName(current.leftCurrent);
       else this.setActiveName(current.childCurrent);
     },
@@ -134,3 +134,8 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+.layout-left-span {
+  padding-left: 6px;
+}
+</style>

@@ -161,7 +161,9 @@ export default {
         }
       }).then(res => {
         if (res.status === 1) {
-          this.document = res.data[0].content;
+          if (res.data.length) {
+            this.document = res.data[0].content;
+          }
           // console.log("请求到数据了");
         } else {
           this.$Message.error(res.message);
