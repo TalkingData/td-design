@@ -153,7 +153,7 @@ export default {
                 expires: 365,
                 path: ""
               });
-              this.app.getComponentMenu(true);
+              this.$router.push(`/home`);
             } else {
               this.$Message.error(res.message);
             }
