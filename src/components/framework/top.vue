@@ -239,7 +239,7 @@ export default {
       return "/" + this.data[index].path + "/" + path;
     },
     menuChange(key) {
-      if (key == 5) return;
+      // if (key == 5) return;
       const path = this.isChild(key - 1);
       this.$router.push(path);
       this.$bus.$emit("menu-change", key);

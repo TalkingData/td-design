@@ -10,12 +10,22 @@
       </div>
       <div class="index-content clearfix">
         <div class="index-nav-box" v-for="(col, j) in nav" :key="j">
-          <div class="index-nav" v-for="(row, i) in col.child" :key="i">
+          <div
+            :class="[
+              'index-nav',
+              row.extra && row.extra.disabled ? 'disabled' : ''
+            ]"
+            v-for="(row, i) in col.child"
+            :key="i"
+          >
             <div class="nav-title">
-              <router-link :to="row.link">
-                <span :class="['nav', cpType(row.type, row.extra)]">
-                  {{ row.type }}
-                </span>
+              <router-link
+                :to="row.link"
+                :class="row.extra && row.extra.disabled ? 'disabled' : ''"
+              >
+                <span :class="['nav', cpType(row.type, row.extra)]">{{
+                  row.type
+                }}</span>
                 <span>{{ row.title }}</span>
               </router-link>
             </div>
@@ -35,15 +45,19 @@
         </div>
       </div>
     </div>
+    <!-- footer -->
+    <foot></foot>
   </div>
 </template>
 
 <script>
 import top from "@/components/framework/top";
 import { HOMENAV } from "@/config/home-nav";
+import foot from "@/views/home/foot";
 export default {
   components: {
-    top
+    top,
+    foot
   },
   data() {
     return {
@@ -119,6 +133,9 @@ export default {
           text-align: left;
           a {
             color: #17233d;
+            &.disabled {
+              cursor: default;
+            }
           }
           .nav {
             display: inline-block;
@@ -141,6 +158,9 @@ export default {
         }
         .nav-pic {
           padding: 25px 0;
+        }
+        &.disabled {
+          opacity: 0.35;
         }
       }
     }

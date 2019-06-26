@@ -1,62 +1,80 @@
-.layout-left{
-    border-right:1px solid #dee6ed;
+.layout-left {
+    border-right: 1px solid #dee6ed;
     font-size: 16px;
     position: fixed;
     bottom: 0;
     left: 0;
     top: 72px;
-    width: 16%;
+    width: 256px;
     min-height: 200px;
     text-align: left;
-    overflow-y:auto;
-    &>div{
+    overflow-y: auto;
+
+    &>div {
         padding-bottom: 16px;
     }
-    &-span{
+
+    &-span {
         font-size: 12px;
         color: #808695;
         padding-left: 2px;
         transition: all .2s ease-in-out;
     }
-    &::-webkit-scrollbar{
+
+    &::-webkit-scrollbar {
         width: 0px;
     }
 
     .ivu-menu {
         z-index: 1;
-      }
-    .ivu-menu-light{
+    }
+
+    .ivu-menu-light {
         background: #fff;
-    };
-    .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):after{
+    }
+
+    ;
+
+    .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):after {
         width: 4px;
     }
-    .ivu-menu-vertical.ivu-menu-light:after{
-        background: transparent;
-    };
-    .ivu-menu-light.ivu-menu-vertical .ivu-menu-item{
-        border-right:none;
-        border-left:4px solid transparent;
-        font-weight: 400;
-        padding-left:27px!important;
-    };
 
-    .ivu-menu-vertical .ivu-menu-item a{
+    .ivu-menu-vertical.ivu-menu-light:after {
+        background: transparent;
+    }
+
+    ;
+
+    .ivu-menu-light.ivu-menu-vertical .ivu-menu-item {
+        border-right: none;
+        border-left: 4px solid transparent;
+        font-weight: 400;
+        padding-left: 27px !important;
+    }
+
+    ;
+
+    .ivu-menu-vertical .ivu-menu-item a {
         display: block;
-        -webkit-font-smoothing:auto;
+        -webkit-font-smoothing: auto;
         font-weight: normal;
-        color:#657180;
+        color: #657180;
         font-size: 14px;
-    };
+    }
+
+    ;
+
     .ivu-menu-vertical .ivu-menu-item.ivu-menu-item-active {
-        a,span{
-            color:#3399ff;
+
+        a,
+        span {
+            color: #3399ff;
         }
     }
 
-    .ivu-menu-vertical .ivu-menu-item, .ivu-menu-vertical .ivu-menu-submenu-title {
+    .ivu-menu-vertical .ivu-menu-item,
+    .ivu-menu-vertical .ivu-menu-submenu-title {
         font-size: 14px;
         padding: 14px 10px;
-    }    
+    }
 }
-

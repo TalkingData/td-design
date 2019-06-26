@@ -10,14 +10,14 @@ export default {
         {
           id: "1-1",
           name: "概述",
-          englishName: "overview",
+          englishName: "Overview",
           href: "brand-overview",
           child: []
         },
         {
           id: "1-2",
           name: "品牌策略",
-          englishName: "strategy",
+          englishName: "Strategy",
           href: "brand-strategy",
           child: []
         },
@@ -28,35 +28,35 @@ export default {
             {
               id: "1-3-1",
               name: "品牌标志",
-              englishName: "logo",
+              englishName: "Logo",
               href: "brand-logo",
               child: []
             },
             {
               id: "1-3-2",
               name: "标准字体",
-              englishName: "font",
+              englishName: "Font",
               href: "brand-font",
               child: []
             },
             {
               id: "1-3-3",
               name: "标准颜色",
-              englishName: "color",
+              englishName: "Color",
               href: "brand-color",
               child: []
             },
             {
               id: "1-3-4",
               name: "图片和图形风格",
-              englishName: "style",
+              englishName: "Style",
               href: "brand-style",
               child: []
             },
             {
               id: "1-3-5",
               name: "排版版式",
-              englishName: "typesetting",
+              englishName: "Typesetting",
               href: "brand-typesetting",
               child: []
             }
@@ -69,22 +69,63 @@ export default {
             {
               id: "1-4-1",
               name: "传播物料",
-              englishName: "material",
+              englishName: "Material",
               href: "brand-material",
               child: []
             },
             {
               id: "1-4-2",
               name: "办公系统",
-              englishName: "office",
+              englishName: "Office",
               href: "brand-office",
               child: []
             },
             {
               id: "1-4-3",
               name: "PPT模版",
-              englishName: "ppt",
+              englishName: "Ppt",
               href: "brand-ppt",
+              child: []
+            }
+          ]
+        },
+        {
+          id: "1-5",
+          name: "插图",
+          child: [
+            {
+              id: "1-5-1",
+              name: "概述",
+              englishName: "Outline",
+              href: "brand-outline",
+              child: []
+            },
+            {
+              id: "1-5-2",
+              name: "色彩",
+              englishName: "Hue",
+              href: "brand-hue",
+              child: []
+            },
+            {
+              id: "1-5-3",
+              name: "人物比例",
+              englishName: "Radio",
+              href: "brand-radio",
+              child: []
+            },
+            {
+              id: "1-5-4",
+              name: "人物动作",
+              englishName: "Action",
+              href: "brand-action",
+              child: []
+            },
+            {
+              id: "1-5-5",
+              name: "场景",
+              englishName: "Scenes",
+              href: "brand-scenes",
               child: []
             }
           ]
@@ -100,14 +141,14 @@ export default {
         {
           id: "2-1",
           name: "概述",
-          englishName: "overview",
+          englishName: "Overview",
           href: "design-overview",
           child: []
         },
         {
           id: "2-2",
           name: "设计原则",
-          englishName: "sense",
+          englishName: "Sense",
           href: "design-sense",
           child: []
         },
@@ -118,56 +159,56 @@ export default {
             {
               id: "2-3-1",
               name: "色彩",
-              englishName: "color",
+              englishName: "Color",
               href: "design-color",
               child: []
             },
             {
               id: "2-3-2",
               name: "字体",
-              englishName: "font",
+              englishName: "Font",
               href: "design-font",
               child: []
             },
             {
               id: "2-3-3",
               name: "图标",
-              englishName: "icon",
+              englishName: "Icon",
               href: "design-icon",
               child: []
             },
             {
               id: "2-3-4",
               name: "布局",
-              englishName: "layout",
+              englishName: "Layout",
               href: "design-layout",
               child: []
             },
             {
               id: "2-3-5",
               name: "间距",
-              englishName: "spacing",
+              englishName: "Spacing",
               href: "design-spacing",
               child: []
             },
             {
               id: "2-3-6",
               name: "状态",
-              englishName: "state",
+              englishName: "State",
               href: "design-state",
               child: []
             },
             {
               id: "2-3-7",
               name: "容器",
-              englishName: "box",
+              englishName: "Box",
               href: "design-box",
               child: []
             },
             {
               id: "2-3-8",
               name: "阴影高度",
-              englishName: "shadow",
+              englishName: "Shadow",
               href: "design-shadow",
               child: []
             }
@@ -184,7 +225,7 @@ export default {
         {
           id: "3-1",
           name: "使用说明",
-          englishName: "use",
+          englishName: "Use",
           href: "components-use",
           child: []
         },
@@ -208,14 +249,14 @@ export default {
             {
               id: "4-1-1",
               name: "色彩",
-              englishName: "",
+              englishName: "Color",
               href: "chart-color",
               child: []
             },
             {
               id: "4-1-2",
               name: "图表组成",
-              englishName: "",
+              englishName: "Composition",
               href: "chart-composition",
               child: []
             }
@@ -291,27 +332,27 @@ export default {
           ]
         }
       ]
-    },
-    {
-      id: "5",
-      name: "样式库",
-      path: "",
-      search: true,
-      child: [
-        {
-          id: "5-1",
-          name: "样式库",
-          child: [
-            {
-              id: "5-1-1",
-              name: "样式库",
-              englishName: "",
-              href: "",
-              child: []
-            }
-          ]
-        }
-      ]
     }
+    // {
+    //   id: "5",
+    //   name: "样式库",
+    //   path: "",
+    //   search: true,
+    //   child: [
+    //     {
+    //       id: "5-1",
+    //       name: "样式库",
+    //       child: [
+    //         {
+    //           id: "5-1-1",
+    //           name: "样式库",
+    //           englishName: "",
+    //           href: "",
+    //           child: []
+    //         }
+    //       ]
+    //     }
+    //   ]
+    // }
   ]
 };

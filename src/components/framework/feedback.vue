@@ -6,8 +6,11 @@
     <a href="javascript:void(0)" class="back">
       <Icon custom="i-td i-td-Qrcode" />
       <div class="fb-commun">
-        <span>关注企业微信群</span>
         <img :src="qrcode" />
+        <p>
+          使用企业微信扫码加入
+          <b>TD 标准化讨论</b>群
+        </p>
       </div>
     </a>
   </div>
@@ -56,7 +59,7 @@ export default {
       }
       &::before {
         transition: all 0.3s ease;
-        opacity: 0;
+        display: none;
         position: absolute;
         content: "";
         right: 60px;
@@ -70,7 +73,7 @@ export default {
       }
       &::after {
         transition: all 0.3s ease;
-        opacity: 0;
+        display: none;
         position: absolute;
         content: "";
         right: 68px;
@@ -80,43 +83,41 @@ export default {
         background: #fff;
         z-index: 110;
       }
-      .fb-commun {
-        transition: all 0.3s ease;
-        opacity: 0;
-        position: absolute;
-        right: 68px;
-        bottom: -2px;
-        background-clip: padding-box;
-        background: #fff;
-        width: 160px;
-        height: 160px;
-        box-shadow: 0 2px 8px -1px rgba(23, 35, 61, 0.25);
-        border-radius: 4px;
-        text-align: center;
-        z-index: 99;
-        span {
-          font-size: 14px;
-          color: rgba(23, 35, 61, 0.75);
-        }
-        img {
-          width: 100px;
-          height: 100px;
-        }
-      }
+
       &:hover {
         .fb-commun,
         &::before,
         &::after {
-          opacity: 1;
+          display: block;
         }
       }
     }
+
+    .fb-commun {
+      transition: all 0.3s ease;
+      display: none;
+      position: absolute;
+      right: 68px;
+      bottom: -2px;
+      background-clip: padding-box;
+      background: #fff;
+      width: 180px;
+      height: 200px;
+      padding: 20px 10px 10px;
+      box-shadow: 0 2px 8px -1px rgba(23, 35, 61, 0.25);
+      border-radius: 4px;
+      text-align: center;
+      z-index: 99;
+      p {
+        font-size: 14px;
+        color: rgba(23, 35, 61, 0.75);
+        line-height: normal;
+      }
+      img {
+        width: 102px;
+        height: 102px;
+      }
+    }
   }
-}
-dt img {
-  transition: all 0.3s ease;
-}
-dt a:hover img {
-  transform: scale(1.2);
 }
 </style>
