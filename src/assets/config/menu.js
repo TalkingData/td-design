@@ -214,9 +214,9 @@ export default {
             },
             {
               id: "4-1-2",
-              name: "字体颜色",
+              name: "图表组成",
               englishName: "",
-              href: "chart-font-color",
+              href: "chart-composition",
               child: []
             }
           ]
@@ -227,55 +227,62 @@ export default {
           child: [
             {
               id: "4-2-1",
+              name: "图表示例",
+              englishName: "Demo Chart",
+              href: "chart-demo",
+              child: []
+            },
+            {
+              id: "4-2-2",
               name: "折线图",
               englishName: "Line Chart",
               href: "chart-line",
               child: []
             },
             {
-              id: "4-2-2",
+              id: "4-2-3",
               name: "柱状图",
               englishName: "Histogram",
               href: "chart-histogram",
               child: []
             },
             {
-              id: "4-2-3",
+              id: "4-2-4",
               name: "条形图",
               englishName: "Bar Chart",
               href: "chart-bar",
               child: []
             },
             {
-              id: "4-2-4",
+              id: "4-2-5",
               name: "面积图",
               englishName: "Area Chart",
               href: "chart-area",
               child: []
             },
             {
-              id: "4-2-5",
+              id: "4-2-6",
               name: "饼图",
               englishName: "Pie Chart",
               href: "chart-pie",
               child: []
             },
             {
-              id: "4-2-6",
+              id: "4-2-7",
               name: "雷达图",
               englishName: "Radar Chart",
               href: "chart-radar",
               child: []
             },
             {
-              id: "4-2-7",
+              id: "4-2-8",
               name: "热力图",
               englishName: "Heatmap",
               href: "chart-heatmap",
               child: []
             },
             {
-              id: "4-2-8",
+              id: "4-2-9",
               name: "漏斗图",
               englishName: "Funnel Chart",
               href: "chart-funnel",
