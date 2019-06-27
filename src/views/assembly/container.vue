@@ -6,6 +6,7 @@
     <Col span="3">
       <my-anchor-link
         :data="data"
+        :loffset="loffset"
         v-if="showAnchor && data.length"
       ></my-anchor-link>
     </Col>
@@ -29,6 +30,11 @@ export default {
     attributeName: {
       type: Boolean,
       default: false
+    },
+
+    loffset: {
+      type: Number,
+      default: -136
     }
   },
   data() {

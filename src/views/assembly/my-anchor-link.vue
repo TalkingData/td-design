@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Anchor show-ink affix :offset-top="86" :scroll-offset="-136">
+    <Anchor show-ink affix :offset-top="86" :scroll-offset="loffset">
       <AnchorLink
         v-for="(item, index) in data"
         :href="item.href"
@@ -15,6 +15,10 @@ export default {
   props: {
     data: {
       type: Array
+    },
+    loffset: {
+      type: Number,
+      default: -136
     }
   }
 };
