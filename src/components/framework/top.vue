@@ -3,9 +3,8 @@
     <Col span="4">
       <div class="layout-logo">
         <router-link to="/home">
-          <img src="../../assets/img/logo.svg" alt />
+          <img src="../../assets/img/logo.png" alt style="height:32px" />
         </router-link>
-        <span>TD Design</span>
       </div>
     </Col>
     <Col span="20">
