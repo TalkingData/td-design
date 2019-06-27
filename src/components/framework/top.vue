@@ -52,7 +52,7 @@
       <!-- 内部操作 -->
       <div class="layout-dropdown">
         <Dropdown trigger="click" placement="bottom-end" @on-click="operation">
-          <Icon type="ios-contact" />
+          <Icon custom="i-td i-td-account_circle_px" />
           <DropdownMenu slot="list">
             <DropdownItem name="updatePassword">
               <Icon type="ios-lock-outline" />修改密码

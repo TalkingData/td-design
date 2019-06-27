@@ -35,7 +35,7 @@ export default {
         [
           {
             name: "于家女",
-            info: "jan.yu@tendcloud.com ( UI设计师 )",
+            info: "jan.yu ( UI设计师 )",
             photo: require("../../assets/img/yjn.png")
           },
           {
@@ -47,7 +47,7 @@ export default {
         [
           {
             name: "刘艳平",
-            info: "yanping.liu@tendcloud.com ( UI设计师 )",
+            info: "yanping.liu ( UI设计师 )",
             photo: require("../../assets/img/lyp.png")
           },
           {

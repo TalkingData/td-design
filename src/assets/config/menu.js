@@ -10,14 +10,14 @@ export default {
         {
           id: "1-1",
           name: "概述",
-          englishName: "Overview",
+          englishName: "",
           href: "brand-overview",
           child: []
         },
         {
           id: "1-2",
           name: "品牌策略",
-          englishName: "Strategy",
+          englishName: "",
           href: "brand-strategy",
           child: []
         },
@@ -28,35 +28,35 @@ export default {
             {
               id: "1-3-1",
               name: "品牌标志",
-              englishName: "Logo",
+              englishName: "",
               href: "brand-logo",
               child: []
             },
             {
               id: "1-3-2",
               name: "标准字体",
-              englishName: "Font",
+              englishName: "",
               href: "brand-font",
               child: []
             },
             {
               id: "1-3-3",
               name: "标准颜色",
-              englishName: "Color",
+              englishName: "",
               href: "brand-color",
               child: []
             },
             {
               id: "1-3-4",
               name: "图片和图形风格",
-              englishName: "Style",
+              englishName: "",
               href: "brand-style",
               child: []
             },
             {
               id: "1-3-5",
               name: "排版版式",
-              englishName: "Typesetting",
+              englishName: "",
               href: "brand-typesetting",
               child: []
             }
@@ -69,21 +69,21 @@ export default {
             {
               id: "1-4-1",
               name: "传播物料",
-              englishName: "Material",
+              englishName: "",
               href: "brand-material",
               child: []
             },
             {
               id: "1-4-2",
               name: "办公系统",
-              englishName: "Office",
+              englishName: "",
               href: "brand-office",
               child: []
             },
             {
               id: "1-4-3",
               name: "PPT模版",
-              englishName: "Ppt",
+              englishName: "",
               href: "brand-ppt",
               child: []
             }
@@ -96,35 +96,35 @@ export default {
             {
               id: "1-5-1",
               name: "概述",
-              englishName: "Outline",
+              englishName: "",
               href: "brand-outline",
               child: []
             },
             {
               id: "1-5-2",
               name: "色彩",
-              englishName: "Hue",
+              englishName: "",
               href: "brand-hue",
               child: []
             },
             {
               id: "1-5-3",
               name: "人物比例",
-              englishName: "Radio",
+              englishName: "",
               href: "brand-radio",
               child: []
             },
             {
               id: "1-5-4",
               name: "人物动作",
-              englishName: "Action",
+              englishName: "",
               href: "brand-action",
               child: []
             },
             {
               id: "1-5-5",
               name: "场景",
-              englishName: "Scenes",
+              englishName: "",
               href: "brand-scenes",
               child: []
             }
