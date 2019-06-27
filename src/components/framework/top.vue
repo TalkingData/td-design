@@ -1,13 +1,13 @@
 <template>
-  <Row :class="['layout-head', { 'layout-head-index': isHome }]">
-    <Col span="4">
+  <div :class="['layout-head clearfix', { 'layout-head-index': isHome }]">
+    <div class="top-left">
       <div class="layout-logo">
         <router-link to="/home">
           <img src="../../assets/img/logo.png" alt style="height:32px" />
         </router-link>
       </div>
-    </Col>
-    <Col span="20">
+    </div>
+    <div class="top-right">
       <div class="layout-nav">
         <!-- 导航 -->
         <nav class="fr">
@@ -51,7 +51,7 @@
       <!-- 内部操作 -->
       <div class="layout-dropdown">
         <Dropdown trigger="click" placement="bottom-end" @on-click="operation">
-          <Icon type="ios-contact" />
+          <Icon custom="i-td i-td-account_circle_px" />
           <DropdownMenu slot="list">
             <DropdownItem name="updatePassword">
               <Icon type="ios-lock-outline" />修改密码
@@ -131,8 +131,8 @@
           </DropdownMenu>
         </Dropdown>
       </div>
-    </Col>
-  </Row>
+    </div>
+  </div>
 </template>
 <script>
 import menu from "@/assets/config/menu.js";
@@ -238,7 +238,7 @@ export default {
       return "/" + this.data[index].path + "/" + path;
     },
     menuChange(key) {
-      if (key == 5) return;
+      // if (key == 5) return;
       const path = this.isChild(key - 1);
       this.$router.push(path);
       this.$bus.$emit("menu-change", key);

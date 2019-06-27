@@ -61,6 +61,7 @@
     <container
       v-else
       :anchorLink="anchorLink"
+      :loffset="20"
       className=".tdDessign-example-header"
     >
       <editor-markdown

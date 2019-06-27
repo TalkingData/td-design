@@ -1,6 +1,10 @@
 <template>
   <div>
-    <container :anchorLink="anchorLink" className=".tdDessign-example-header">
+    <container
+      :anchorLink="anchorLink"
+      :loffset="20"
+      :className="'.tdDessign-example-header'"
+    >
       <editor-markdown
         :data="dataList"
         @dom-loaded="anchorLink = $event"
