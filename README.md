@@ -1,4 +1,4 @@
-# td-dessign
+# td-design
 
 ## Project setup
 ```
