@@ -9,6 +9,7 @@
       placeholder="content"
     />
     <Button @click="search" v-if="!showInfo">查询内容</Button>
+    <Button @click="search($event, 1)" v-if="!showInfo">删除内容</Button>
     <Button @click="create" v-if="showInfo">修改文档</Button>
   </div>
 </template>
@@ -47,21 +48,29 @@ export default {
         }
       });
     },
-    search() {
+    search(e, del) {
       if (this.component_id === "") {
         this.$Message.error("component_id 不能为空");
         return;
       }
+      let url = "/api/document/get";
+      if (del) {
+        url = "/api/document/delete";
+      }
       ajax({
-        urlKey: "/api/document/get",
+        urlKey: url,
         methods: "POST",
         data: {
           id: this.component_id
         }
       }).then(res => {
         if (res.status === 1) {
-          this.content = res.data[0].content;
-          this.showInfo = true;
+          if (!del) {
+            this.content = res.data[0].content;
+            this.showInfo = true;
+          } else {
+            this.$Message.success(res.message);
+          }
         } else {
           this.$Message.error(res.message);
         }
