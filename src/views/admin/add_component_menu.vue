@@ -3,6 +3,11 @@
     <Input type="text" v-model="label" placeholder="label" />
     <Input type="text" v-model="text" placeholder="text" />
     <Button @click="create">创建</Button>
+
+    <div style="margin-top:50px">
+      <Input type="text" v-model="id" placeholder="id" />
+      <Button @click="del">删除</Button>
+    </div>
   </div>
 </template>
 <script>
@@ -11,7 +16,8 @@ export default {
   data() {
     return {
       label: "",
-      text: ""
+      text: "",
+      id: ""
     };
   },
   methods: {
@@ -38,6 +44,32 @@ export default {
         } else {
           this.$Message.error(res.message);
         }
+      });
+    },
+    del() {
+      if (this.id === "") {
+        this.$Message.error("id 不能为空");
+        return;
+      }
+      this.$Modal.confirm({
+        title: "警告",
+        content: `<p>确认删除,${this.id}?</p>`,
+        onOk: () => {
+          ajax({
+            urlKey: "/api/component/delete",
+            methods: "POST",
+            data: {
+              id: this.id
+            }
+          }).then(res => {
+            if (res.status === 1) {
+              this.$Message.success(res.data);
+            } else {
+              this.$Message.error(res.data);
+            }
+          });
+        },
+        onCancel: () => {}
       });
     }
   }

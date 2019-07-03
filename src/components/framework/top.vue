@@ -75,7 +75,7 @@
               name="/admin/component/menu"
               to="/admin/component/menu"
               target="_blank"
-              >创建组件</DropdownItem
+              >创建/删除组件</DropdownItem
             >
             <DropdownItem
               name="/admin/document/add"

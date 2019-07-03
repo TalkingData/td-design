@@ -9,7 +9,7 @@
       placeholder="content"
     />
     <Button @click="search" v-if="!showInfo">查询内容</Button>
-    <Button @click="search($event, 1)" v-if="!showInfo">删除内容</Button>
+    <!-- <Button @click="search($event, 1)" v-if="!showInfo">删除内容</Button> -->
     <Button @click="create" v-if="showInfo">修改文章</Button>
   </div>
 </template>
