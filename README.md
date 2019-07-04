@@ -1,4 +1,4 @@
-# td-design
+# TD Design
 
 ## Project setup
 ```
