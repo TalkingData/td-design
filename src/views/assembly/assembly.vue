@@ -23,11 +23,11 @@
         @on-click="onTagsChange"
         class="assembly-tabs"
       >
-        <TabPane label="文档" name="file"></TabPane>
+        <TabPane :index="0" label="文档" name="file"></TabPane>
 
-        <TabPane label="用法" name="usage"></TabPane>
+        <TabPane :index="1" v-if="usage" label="用法" name="usage"></TabPane>
 
-        <TabPane label="代码" name="code"></TabPane>
+        <TabPane :index="2" label="代码" name="code"></TabPane>
       </Tabs>
 
       <container
@@ -45,7 +45,7 @@
       <editor-markdown
         :data="usage"
         :editor="editor"
-        v-if="tabName === 'usage'"
+        v-if="tabName === 'usage' && usage"
         @on-emit-data="usage = $event"
       ></editor-markdown>
 
@@ -88,7 +88,7 @@ export default {
       editor: false,
       tabName: "file",
       document: "",
-      usage: "",
+      usage: "暂无",
       code: [],
       anchorLink: false,
       isDoc: false,
@@ -209,6 +209,7 @@ export default {
     updateData() {
       if (!this.componentInfo.id) return false;
       this.anchorLink = false;
+      this.tabName = "file";
       this.getDocument();
       this.getUsage();
       this.getCode();
