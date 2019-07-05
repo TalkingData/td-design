@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
 import "./plugins/iview.js";
+import "./directives/magnifier";
 import "./styles/common.less";
 
 Vue.config.productionTip = false;

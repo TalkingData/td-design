@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="article-box" ref="ab">
     <container
       :anchorLink="anchorLink"
       :loffset="20"
@@ -40,7 +40,14 @@ export default {
       this.getDocument();
     }
   },
-  mounted() {},
+  mounted() {
+    // this.$nextTick(function() {
+    //   // Code that will run only after the
+    //   // entire view has been rendered
+    //   this.magnifier();
+    // });
+  },
+
   methods: {
     getDocument() {
       let id = this.$route.params.id;
@@ -54,6 +61,9 @@ export default {
       }).then(res => {
         if (res.status === 1) {
           this.dataList = res.data ? res.data.content : "";
+          // this.$nextTick(function() {
+          //   this.magnifier(this.$refs.ab);
+          // });
         } else {
           this.$Message.error(res.message);
         }

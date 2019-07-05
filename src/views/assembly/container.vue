@@ -1,6 +1,6 @@
 <template>
   <Row class="doc-box">
-    <Col span="21">
+    <Col v-magnifier span="21">
       <slot></slot>
     </Col>
     <Col span="3">
