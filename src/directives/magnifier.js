@@ -14,7 +14,7 @@ Vue.directive("magnifier", {
       const tar = t.target;
       if (tar.tagName === "IMG") {
         if (tar.className.indexOf("fimg-show") > -1) {
-          tar.className = "";
+          tar.className = "fimg-cursor";
           document.body.removeChild(document.getElementById("fimg-shadow"));
         } else {
           tar.className = "fimg-show";
