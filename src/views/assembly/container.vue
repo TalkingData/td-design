@@ -1,5 +1,5 @@
 <template>
-  <Row>
+  <Row class="doc-box">
     <Col span="21">
       <slot></slot>
     </Col>
@@ -82,3 +82,12 @@ export default {
   }
 };
 </script>
+<style lang="less">
+.doc-box {
+  .i-editor-md {
+    margin: 6px auto 0;
+    width: 752px;
+    padding: 0;
+  }
+}
+</style>
