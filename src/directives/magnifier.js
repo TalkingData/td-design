@@ -25,8 +25,8 @@ Vue.directive("magnifier", {
         }
       }
     });
-  },
-  unbind: function(el) {
-    console.log(el);
   }
+  // unbind: function(el) {
+  //   console.log(el);
+  // }
 });
