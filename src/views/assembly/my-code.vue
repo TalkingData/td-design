@@ -9,7 +9,10 @@
     >
       <Card>
         <div class="myCode-case">
-          <my-display :code="option.content"></my-display>
+          <my-display
+            :code="option.content"
+            :componentId="option.id"
+          ></my-display>
         </div>
         <header class="myCode-header" @click="handleCopyCodeId(option.id)">
           <span>{{ option.title }}</span>

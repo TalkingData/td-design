@@ -35,8 +35,10 @@ Vue.directive("magnifier", {
         }
       }
     });
+  },
+  unbind: function() {
+    const sd = document.getElementById("fimg-shadow");
+    document.body.className = "";
+    sd && document.body.removeChild(sd);
   }
-  // unbind: function(el) {
-  //   console.log(el);
-  // }
 });
