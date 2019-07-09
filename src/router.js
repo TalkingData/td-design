@@ -100,6 +100,11 @@ export default new Router({
     {
       path: "/admin/article/update",
       components: require("@/views/admin/update_article.vue")
+    },
+    {
+      path: "/examples/:id",
+      nane: "examples",
+      components: require("@/views/assembly/examples.vue")
     }
   ]
 });

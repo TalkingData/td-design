@@ -9,17 +9,10 @@ import hljs from "highlightjs/highlight.pack.js";
 
 export default {
   data() {
-    return {
-      code: ""
-    };
-  },
-  props: {
-    value: String
+    return {};
   },
   methods: {
     init() {
-      this.code = this.$refs.code.innerHTML;
-      this.$refs.code.innerHTML = this.code;
       hljs.highlightBlock(this.$refs.code);
 
       this.$nextTick(() => {

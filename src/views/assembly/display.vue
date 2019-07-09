@@ -1,15 +1,35 @@
 <template>
-  <div ref="display" style="width:100%"></div>
+  <div>
+    <div ref="display" style="width:100%" v-if="!openExhibition"></div>
+
+    <!-- <router-link :to="'/examples/' + componentId" v-else>
+      <Button type="text">查看事例</Button>
+    </router-link> -->
+    <iframe
+      :src="'/#/examples/' + componentId"
+      v-else
+      style="width:100%;height:360px;border: none"
+    ></iframe>
+  </div>
 </template>
 <script>
 import Vue from "vue";
 import randomStr from "../../../public/lib/random_str.js";
+import mixin from "./mixin.js";
 export default {
+  mixins: [mixin],
   props: {
     code: {
       type: String,
-      default: "",
-      id: randomStr()
+      default: ""
+    },
+    componentId: {
+      type: [String, Number],
+      default: ""
+    },
+    openDisplay: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
@@ -22,7 +42,9 @@ export default {
       html: "",
       js: "",
       css: "",
-      component: null
+      component: null,
+      id: randomStr(),
+      openExhibition: false
     };
   },
   methods: {
@@ -43,6 +65,9 @@ export default {
       );
     },
     splitCode() {
+      if (this.code.indexOf(this.classNames) !== -1 && !this.openDisplay) {
+        this.openExhibition = true;
+      }
       const script = this.getSource(this.code, "script").replace(
         /export default/,
         "return "
@@ -58,14 +83,11 @@ export default {
     renderCode() {
       this.destroyCode();
       this.splitCode();
-
-      if (this.html !== "" && this.js !== "") {
+      if (this.html !== "" && this.js !== "" && !this.openExhibition) {
         const parseStrToFunc = new Function(this.js)();
-
         parseStrToFunc.template = this.html;
         const Component = Vue.extend(parseStrToFunc);
         this.component = new Component().$mount();
-
         this.$refs.display.appendChild(this.component.$el);
         if (this.css !== "") {
           const style = document.createElement("style");
@@ -80,7 +102,7 @@ export default {
       const $target = document.getElementById(this.id);
       if ($target) $target.parentNode.removeChild($target);
 
-      if (this.component) {
+      if (this.component && this.$refs.display) {
         this.$refs.display.removeChild(this.component.$el);
         this.component.$destroy();
         this.component = null;
