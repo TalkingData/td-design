@@ -46,6 +46,10 @@ export default {
   watch: {
     anchorLink: function() {
       this.getDocumentList();
+    },
+    $route() {
+      // fix common container
+      // console.log(1);
     }
   },
   mounted() {
