@@ -23,9 +23,9 @@
                 :to="row.link"
                 :class="row.extra && row.extra.disabled ? 'disabled' : ''"
               >
-                <span :class="['nav', cpType(row.type, row.extra)]">{{
-                  row.type
-                }}</span>
+                <span :class="['nav', cpType(row.type, row.extra)]">
+                  {{ row.type }}
+                </span>
                 <span>{{ row.title }}</span>
               </router-link>
             </div>
@@ -158,6 +158,7 @@ export default {
         }
         .nav-pic {
           padding: 25px 0;
+          text-align: center;
         }
         &.disabled {
           opacity: 0.35;
