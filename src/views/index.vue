@@ -46,6 +46,16 @@ export default {
       cityList: []
     };
   },
+  watch: {
+    $route() {
+      //fix common container magn
+      const sd = document.getElementById("fimg-shadow");
+      if (sd) {
+        document.body.className = "";
+        sd.style.display = "none";
+      }
+    }
+  },
   created() {},
   mounted() {},
   methods: {}

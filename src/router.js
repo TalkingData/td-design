@@ -17,22 +17,22 @@ export default new Router({
         },
         {
           path: "/chart/:id",
-          name: "/chart",
+          name: "chart",
           components: require("@/views/brand/brand.vue")
         },
         {
           path: "/stylelib/:id",
-          name: "/stylelib",
+          name: "stylelib",
           components: require("@/views/brand/brand.vue")
         },
         {
           path: "/modular/:id",
-          name: "/modular",
+          name: "modular",
           components: require("@/views/modular/modular.vue")
         },
         {
           path: "/plate/:id",
-          name: "/plate",
+          name: "plate",
           components: require("@/views/plate/plate.vue")
         },
         {
@@ -54,7 +54,7 @@ export default new Router({
     },
     {
       path: "/home",
-      name: "/home",
+      name: "home",
       components: require("@/views/home/home.vue")
     },
     {
