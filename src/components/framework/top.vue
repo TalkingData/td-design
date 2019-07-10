@@ -160,6 +160,16 @@ export default {
       placeholder: "搜索"
     };
   },
+  watch: {
+    $route(to, from) {
+      if (to.name === from.name) return;
+      const key = this.data.filter(item => item.path === to.name)[0].id;
+      this.$bus.$emit("menu-change", key);
+      //set top menu actived
+      const sta = filterPath.setPath(to.params.id, this.data, to.name);
+      this.activeName = sta.firstCurrent;
+    }
+  },
   mounted() {
     // // let list = ["components"];
     // let name = this.$router.currentRoute.name;
@@ -241,7 +251,7 @@ export default {
       // if (key == 5) return;
       const path = this.isChild(key - 1);
       this.$router.push(path);
-      this.$bus.$emit("menu-change", key);
+      // this.$bus.$emit("menu-change", key);
     },
 
     logOff() {

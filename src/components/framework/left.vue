@@ -80,7 +80,15 @@ export default {
       searchOpen: false
     };
   },
-  watch: {},
+  watch: {
+    $route(to, from) {
+      //set sub menu actived
+      if (to.name === from.name) {
+        const sta = filterPath.setPath(to.params.id, this.data, to.name);
+        this.activeName = sta.leftCurrent;
+      }
+    }
+  },
   mounted() {
     this.$bus.$on("top-getData-end", data => {
       this.data = data;
