@@ -1,5 +1,4 @@
 <template>
-  <!-- <Anchor show-ink :affix="false" :offset-top="86" :scroll-offset="loffset"> -->
   <Affix :offset-top="105">
     <Anchor show-ink :affix="false" :scroll-offset="loffset">
       <AnchorLink
