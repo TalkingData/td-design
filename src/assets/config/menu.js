@@ -332,27 +332,27 @@ export default {
           ]
         }
       ]
+    },
+    {
+      id: "5",
+      name: "样式库",
+      path: "stylelib",
+      search: true,
+      child: [
+        // {
+        //   id: "5-1",
+        //   name: "样式库",
+        //   child: [
+        //     {
+        //       id: "5-1-1",
+        //       name: "样式库",
+        //       englishName: "",
+        //       href: "",
+        //       child: []
+        //     }
+        //   ]
+        // }
+      ]
     }
-    // {
-    //   id: "5",
-    //   name: "样式库",
-    //   path: "",
-    //   search: true,
-    //   child: [
-    //     {
-    //       id: "5-1",
-    //       name: "样式库",
-    //       child: [
-    //         {
-    //           id: "5-1-1",
-    //           name: "样式库",
-    //           englishName: "",
-    //           href: "",
-    //           child: []
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // }
   ]
 };

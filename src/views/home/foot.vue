@@ -87,10 +87,6 @@ export default {
     margin-bottom: 20px;
     border-bottom: 1px solid #dcdee2;
   }
-  ul,
-  li {
-    list-style: none;
-  }
   ul {
     float: left;
     li {

@@ -11,13 +11,13 @@
       <div class="layout-nav">
         <!-- 导航 -->
         <nav class="fr">
-          <Menu
-            mode="horizontal"
-            :active-name="activeName"
-            ref="topmenu"
-            @on-select="menuChange"
-          >
-            <MenuItem v-for="(val, index) in data" :name="val.id" :key="index">
+          <Menu mode="horizontal" :active-name="activeName" ref="topmenu">
+            <MenuItem
+              v-for="(val, index) in data"
+              :name="val.id"
+              :key="index"
+              :to="isChild(val.id - 1)"
+            >
               <!-- <Icon
                 :class="val.iviewIcon === false ? 'icon-' + val.icon : ''"
                 :type="val.icon"
@@ -139,6 +139,7 @@ import menu from "@/assets/config/menu.js";
 import filterPath from "./setpath";
 import { ajax } from "@/util/ajax";
 import { mapActions } from "vuex";
+
 export default {
   inject: ["app"],
   props: {
@@ -163,11 +164,22 @@ export default {
   watch: {
     $route(to, from) {
       if (to.name === from.name) return;
-      const key = this.data.filter(item => item.path === to.name)[0].id;
-      this.$bus.$emit("menu-change", key);
       //set top menu actived
-      const sta = filterPath.setPath(to.params.id, this.data, to.name);
+      let topName;
+      if (!to.params.dtype) {
+        topName = to.name;
+      } else {
+        topName = to.params.dtype;
+      }
+      const sta = filterPath.setPath(to.params.id, this.data, topName);
       this.activeName = sta.firstCurrent;
+      // 其它布局不需要分发菜单数据
+      if (to.meta.uncommon) return;
+      this.$nextTick(() => {
+        this.$bus.$emit("top-getData-end", this.data);
+        const key = this.data.filter(item => item.path === to.name)[0].id;
+        this.$bus.$emit("menu-change", key);
+      });
     }
   },
   mounted() {
@@ -219,17 +231,21 @@ export default {
     },
     init() {
       const pathName = this.$router.currentRoute.params.id;
-      let fname = this.$router.currentRoute.name;
-      if (fname && fname.indexOf("/") > -1) {
-        fname = fname.substring(1);
+      let fname;
+      if (!this.$route.params.dtype) {
+        fname = this.$route.name;
+      } else {
+        fname = this.$route.params.dtype;
       }
-      let index;
-      if (pathName) {
+      let index,
+        meta = this.$route.meta;
+      if (meta.index) {
+        index = 0;
+      } else {
         const temppath = filterPath.setPath(pathName, this.data, fname);
         index = temppath.firstCurrent;
-      } else {
-        index = 0;
       }
+
       this.activeName = index;
       this.$nextTick(() => {
         this.$refs.topmenu.updateActiveName();
@@ -239,20 +255,25 @@ export default {
     isChild(index) {
       let path = "";
       const data = this.data[index].child;
-      if (data[0].child.length) {
-        path = data[0].child[0].href;
+      if (data.length) {
+        if (data[0].child.length) {
+          path = data[0].child[0].href;
+        } else {
+          path = data[0].href;
+        }
       } else {
-        path = data[0].href;
+        path = "";
       }
 
+      if (!path) return "/" + this.data[index].path;
       return "/" + this.data[index].path + "/" + path;
     },
-    menuChange(key) {
-      // if (key == 5) return;
-      const path = this.isChild(key - 1);
-      this.$router.push(path);
-      // this.$bus.$emit("menu-change", key);
-    },
+    // menuChange(key) {
+    //   // if (key == 5) return;
+    //   const path = this.isChild(key - 1);
+    //   this.$router.push(path);
+    //   // this.$bus.$emit("menu-change", key);
+    // },
 
     logOff() {
       this.$router.push("/login");

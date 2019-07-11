@@ -21,11 +21,6 @@ export default new Router({
           components: require("@/views/brand/brand.vue")
         },
         {
-          path: "/stylelib/:id",
-          name: "stylelib",
-          components: require("@/views/brand/brand.vue")
-        },
-        {
           path: "/modular/:id",
           name: "modular",
           components: require("@/views/modular/modular.vue")
@@ -49,13 +44,35 @@ export default new Router({
           path: "/brand/:id",
           name: "brand",
           components: require("@/views/brand/brand.vue")
+        },
+        {
+          path: "/stylelib",
+          name: "stylelib",
+          components: require("@/views/stylelib/stylelib.vue"),
+          meta: { uncommon: true }
+        },
+        {
+          path: "/common",
+          name: "common-detail",
+          components: require("@/components/framework/common-detail.vue"),
+          props: { default: true },
+          meta: { uncommon: true },
+          children: [
+            {
+              path: "/:dtype/detail/:id",
+              name: "sb",
+              components: require("@/views/stylelib/stylelib-detail.vue"),
+              meta: { uncommon: true }
+            }
+          ]
         }
       ]
     },
     {
       path: "/home",
       name: "home",
-      components: require("@/views/home/home.vue")
+      components: require("@/views/home/home.vue"),
+      meta: { index: true }
     },
     {
       path: "/login",

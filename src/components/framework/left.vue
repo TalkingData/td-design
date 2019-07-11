@@ -90,10 +90,13 @@ export default {
     }
   },
   mounted() {
+    // 获取菜单数据
     this.$bus.$on("top-getData-end", data => {
+      if (Array.isArray(this.data) && this.data.length) return;
       this.data = data;
       this.init();
     });
+    // 处理菜单切换状态
     this.$bus.$on("menu-change", key => {
       const data = this.isChild(key - 1);
       this.setActiveName(data.id);
@@ -109,6 +112,10 @@ export default {
       // this.searchList = current.searchList;
       this.searchOpen = current.searchOpen;
     });
+  },
+  destroyed() {
+    this.$bus.$off("top-getData-end");
+    this.$bus.$off("menu-change");
   },
   methods: {
     init() {
@@ -128,6 +135,8 @@ export default {
     },
     isChild(index) {
       let id = "";
+      // if (!this.data[index]) {
+      // }
       const data = this.data[index].child;
       const firstId = data[0].id;
       if (data[0].child.length) {
