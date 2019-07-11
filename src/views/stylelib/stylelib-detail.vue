@@ -6,7 +6,7 @@
         该模板适用于大部分产品数据概览页，布局方式采用左侧固定，右侧自适应方式。
       </p>
       <p class="time">
-        <span>创建时间：2019-08-01</span>
+        <span class="ct">创建时间：2019-08-01</span>
         <span>更新时间：2019-08-01</span>
       </p>
       <div class="slib-opr">
@@ -38,11 +38,11 @@ export default {};
       font-size: 24px;
     }
     p.sub {
-      margin: 10px 0;
+      margin: 20px 0 10px;
       color: rgba(23, 35, 61, 0.75);
     }
     p.time {
-      &:first-child {
+      .ct {
         margin-right: 30px;
       }
       color: rgba(23, 35, 61, 0.5);
