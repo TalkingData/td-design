@@ -16,9 +16,10 @@ export default new Router({
           components: require("@/views/assembly/assembly.vue")
         },
         {
-          path: "/chart/:id",
+          path: "/chart",
           name: "chart",
-          components: require("@/views/brand/brand.vue")
+          components: require("@/views/chart/chart.vue"),
+          meta: { uncommon: true }
         },
         {
           path: "/modular/:id",
@@ -59,9 +60,15 @@ export default new Router({
           meta: { uncommon: true },
           children: [
             {
-              path: "/:dtype/detail/:id",
-              name: "sb",
+              path: "/stylelib-detail/:dtype/:id",
+              name: "stylelib-detail",
               components: require("@/views/stylelib/stylelib-detail.vue"),
+              meta: { uncommon: true }
+            },
+            {
+              path: "/chart-detail/:dtype/:id",
+              name: "chart-detail",
+              components: require("@/views/chart/chart-detail.vue"),
               meta: { uncommon: true }
             }
           ]

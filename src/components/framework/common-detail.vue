@@ -25,6 +25,7 @@
     </div>
     <!-- 右侧内容 -->
     <div class="layout-content">
+      {{ dtype + "-" + id }}
       <router-view></router-view>
     </div>
   </main>

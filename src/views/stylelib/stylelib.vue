@@ -26,9 +26,9 @@
               <Icon size="24" custom="i-td i-td-arrow_drop_down_px"></Icon>
             </a>
             <DropdownMenu slot="list">
-              <DropdownItem v-for="(d, i) in sorts" :name="d.name" :key="i">{{
-                d.name
-              }}</DropdownItem>
+              <DropdownItem v-for="(d, i) in sorts" :name="d.name" :key="i">
+                {{ d.name }}
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -37,7 +37,10 @@
       <div class="tpl-box clearfix">
         <ul>
           <li>
-            <router-link to="/stylelib/detail/wong" class="info clearfix">
+            <router-link
+              to="stylelib-detail/stylelib/wong"
+              class="info clearfix"
+            >
               <span class="title fl">基础分析</span>
               <span class="data fr">
                 <Icon size="16" custom="i-td i-td-visibility_px"></Icon>
