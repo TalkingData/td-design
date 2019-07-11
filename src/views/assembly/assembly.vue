@@ -1,35 +1,14 @@
 <template>
   <div>
     <main v-if="!isDoc" class="assembly">
-      <h2 class="assembly-title" @click="handleCopyComponentID">
-        {{ componentInfo ? componentInfo.name : "" }}
-      </h2>
-      <div class="assembly-bg"></div>
-      <div class="assembly-operation">
-        <!--      <Button type="primary" @click="add()" v-if="tabName === 'code'"-->
-        <!--        >新建</Button-->
-        <!--      >-->
-        <!--      <Button-->
-        <!--        type="primary"-->
-        <!--        @click="editorChange()"-->
-        <!--        v-if="tabName !== 'code'"-->
-        <!--        >{{ editor ? "保存" : "编辑" }}</Button-->
-        <!--      >-->
-      </div>
-
-      <Tabs
-        :animated="false"
+      <assembly-top
+        :componentInfo="componentInfo"
         :value="tabName"
-        @on-click="onTagsChange"
-        class="assembly-tabs"
-      >
-        <TabPane :index="0" label="文档" name="file"></TabPane>
-
-        <TabPane :index="1" v-if="usage" label="用法" name="usage"></TabPane>
-
-        <TabPane :index="2" label="代码" name="code"></TabPane>
-      </Tabs>
-
+        :usage="usage"
+        @handleCopyComponentID="handleCopyComponentID"
+        @onTagsChange="onTagsChange"
+      ></assembly-top>
+      <!-- 文档 -->
       <container
         v-if="tabName === 'file'"
         :anchorLink="anchorLink"
@@ -41,18 +20,25 @@
           @dom-loaded="anchorLink = $event"
         ></editor-markdown>
       </container>
-
-      <editor-markdown
-        :data="usage"
-        :editor="editor"
+      <!-- 用法 -->
+      <container
         v-if="tabName === 'usage' && usage"
-        @on-emit-data="usage = $event"
-      ></editor-markdown>
-
+        :anchorLink="anchorLink"
+        className=".tdDessign-example-header"
+      >
+        <editor-markdown
+          :data="usage"
+          :editor="editor"
+          @on-emit-data="usage = $event"
+          @dom-loaded="anchorLink = $event"
+        ></editor-markdown>
+      </container>
+      <!-- 代码 -->
       <container
         v-if="tabName === 'code'"
         :anchorLink="anchorLink"
         attributeName
+        :loffset="-186"
         className=".myCode-content"
       >
         <my-code :code="code" @dom-loaded="anchorLink = $event"></my-code>
@@ -79,10 +65,10 @@ import myCode from "./my-code.vue";
 import { ajax } from "@/util/ajax";
 import Clipboard from "clipboard";
 import filterPath from "../../components/framework/setpath.js";
-
+import assemblyTop from "./assembly-top.vue";
 export default {
   inject: ["app"],
-  components: { editorMarkdown, myCode, container },
+  components: { editorMarkdown, myCode, container, assemblyTop },
   data() {
     return {
       editor: false,
@@ -92,30 +78,14 @@ export default {
       code: [],
       anchorLink: false,
       isDoc: false,
-      dataList: ""
-      // componentInfo: {}
+      dataList: "",
+      componentInfo: {}
     };
   },
-  computed: {
-    componentInfo() {
-      let fname = this.$router.currentRoute.name;
-      if (fname && fname.indexOf("/") > -1) {
-        fname = fname.substring(1);
-      }
-      let data = filterPath.setPath(
-        this.$route.params.id,
-        this.$store.state.menuData,
-        fname
-      );
-      if (data && data.childObj) {
-        return data.childObj;
-      } else {
-        return {};
-      }
-    }
-  },
+  computed: {},
   methods: {
     getArticle() {
+      this.isDoc = true;
       let id = this.$route.params.id;
       this.anchorLink = false;
       ajax({
@@ -152,12 +122,16 @@ export default {
     onTagsChange(data) {
       this.anchorLink = false;
       this.tabName = data;
+      this.$router.push(`/components/${this.$router.currentRoute.params.id}`);
     },
     add() {
       this.$router.push(
         `/components/${this.$router.currentRoute.params.id}/addAssembly`
       );
     },
+    /**
+     * 请求文档
+     */
     getDocument() {
       ajax({
         urlKey: "/api/document/get",
@@ -170,12 +144,14 @@ export default {
           if (res.data.length) {
             this.document = res.data[0].content;
           }
-          // console.log("请求到数据了");
         } else {
           this.$Message.error(res.message);
         }
       });
     },
+    /**
+     * 请求用法
+     */
     getUsage() {
       ajax({
         urlKey: "/api/usage/get",
@@ -186,11 +162,17 @@ export default {
       }).then(res => {
         if (res.status === 1) {
           this.usage = res.data.length ? res.data[0].content : "";
+          if (!this.usage) {
+            this.tabName = "file";
+          }
         } else {
           this.$Message.error(res.message);
         }
       });
     },
+    /**
+     * 请求代码
+     */
     getCode() {
       ajax({
         urlKey: "/api/code/get",
@@ -206,37 +188,69 @@ export default {
         }
       });
     },
+    /**
+     * 获取数据
+     */
     updateData() {
+      this.isDoc = false;
+      this.setComponentInfo();
       if (!this.componentInfo.id) return false;
       this.anchorLink = false;
-      this.tabName = "file";
+
       this.getDocument();
       this.getUsage();
       this.getCode();
+    },
+    /**
+     * 设置title 和 id
+     */
+    setComponentInfo() {
+      let fname = this.$router.currentRoute.name;
+      if (fname && fname.indexOf("/") > -1) {
+        fname = fname.substring(1);
+      }
+      let data = filterPath.setPath(
+        this.$route.params.id,
+        this.$store.state.menuData,
+        fname
+      );
+      if (data && data.childObj) {
+        this.componentInfo = data.childObj;
+      } else {
+        this.componentInfo = {};
+      }
     }
   },
   mounted() {
-    if (this.$route.params.id == "components-use") {
-      this.isDoc = true;
+    if (this.$route.params.id === "components-use") {
       this.getArticle();
+    } else if (this.$store.state.menuData.length) {
+      this.updateData();
     }
   },
   watch: {
-    componentInfo: {
-      handler() {
-        this.updateData();
-      },
-      immediate: true,
-      deep: true
-    },
-    $route(to) {
-      if (to.params.id == "components-use") {
-        this.isDoc = true;
-        this.getArticle();
-      } else {
-        this.isDoc = false;
-        this.updateData();
+    /**
+     * 列表数据请求需要时间
+     */
+    "$store.state.menuData": {
+      handler(data) {
+        if (data.length && this.$route.params.id !== "components-use") {
+          this.updateData();
+        }
       }
+    },
+    /**
+     * 监听params.id
+     */
+    "$route.params.id": {
+      handler(id) {
+        if (id === "components-use") {
+          this.getArticle();
+        } else {
+          this.updateData();
+        }
+      }
+      // deep: true 这里不能设置deep为true
     }
   }
 };

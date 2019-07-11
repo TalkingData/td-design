@@ -1,33 +1,22 @@
 .assembly {
-    position: relative;
-    height: 100%;
-    padding-top: 114px;
-    &-bg{
+    &-top{
         width: 100%;
-        height: 155px;
+        height: 160px;
         background: #F3F8FE;
-        position: absolute;
-        top:0;
+        &>section{
+            margin: 0 auto ;
+            width: 752px;
+        }
     }
     &-tabs{
-        padding-left: 56px;
         .ivu-tabs-bar{
             border-color: transparent;
         }
     }
     &-title {
-        //font-family: HelveticaNeue;
         font-size: 32px;
         color: #17233D;
         line-height: 32px;
-        position: absolute;
-        top:53px;
-        left:56px;
-        z-index: 1;
-    }
-    &-operation{
-        position: absolute;
-        right: 20px;
-        z-index: 2;
+        padding: 52px 0 35px;
     }
 }
