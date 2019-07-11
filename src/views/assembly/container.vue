@@ -1,5 +1,5 @@
 <template>
-  <Row class="doc-box">
+  <!-- <Row class="doc-box">
     <Col v-magnifier span="21">
       <slot></slot>
     </Col>
@@ -10,7 +10,17 @@
         v-if="showAnchor && data.length"
       ></my-anchor-link>
     </Col>
-  </Row>
+  </Row> -->
+  <div class="doc-box clearfix">
+    <slot></slot>
+    <div class="doc-box-anchor">
+      <my-anchor-link
+        :data="data"
+        :loffset="loffset"
+        v-if="showAnchor && data.length"
+      ></my-anchor-link>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,10 +41,8 @@ export default {
       type: Boolean,
       default: false
     },
-
     loffset: {
-      type: Number,
-      default: -136
+      type: Number
     }
   },
   data() {
@@ -46,10 +54,6 @@ export default {
   watch: {
     anchorLink: function() {
       this.getDocumentList();
-    },
-    $route() {
-      // fix common container
-      // console.log(1);
     }
   },
   mounted() {
@@ -70,6 +74,7 @@ export default {
     getDocumentList() {
       if (!this.anchorLink) return false;
       let allEles = document.querySelectorAll(this.className);
+
       let accumulator = [];
       allEles.forEach(item => {
         accumulator.push({
@@ -88,10 +93,17 @@ export default {
 </script>
 <style lang="less">
 .doc-box {
-  .i-editor-md {
-    margin: 6px auto 0;
-    width: 752px;
-    padding: 0;
+  margin: 6px auto 0;
+  width: 752px;
+  padding: 0;
+  position: relative;
+  &-anchor {
+    position: absolute;
+    left: 776px;
+    top: 24px;
+    .ivu-affix {
+      left: inherit;
+    }
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Anchor show-ink affix :offset-top="86" :scroll-offset="loffset">
+  <Affix :offset-top="105">
+    <Anchor show-ink :affix="false" :scroll-offset="loffset">
       <AnchorLink
         v-for="(item, index) in data"
         :href="item.href"
@@ -8,7 +8,7 @@
         :key="index"
       />
     </Anchor>
-  </div>
+  </Affix>
 </template>
 <script>
 export default {
@@ -19,6 +19,7 @@ export default {
     loffset: {
       type: Number,
       default: -136
+      //default: -156
     }
   }
 };
