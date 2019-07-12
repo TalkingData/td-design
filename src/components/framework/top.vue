@@ -78,6 +78,13 @@
               >创建/删除组件</DropdownItem
             >
             <DropdownItem
+              name="/admin/upload/assets"
+              to="/admin/upload/assets"
+              target="_blank"
+              divided
+              >上传资源</DropdownItem
+            >
+            <DropdownItem
               name="/admin/document/add"
               to="/admin/document/add"
               target="_blank"

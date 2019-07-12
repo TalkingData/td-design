@@ -14,6 +14,7 @@
     "iview-editor": "^1.1.1",
     "js-md5": "^0.7.3",
     "marked": "^0.6.2",
+    "moment": "^2.24.0",
     "register-service-worker": "^1.6.2",
     "td-component": "^1.0.6",
     "vue": "^2.6.6",

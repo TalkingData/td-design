@@ -1,31 +1,30 @@
 <template>
   <main class="common">
     <div class="clearfix">
-      <breadnav></breadnav>
+      <breadnav :bread="bread"></breadnav>
     </div>
     <!-- 左侧菜单 -->
     <div class="layout-left">
-      <Menu width="auto">
-        <Submenu name="1">
-          <template slot="title"
-            >内容管理</template
+      <Menu
+        width="auto"
+        :active-name="activeName"
+        :open-names="openNames"
+        ref="lmu"
+      >
+        <Submenu v-for="(i, j) in menu" :key="j" :name="i.id">
+          <template slot="title">{{ i.name }}</template>
+          <MenuItem
+            v-for="(s, k) in i.child"
+            :key="k"
+            :to="s.to"
+            :name="s.id"
+            >{{ s.name }}</MenuItem
           >
-          <MenuItem name="1-1">文章管理</MenuItem>
-          <MenuItem name="1-2">评论管理</MenuItem>
-          <MenuItem name="1-3">举报管理</MenuItem>
-        </Submenu>
-        <Submenu name="2">
-          <template slot="title"
-            >用户管理</template
-          >
-          <MenuItem name="2-1">新增用户</MenuItem>
-          <MenuItem name="2-2">活跃用户</MenuItem>
         </Submenu>
       </Menu>
     </div>
     <!-- 右侧内容 -->
     <div class="layout-content">
-      {{ dtype + "-" + id }}
       <router-view></router-view>
     </div>
   </main>
@@ -37,6 +36,14 @@ export default {
   components: {
     breadnav
   },
+  data() {
+    return {
+      bread: [],
+      menu: [],
+      activeName: "",
+      openNames: []
+    };
+  },
   props: {
     dtype: {
       type: String,
@@ -46,6 +53,28 @@ export default {
       type: String,
       default: ""
     }
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    // 获取子组件数据
+    getData() {
+      this.activeName = this.$route.params.id;
+      this.$bus.$on("detail-data", d => {
+        // console.log(d);
+        this.bread = d.bread;
+        this.menu = d.menu;
+        this.openNames = d.openNames;
+        this.$nextTick(() => {
+          this.$refs.lmu.updateOpened();
+          this.$refs.lmu.updateActiveName();
+        });
+      });
+    }
+  },
+  destroyed() {
+    this.$bus.$off("detail-data");
   }
 };
 </script>

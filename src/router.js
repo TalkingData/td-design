@@ -94,6 +94,10 @@ export default new Router({
       components: require("@/views/admin/add_component_menu.vue")
     },
     {
+      path: "/admin/upload/assets",
+      components: require("@/views/admin/upload-assets.vue")
+    },
+    {
       path: "/admin/document/add",
       components: require("@/views/admin/add_document.vue")
     },

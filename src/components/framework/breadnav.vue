@@ -5,12 +5,12 @@
       <Breadcrumb
         separator="<i class='ivu-icon i-td i-td-keyboard_arrow_right'></i>"
       >
-        <BreadcrumbItem to="/">Home</BreadcrumbItem>
-        <BreadcrumbItem to="/components/breadcrumb">Components</BreadcrumbItem>
-        <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
+        <BreadcrumbItem v-for="(i, j) in bread" :key="j" :to="i.to">
+          {{ i.name }}
+        </BreadcrumbItem>
       </Breadcrumb>
     </div>
-    <div class="fr">
+    <div v-if="preview" class="fr">
       <Button @click="exitPreview" type="primary">退出预览</Button>
     </div>
   </div>
@@ -18,10 +18,29 @@
 
 <script>
 export default {
+  props: {
+    bread: {
+      type: Array,
+      default: () => []
+    },
+    preview: {
+      type: Boolean,
+      default: false
+    }
+  },
+  created() {},
   methods: {
     exitPreview() {
       console.log("exit");
+    },
+    handlerPreview() {
+      this.$bus.$on("detail-preview", url => {
+        console.log(url);
+      });
     }
+  },
+  destroyed() {
+    this.$bus.$off("detail-preview");
   }
 };
 </script>
@@ -36,6 +55,10 @@ export default {
   line-height: 56px;
   background: #ffffff;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14);
+  &.floa {
+    z-index: 999999;
+    top: 0;
+  }
   .nav-type {
     display: inline-block;
     margin-right: 20px;
