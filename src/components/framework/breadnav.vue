@@ -1,13 +1,13 @@
 <template>
-  <div class="bread-nav">
+  <div :class="['bread-nav', preview ? 'float' : '']">
     <div class="fl">
       <span class="nav-type chart">C</span>
       <Breadcrumb
         separator="<i class='ivu-icon i-td i-td-keyboard_arrow_right'></i>"
       >
-        <BreadcrumbItem v-for="(i, j) in bread" :key="j" :to="i.to">
-          {{ i.name }}
-        </BreadcrumbItem>
+        <BreadcrumbItem v-for="(i, j) in bread" :key="j" :to="i.to">{{
+          i.name
+        }}</BreadcrumbItem>
       </Breadcrumb>
     </div>
     <div v-if="preview" class="fr">
@@ -31,16 +31,8 @@ export default {
   created() {},
   methods: {
     exitPreview() {
-      console.log("exit");
-    },
-    handlerPreview() {
-      this.$bus.$on("detail-preview", url => {
-        console.log(url);
-      });
+      this.$parent.$parent && this.$parent.$parent.close();
     }
-  },
-  destroyed() {
-    this.$bus.$off("detail-preview");
   }
 };
 </script>
@@ -55,9 +47,10 @@ export default {
   line-height: 56px;
   background: #ffffff;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14);
-  &.floa {
-    z-index: 999999;
+  &.float {
     top: 0;
+    left: 0;
+    right: 0;
   }
   .nav-type {
     display: inline-block;

@@ -25,7 +25,11 @@
       <img :src="detail.src" alt />
     </div>
     <!-- preview -->
-    <stylelib-preview :preview="previews"></stylelib-preview>
+    <stylelib-preview
+      :preview="previews"
+      :url="url"
+      :bread="bread"
+    ></stylelib-preview>
   </div>
 </template>
 
@@ -36,6 +40,8 @@ export default {
   data() {
     return {
       previews: false,
+      url: "",
+      bread: [],
       detail: {}
     };
   },
@@ -78,12 +84,13 @@ export default {
       });
       if (res && res.status == 1) {
         this.tplList = res.data;
+        this.bread = [
+          { name: "样式库", to: "/stylelib" },
+          { name: detail.title, to: `/stylelib-detail/stylelib/${detail.id}` }
+        ];
         // 分发详情数据
         let tdata = {
-          bread: [
-            { name: "样式库", to: "/stylelib" },
-            { name: detail.title, to: `/stylelib-detail/stylelib/${detail.id}` }
-          ],
+          bread: this.bread,
           menu: this.handlerMenu(res.data, detail.tag),
           activeName: detail.id,
           openNames: [detail.tag.id]
@@ -111,8 +118,11 @@ export default {
       return mu;
     },
     preview(url) {
-      this.preview = true;
-      this.$bus.$emit("detail-preview", url);
+      this.previews = true;
+      this.url = url;
+    },
+    closePreview() {
+      this.previews = false;
     },
     goCode(url) {
       window.open(url);
