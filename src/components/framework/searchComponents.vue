@@ -130,6 +130,7 @@ export default {
         }
         this.$refs.iSelect.clearSingleSelect();
         this.$emit("on-search-change", selected.id);
+        if (this.$route.name === "chart") return;
         this.$router.push(`/${curNav}/${data}`);
       }
     }

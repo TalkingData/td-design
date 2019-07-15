@@ -12,18 +12,15 @@
         <!-- 导航 -->
         <nav class="fr">
           <Menu mode="horizontal" :active-name="activeName" ref="topmenu">
-            <MenuItem
-              v-for="(val, index) in data"
-              :name="val.id"
-              :key="index"
-              :to="isChild(val.id - 1)"
-            >
-              <!-- <Icon
+            <template v-for="(val, index) in data">
+              <MenuItem :name="val.id" :key="index" :to="isChild(val.id - 1)">
+                <!-- <Icon
                 :class="val.iviewIcon === false ? 'icon-' + val.icon : ''"
                 :type="val.icon"
-              ></Icon>-->
-              {{ val.name }}
-            </MenuItem>
+                ></Icon>-->
+                {{ val.name }}
+              </MenuItem>
+            </template>
           </Menu>
         </nav>
         <!-- 搜索组件 -->
@@ -189,12 +186,15 @@ export default {
       });
     }
   },
+  created() {
+    this.setMenuData(this.data);
+  },
   mounted() {
     // // let list = ["components"];
     // let name = this.$router.currentRoute.name;
     this.getTabularData().then(() => {
       this.$bus.$emit("top-getData-end", this.data);
-      this.setMenuData(this.data);
+      // this.setMenuData(this.data);
       this.init();
     });
   },
@@ -218,11 +218,13 @@ export default {
     setData(data) {
       let name = "components";
       let idx = -1;
-      this.data.forEach((item, index) => {
+      this.data.some((item, index) => {
         if (item.path === name) {
           idx = index;
         }
       });
+
+      if (idx < 0) return;
 
       let list = data.map(item => {
         return {
@@ -262,7 +264,7 @@ export default {
     isChild(index) {
       let path = "";
       const data = this.data[index].child;
-      if (data.length) {
+      if (data.length && this.data[index].path !== "chart") {
         if (data[0].child.length) {
           path = data[0].child[0].href;
         } else {

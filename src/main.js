@@ -6,6 +6,7 @@ import "./registerServiceWorker";
 import "./plugins/iview.js";
 import "./plugins/moment";
 import "./directives/magnifier";
+import "./directives/anchor";
 import "./styles/common.less";
 
 Vue.config.productionTip = false;
