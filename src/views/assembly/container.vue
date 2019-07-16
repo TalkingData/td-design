@@ -16,11 +16,7 @@
       <slot></slot>
     </div>
     <div class="doc-box-anchor">
-      <my-anchor-link
-        :data="data"
-        :loffset="loffset"
-        v-if="showAnchor && data.length"
-      ></my-anchor-link>
+      <my-anchor-link :data="data" :loffset="loffset" v-if="showAnchor && data.length"></my-anchor-link>
     </div>
   </div>
 </template>
