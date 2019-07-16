@@ -1,24 +1,31 @@
 <template>
-  <div class="upload">
-    <Upload
-      action="https://up.qbox.me"
-      :show-upload-list="false"
-      :data="uploadForm"
-      :before-upload="beforeUpload"
-      :on-success="handleSuccess"
-      :on-error="handleError"
-      :on-progress="handleProgress"
-    >
-      <Button type="primary">上传文件</Button>
-      {{ uploadPercent }}%
-    </Upload>
+  <div class="main-top">
+    <top></top>
+    <div class="upload">
+      <Upload
+        action="https://up.qbox.me"
+        :show-upload-list="false"
+        :data="uploadForm"
+        :before-upload="beforeUpload"
+        :on-success="handleSuccess"
+        :on-error="handleError"
+        :on-progress="handleProgress"
+      >
+        <Button type="primary">上传文件</Button>
+        {{ uploadPercent }}%
+      </Upload>
 
-    <p>{{ prefix + file_name }}</p>
+      <p>{{ prefix + file_name }}</p>
+    </div>
   </div>
 </template>
 <script>
 import { ajax } from "@/util/ajax";
+import top from "@/components/framework/top";
 export default {
+  components: {
+    top
+  },
   data() {
     return {
       prefix: "http://design.talkingdata.com/",

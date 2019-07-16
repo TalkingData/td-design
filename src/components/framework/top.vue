@@ -47,7 +47,12 @@
       </div>
       <!-- 内部操作 -->
       <div class="layout-dropdown">
-        <Dropdown trigger="click" placement="bottom-end" @on-click="operation">
+        <Dropdown
+          class="drp"
+          trigger="click"
+          placement="bottom-end"
+          @on-click="operation"
+        >
           <Icon custom="i-td i-td-account_circle_px" />
           <DropdownMenu slot="list">
             <DropdownItem name="updatePassword">
@@ -60,6 +65,7 @@
         </Dropdown>
         <Dropdown
           placement="bottom-end"
+          class="drp"
           trigger="click"
           @on-click="handleOpenAdmin"
           v-if="app.userInfo && app.userInfo.status === 2"
@@ -68,70 +74,100 @@
             <Icon type="md-apps" />
           </span>
           <DropdownMenu slot="list">
-            <DropdownItem
-              name="/admin/component/menu"
-              to="/admin/component/menu"
-              target="_blank"
-              >创建/删除组件</DropdownItem
-            >
-            <DropdownItem
-              name="/admin/upload/assets"
-              to="/admin/upload/assets"
-              target="_blank"
-              divided
-              >上传资源</DropdownItem
-            >
-            <DropdownItem
-              name="/admin/document/add"
-              to="/admin/document/add"
-              target="_blank"
-              divided
-              >添加文档</DropdownItem
-            >
-            <DropdownItem
-              name="/admin/usage/add"
-              to="/admin/usage/add"
-              target="_blank"
-              >添加用法</DropdownItem
-            >
-            <DropdownItem
-              name="/admin/code/add"
-              to="/admin/code/add"
-              target="_blank"
-              >添加示例</DropdownItem
-            >
-            <DropdownItem
-              name="/admin/document/update"
-              to="/admin/document/update"
-              target="_blank"
-              divided
-              >修改文档</DropdownItem
-            >
-            <DropdownItem
-              name="/admin/usage/update"
-              to="/admin/usage/update"
-              target="_blank"
-              >修改用法</DropdownItem
-            >
-            <DropdownItem
-              name="/admin/code/update"
-              to="/admin/code/update"
-              target="_blank"
-              >修改示例</DropdownItem
-            >
-            <DropdownItem
-              name="/admin/article/add"
-              to="/admin/article/add"
-              target="_blank"
-              divided
-              >添加文章</DropdownItem
-            >
-            <DropdownItem
-              name="/admin/article/update"
-              to="/admin/article/update"
-              target="_blank"
-              >修改文章</DropdownItem
-            >
+            <Dropdown placement="right-start">
+              <DropdownItem>
+                样式库管理
+                <Icon type="ios-arrow-forward"></Icon>
+              </DropdownItem>
+              <DropdownMenu slot="list">
+                <DropdownItem
+                  name="/admin/upload/assets"
+                  to="/admin/upload/assets"
+                  target="_blank"
+                  >上传资源</DropdownItem
+                >
+                <DropdownItem
+                  name="/admin/stylelib"
+                  to="/admin/stylelib"
+                  target="_blank"
+                  divided
+                  >模版管理</DropdownItem
+                >
+              </DropdownMenu>
+            </Dropdown>
+
+            <Dropdown placement="right-start">
+              <DropdownItem>
+                组件管理
+                <Icon type="ios-arrow-forward"></Icon>
+              </DropdownItem>
+              <DropdownMenu slot="list">
+                <DropdownItem
+                  name="/admin/component/menu"
+                  to="/admin/component/menu"
+                  target="_blank"
+                  >创建/删除组件</DropdownItem
+                >
+                <DropdownItem
+                  name="/admin/document/add"
+                  to="/admin/document/add"
+                  target="_blank"
+                  divided
+                  >添加文档</DropdownItem
+                >
+                <DropdownItem
+                  name="/admin/usage/add"
+                  to="/admin/usage/add"
+                  target="_blank"
+                  >添加用法</DropdownItem
+                >
+                <DropdownItem
+                  name="/admin/code/add"
+                  to="/admin/code/add"
+                  target="_blank"
+                  >添加示例</DropdownItem
+                >
+                <DropdownItem
+                  name="/admin/document/update"
+                  to="/admin/document/update"
+                  target="_blank"
+                  divided
+                  >修改文档</DropdownItem
+                >
+                <DropdownItem
+                  name="/admin/usage/update"
+                  to="/admin/usage/update"
+                  target="_blank"
+                  >修改用法</DropdownItem
+                >
+                <DropdownItem
+                  name="/admin/code/update"
+                  to="/admin/code/update"
+                  target="_blank"
+                  >修改示例</DropdownItem
+                >
+              </DropdownMenu>
+            </Dropdown>
+            <Dropdown placement="right-start">
+              <DropdownItem>
+                文章管理
+                <Icon type="ios-arrow-forward"></Icon>
+              </DropdownItem>
+              <DropdownMenu slot="list">
+                <DropdownItem
+                  name="/admin/article/add"
+                  to="/admin/article/add"
+                  target="_blank"
+                  >添加文章</DropdownItem
+                >
+                <DropdownItem
+                  name="/admin/article/update"
+                  to="/admin/article/update"
+                  target="_blank"
+                  >修改文章</DropdownItem
+                >
+              </DropdownMenu>
+            </Dropdown>
           </DropdownMenu>
         </Dropdown>
       </div>
@@ -179,11 +215,11 @@ export default {
       this.activeName = sta.firstCurrent;
       // 其它布局不需要分发菜单数据
       if (to.meta.uncommon) return;
-      this.$nextTick(() => {
-        this.$bus.$emit("top-getData-end", this.data);
-        const key = this.data.filter(item => item.path === to.name)[0].id;
-        this.$bus.$emit("menu-change", key);
-      });
+      // this.$nextTick(() => {
+      this.$bus.$emit("top-getData-end", this.data);
+      const key = this.data.filter(item => item.path === to.name)[0].id;
+      this.$bus.$emit("menu-change", key);
+      // });
     }
   },
   created() {
@@ -264,7 +300,8 @@ export default {
     isChild(index) {
       let path = "";
       const data = this.data[index].child;
-      if (data.length && this.data[index].path !== "chart") {
+      // if (data.length && this.data[index].path !== "chart") {
+      if (data.length) {
         if (data[0].child.length) {
           path = data[0].child[0].href;
         } else {

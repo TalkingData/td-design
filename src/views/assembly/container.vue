@@ -10,9 +10,11 @@
         v-if="showAnchor && data.length"
       ></my-anchor-link>
     </Col>
-  </Row> -->
+  </Row>-->
   <div class="doc-box clearfix">
-    <slot></slot>
+    <div class="magnBox" v-magnifier>
+      <slot></slot>
+    </div>
     <div class="doc-box-anchor">
       <my-anchor-link
         :data="data"

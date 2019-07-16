@@ -16,11 +16,16 @@ export default new Router({
           components: require("@/views/assembly/assembly.vue")
         },
         {
-          path: "/chart",
+          path: "/chart/:id",
           name: "chart",
-          components: require("@/views/chart/chart.vue"),
-          meta: { uncommon: true }
+          components: require("@/views/brand/brand.vue")
         },
+        // {
+        //   path: "/chart",
+        //   name: "chart",
+        //   components: require("@/views/chart/chart.vue"),
+        //   meta: { uncommon: true }
+        // },
         {
           path: "/modular/:id",
           name: "modular",
@@ -92,6 +97,10 @@ export default new Router({
     {
       path: "/admin/component/menu",
       components: require("@/views/admin/add_component_menu.vue")
+    },
+    {
+      path: "/admin/stylelib",
+      components: require("@/views/admin/stylelib-admin.vue")
     },
     {
       path: "/admin/upload/assets",
