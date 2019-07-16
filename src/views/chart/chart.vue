@@ -26,18 +26,19 @@
       </Menu>
     </div>
     <div class="layout-content">
-      <div :id="'a4-1-' + index" class="item" v-for="(index, j) in 9" :key="j">
-        {{ index }}
-      </div>
+      <!-- <div :id="'a4-1-' + index" class="item" v-for="(index, j) in 9" :key="j">{{ index }}</div> -->
+      <chart-content></chart-content>
     </div>
   </div>
 </template>
 <script>
 import searchComponents from "../../components/framework/searchComponents";
+import chartContent from "./chart-content";
 import { mapState } from "vuex";
 export default {
   components: {
-    searchComponents
+    searchComponents,
+    chartContent
   },
   computed: {
     ...mapState({

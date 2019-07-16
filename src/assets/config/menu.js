@@ -268,64 +268,64 @@ export default {
           id: "4-1",
           name: "图表",
           child: [
+            // {
+            //   id: "4-1-1",
+            //   name: "图表示例",
+            //   englishName: "Demo Chart",
+            //   href: "chart-demo",
+            //   child: []
+            // },
             {
               id: "4-1-1",
-              name: "图表示例",
-              englishName: "Demo Chart",
-              href: "chart-demo",
-              child: []
-            },
-            {
-              id: "4-1-2",
               name: "折线图",
               englishName: "Line Chart",
               href: "chart-line",
               child: []
             },
             {
-              id: "4-1-3",
+              id: "4-1-2",
               name: "柱状图",
               englishName: "Histogram",
               href: "chart-histogram",
               child: []
             },
             {
-              id: "4-1-4",
+              id: "4-1-3",
               name: "条形图",
               englishName: "Bar Chart",
               href: "chart-bar",
               child: []
             },
             {
-              id: "4-1-5",
+              id: "4-1-4",
               name: "面积图",
               englishName: "Area Chart",
               href: "chart-area",
               child: []
             },
             {
-              id: "4-1-6",
+              id: "4-1-5",
               name: "饼图",
               englishName: "Pie Chart",
               href: "chart-pie",
               child: []
             },
             {
-              id: "4-1-7",
+              id: "4-1-6",
               name: "雷达图",
               englishName: "Radar Chart",
               href: "chart-radar",
               child: []
             },
             {
-              id: "4-1-8",
+              id: "4-1-7",
               name: "热力图",
               englishName: "Heatmap",
               href: "chart-heatmap",
               child: []
             },
             {
-              id: "4-1-9",
+              id: "4-1-8",
               name: "漏斗图",
               englishName: "Funnel Chart",
               href: "chart-funnel",
