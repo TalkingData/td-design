@@ -1,5 +1,5 @@
 <template>
-  <!-- <Row class="doc-box">
+    <!-- <Row class="doc-box">
     <Col v-magnifier span="21">
       <slot></slot>
     </Col>
@@ -11,99 +11,102 @@
       ></my-anchor-link>
     </Col>
   </Row> -->
-  <div class="doc-box clearfix">
-    <slot></slot>
-    <div class="doc-box-anchor">
-      <my-anchor-link
-        :data="data"
-        :loffset="loffset"
-        v-if="showAnchor && data.length"
-      ></my-anchor-link>
+    <div
+        class="doc-box clearfix"
+        v-magnifier
+    >
+        <slot></slot>
+        <div class="doc-box-anchor">
+            <my-anchor-link
+                :data="data"
+                :loffset="loffset"
+                v-if="showAnchor && data.length"
+            ></my-anchor-link>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import myAnchorLink from "./my-anchor-link";
+import myAnchorLink from './my-anchor-link';
 export default {
-  props: {
-    anchorLink: {
-      type: Boolean,
-      default: false
+    props: {
+        anchorLink: {
+            type: Boolean,
+            default: false
+        },
+        tabName: {
+            type: String
+        },
+        className: {
+            type: String
+        },
+        attributeName: {
+            type: Boolean,
+            default: false
+        },
+        loffset: {
+            type: Number
+        }
     },
-    tabName: {
-      type: String
+    data() {
+        return {
+            data: [],
+            showAnchor: false
+        };
     },
-    className: {
-      type: String
+    watch: {
+        anchorLink: function() {
+            this.getDocumentList();
+        }
     },
-    attributeName: {
-      type: Boolean,
-      default: false
-    },
-    loffset: {
-      type: Number
-    }
-  },
-  data() {
-    return {
-      data: [],
-      showAnchor: false
-    };
-  },
-  watch: {
-    anchorLink: function() {
-      this.getDocumentList();
-    }
-  },
-  mounted() {
-    // 接收左侧导航触发scrollTop=0后，为重新渲染锚点anchor做准备
-    this.$bus.$on("init-Anchor-scrollTop-notice", data => {
-      this.showAnchor = data;
-    });
-    this.getDocumentList();
-  },
-  components: {
-    myAnchorLink
-  },
-  methods: {
-    /**
-     * 获取指定class名的节点
-     * 节点属性id以及内容
-     */
-    getDocumentList() {
-      if (!this.anchorLink) return false;
-      let allEles = document.querySelectorAll(this.className);
-
-      let accumulator = [];
-      allEles.forEach(item => {
-        accumulator.push({
-          title: this.attributeName
-            ? item.getAttribute("name")
-            : item.innerText,
-          href: "#" + item.id
+    mounted() {
+        // 接收左侧导航触发scrollTop=0后，为重新渲染锚点anchor做准备
+        this.$bus.$on('init-Anchor-scrollTop-notice', data => {
+            this.showAnchor = data;
         });
-      });
-      this.data = accumulator;
-      // 渲染锚点anchor
-      this.showAnchor = true;
+        this.getDocumentList();
+    },
+    components: {
+        myAnchorLink
+    },
+    methods: {
+        /**
+         * 获取指定class名的节点
+         * 节点属性id以及内容
+         */
+        getDocumentList() {
+            if (!this.anchorLink) return false;
+            let allEles = document.querySelectorAll(this.className);
+
+            let accumulator = [];
+            allEles.forEach(item => {
+                accumulator.push({
+                    title: this.attributeName
+                        ? item.getAttribute('name')
+                        : item.innerText,
+                    href: '#' + item.id
+                });
+            });
+            this.data = accumulator;
+            // 渲染锚点anchor
+            this.showAnchor = true;
+        }
     }
-  }
 };
 </script>
 <style lang="less">
 .doc-box {
-  margin: 6px auto 0;
-  width: 752px;
-  padding: 0;
-  position: relative;
-  &-anchor {
-    position: absolute;
-    left: 776px;
-    top: 24px;
-    .ivu-affix {
-      left: inherit;
+    margin: 6px auto 0;
+    width: 752px;
+    padding: 0;
+    position: relative;
+    &-anchor {
+        position: absolute;
+        left: 776px;
+        top: 24px;
+        .ivu-affix {
+            left: inherit;
+        }
     }
-  }
 }
 </style>

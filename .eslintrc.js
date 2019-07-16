@@ -28,6 +28,11 @@ module.exports = {
       {
         "x-invalid-end-tag": false
       }
+    ],
+    "prettier/prettier": [
+      {
+        singleQuote: true
+      }
     ]
   },
 
