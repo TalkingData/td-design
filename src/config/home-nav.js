@@ -59,9 +59,9 @@ const HOMENAV = [
         content: "丰富的设计样式库，不但可以快速使用而且为设计提供更多灵感。",
         pic: require("../assets/img/style.svg"),
         bg: "#2185F0",
-        link: "",
+        link: "/stylelib",
         extra: {
-          disabled: true
+          // disabled: true
         }
       }
     ]

@@ -1,42 +1,42 @@
 <template>
   <div class="stylelib-tpl">
-    <Button class="mb" @click="createCate" type="primary">创建模版</Button>
-    <Table border :columns="cateColumns" :data="cateList"></Table>
+    <div class="opr">
+      <Button @click="createCate" type="primary">创建模版</Button>
+      <Select v-model="search.keyType" style="width: 160px" @on-change="searchTpl">
+        <Option v-for="(i, j) in searchCate" :key="j" :value="i.id">{{ i.name }}</Option>
+      </Select>
+    </div>
+    <Table border :loading="loading" :columns="cateColumns" :data="cateList">
+      <template slot-scope="{ row }" slot="time">
+        <span>{{ row.created_at | moment }}</span>
+      </template>
+    </Table>
 
     <!-- 编辑 -->
     <Modal v-model="update" title="模版" footer-hide>
-      <Form
-        ref="cateValidate"
-        :model="cateValidate"
-        :rules="cateRuleValidate"
-        :label-width="80"
-      >
+      <Form ref="cateValidate" :model="cateValidate" :rules="cateRuleValidate" :label-width="80">
         <FormItem label="名称" prop="title">
           <Input v-model="cateValidate.title" placeholder="输入模版名称" />
         </FormItem>
         <FormItem label="分类" prop="tag_id">
           <Select v-model="cateValidate.tag_id" placeholder="请选择模版分类">
-            <Option v-for="(i, j) in cate" :key="j" :value="i.id">
-              {{ i.name }}
-            </Option>
+            <Option v-for="(i, j) in cate" :key="j" :value="i.id">{{ i.name }}</Option>
           </Select>
         </FormItem>
         <FormItem label="描述" prop="desc">
-          <Input v-model="cateValidate.desc" placeholder="输入模版名称" />
+          <Input v-model="cateValidate.desc" placeholder="输入模版描述" />
         </FormItem>
         <FormItem label="图片KEY" prop="cover">
-          <Input v-model="cateValidate.cover" placeholder="输入模版名称" />
+          <Input v-model="cateValidate.cover" placeholder="输入模版图片KEY" />
         </FormItem>
         <FormItem label="代码仓库" prop="url">
-          <Input v-model="cateValidate.url" placeholder="输入模版名称" />
+          <Input v-model="cateValidate.url" placeholder="输入模版代码仓库地址" />
         </FormItem>
         <FormItem label="预览地址" prop="preview">
-          <Input v-model="cateValidate.preview" placeholder="输入模版名称" />
+          <Input v-model="cateValidate.preview" placeholder="输入模版预览地址" />
         </FormItem>
         <FormItem>
-          <Button type="primary" @click="handleCate('cateValidate')">
-            {{ isCreate ? "保存" : "更新" }}
-          </Button>
+          <Button type="primary" @click="handleCate('cateValidate')">{{ isCreate ? "创建" : "保存" }}</Button>
           <!-- <Button @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button> -->
         </FormItem>
       </Form>
@@ -53,9 +53,20 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    searchCate() {
+      return [{ name: "全部", id: 0 }, ...this.cate];
+    }
+  },
   data() {
     return {
       update: false,
+      loading: false,
+      // searchCate: [],
+      search: {
+        keyWord: "",
+        keyType: 0
+      },
       cateColumns: [
         {
           title: "名称",
@@ -86,10 +97,11 @@ export default {
         },
         {
           title: "创建时间",
-          key: "created_at",
-          render: (h, params) => {
-            return h("div", [h("strong", params.row.created_at)]);
-          }
+          slot: "time"
+          // key: "created_at",
+          // render: (h, params) => {
+          //   return h("div", [h("strong", params.row.created_at)]);
+          // }
         },
         {
           title: "操作",
@@ -148,8 +160,9 @@ export default {
         title: [
           {
             required: true,
-            message: "模版名称不能为空",
-            trigger: "blur"
+            message: "模版名称不能为空且不超过10个字符",
+            trigger: "blur",
+            max: 10
           }
         ],
         tag_id: [
@@ -157,6 +170,36 @@ export default {
             required: true,
             message: "请选择模版分类",
             trigger: "change"
+          }
+        ],
+        desc: [
+          {
+            required: true,
+            message: "模版描述不能为空",
+            trigger: "blur"
+          }
+        ],
+        cover: [
+          {
+            required: true,
+            message: "图片上传KEY不能为空",
+            trigger: "blur"
+          }
+        ],
+        url: [
+          {
+            required: true,
+            message: "请输入仓库url",
+            trigger: "blur",
+            type: "url"
+          }
+        ],
+        preview: [
+          {
+            required: true,
+            message: "请输入预览url",
+            trigger: "blur",
+            type: "url"
           }
         ]
       },
@@ -168,17 +211,21 @@ export default {
   },
   methods: {
     // 获取模版
-    async getCate() {
+    async getCate(tag_id) {
+      this.loading = true;
       let res = await ajax({
         urlKey: "/api/template/item/list",
         methods: "POST",
-        data: {}
+        data: {
+          tag_id: tag_id
+        }
       });
       if (res && res.status == 1) {
         this.cateList = res.data;
       } else {
         this.$Message.error(res.data);
       }
+      this.loading = false;
     },
     editCate(row) {
       this.isCreate = false;
@@ -198,10 +245,10 @@ export default {
             }
           }).then(res => {
             if (res.status === 1) {
-              this.$Message.success(res.data);
+              this.$Message.success("删除成功!");
               this.getCate();
             } else {
-              this.$Message.error(res.data);
+              this.$Message.error(res.msg);
             }
           });
         },
@@ -229,20 +276,33 @@ export default {
             data: fd
           }).then(res => {
             if (res.status === 1) {
-              this.$Message.success(res.data);
+              this.$Message.success("Success!");
               this.update = false;
               this.getCate();
             } else {
-              this.$Message.error(res.data);
+              this.$Message.error(res.msg);
             }
           });
         } else {
           this.$Message.error("Fail!");
         }
       });
+    },
+    searchTpl() {
+      this.getCate(this.search.keyType);
     }
   }
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.stylelib-tpl {
+  .opr {
+    height: 60px;
+    line-height: 60px;
+    button {
+      margin-right: 20px;
+    }
+  }
+}
+</style>

@@ -8,28 +8,19 @@
         <span>更新时间：{{ detail.updated_at | moment }}</span>
       </p>
       <div class="slib-opr">
-        <Button
-          custom-icon="i-td i-td-visibility_px"
-          @click="preview(detail.preview)"
-          >预览</Button
-        >
+        <Button custom-icon="i-td i-td-visibility_px" @click="preview(detail.preview)">预览</Button>
         <Button
           custom-icon="i-td i-td-visibility_px"
           type="primary"
           @click="goCode(detail.url)"
-          >查看代码</Button
-        >
+        >查看代码</Button>
       </div>
     </div>
     <div class="previewBox">
       <img :src="detail.src" alt />
     </div>
     <!-- preview -->
-    <stylelib-preview
-      :preview="previews"
-      :url="url"
-      :bread="bread"
-    ></stylelib-preview>
+    <stylelib-preview :preview="previews" :url="url" :bread="bread"></stylelib-preview>
   </div>
 </template>
 
@@ -76,7 +67,7 @@ export default {
     async getTplMenu(detail) {
       let fd = {};
       fd.tag_id = detail.tag_id;
-      fd.order = "updated_at";
+      fd.order = "created_at";
       let res = await ajax({
         urlKey: "/api/template/item/list",
         methods: "POST",

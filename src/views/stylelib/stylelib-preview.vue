@@ -76,9 +76,11 @@ export default {
 <style lang="less" scoped>
 .previewBox {
   margin-top: 32px;
+  width: 100%;
+  height: 100%;
   iframe {
     width: 100%;
-    min-height: 500px;
+    min-height: calc(100% - 56px);
   }
 }
 </style>

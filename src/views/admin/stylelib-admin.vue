@@ -2,33 +2,28 @@
   <div class="stylelib-box">
     <top></top>
     <div class="admin-box main-top">
-      <Tabs value="name2">
-        <TabPane label="分类" name="name1">
-          <Button class="mb" @click="createCate" type="primary"
-            >创建分类</Button
-          >
+      <Tabs value="tpl">
+        <TabPane label="分类" name="cate">
+          <Button class="mb" @click="createCate" type="primary">创建分类</Button>
           <Table border :columns="cateColumns" :data="cateList"></Table>
         </TabPane>
-        <TabPane label="模版" name="name2">
+        <TabPane label="模版" name="tpl">
           <tpl :cate="cateList"></tpl>
         </TabPane>
       </Tabs>
     </div>
     <!-- 编辑 -->
     <Modal v-model="update" title="分类" footer-hide>
-      <Form
-        ref="cateValidate"
-        :model="cateValidate"
-        :rules="cateRuleValidate"
-        :label-width="80"
-      >
+      <Form ref="cateValidate" :model="cateValidate" :rules="cateRuleValidate" :label-width="80">
         <FormItem label="分类名称" prop="name">
           <Input v-model="cateValidate.name" placeholder="输入分类名称" />
         </FormItem>
         <FormItem>
-          <Button type="primary" @click="handleCate('cateValidate')">{{
-            isCreate ? "保存" : "更新"
-          }}</Button>
+          <Button type="primary" @click="handleCate('cateValidate')">
+            {{
+            isCreate ? "创建" : "保存"
+            }}
+          </Button>
           <!-- <Button @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button> -->
         </FormItem>
       </Form>
@@ -119,8 +114,10 @@ export default {
         name: [
           {
             required: true,
-            message: "分类名称不能为空",
-            trigger: "blur"
+            message: "分类名称不能为空且至少2个字符至多8个字符",
+            trigger: "blur",
+            min: 2,
+            max: 8
           }
         ]
       },
@@ -162,10 +159,10 @@ export default {
             }
           }).then(res => {
             if (res.status === 1) {
-              this.$Message.success(res.data);
+              this.$Message.success("删除成功!");
               this.getCate();
             } else {
-              this.$Message.error(res.data);
+              this.$Message.error(res.msg);
             }
           });
         },
@@ -193,11 +190,11 @@ export default {
             data: fd
           }).then(res => {
             if (res.status === 1) {
-              this.$Message.success(res.data);
+              this.$Message.success("Success!");
               this.update = false;
               this.getCate();
             } else {
-              this.$Message.error(res.data);
+              this.$Message.error(res.msg);
             }
           });
         } else {

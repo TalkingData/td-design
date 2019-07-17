@@ -23,9 +23,11 @@
               <Icon size="24" custom="i-td i-td-arrow_drop_down_px"></Icon>
             </a>
             <DropdownMenu slot="list">
-              <DropdownItem v-for="(d, i) in sorts" :name="d.name" :key="i">{{
+              <DropdownItem v-for="(d, i) in sorts" :name="d.name" :key="i">
+                {{
                 d.name
-              }}</DropdownItem>
+                }}
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -59,7 +61,7 @@ export default {
       selSort: "最受欢迎",
       sorts: [
         { name: "最受欢迎", id: 0, key: "hot" },
-        { name: "更新时间", id: 1, key: "updated_at" }
+        { name: "创建时间", id: 1, key: "created_at" }
       ],
       cateList: [{ name: "全部", id: 0 }],
       tplList: []
@@ -205,6 +207,7 @@ export default {
           border-radius: 4px;
           box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.2);
           overflow: hidden;
+          background: #dcdee2;
           // background-size: 100% auto;
           // background: url(https://cdn.nlark.com/yuque/0/2019/jpeg/85443/1561519927798-2b96e404-60df-4845-86b1-9a30471980e3.jpeg)
           //   center no-repeat;
