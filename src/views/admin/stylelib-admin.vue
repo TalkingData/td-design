@@ -2,7 +2,7 @@
   <div class="stylelib-box">
     <top></top>
     <div class="admin-box main-top">
-      <Tabs value="tpl">
+      <Tabs value="cate">
         <TabPane label="分类" name="cate">
           <Button class="mb" @click="createCate" type="primary">创建分类</Button>
           <Table border :columns="cateColumns" :data="cateList"></Table>
@@ -17,6 +17,9 @@
       <Form ref="cateValidate" :model="cateValidate" :rules="cateRuleValidate" :label-width="80">
         <FormItem label="分类名称" prop="name">
           <Input v-model="cateValidate.name" placeholder="输入分类名称" />
+        </FormItem>
+        <FormItem label="排序" prop="hot">
+          <Input v-model="cateValidate.hot" placeholder="输入序号" />
         </FormItem>
         <FormItem>
           <Button type="primary" @click="handleCate('cateValidate')">
@@ -61,6 +64,10 @@ export default {
               h("strong", params.row.name)
             ]);
           }
+        },
+        {
+          title: "排序",
+          key: "hot"
         },
         {
           title: "操作",
@@ -108,7 +115,8 @@ export default {
       ],
       cateList: [],
       cateValidate: {
-        name: ""
+        name: "",
+        hot: null
       },
       cateRuleValidate: {
         name: [
@@ -178,6 +186,7 @@ export default {
       const fd = {};
       let url = "/api/template/tag/create";
       fd.name = this.cateValidate.name;
+      fd.hot = this.cateValidate.hot || 1;
       if (!this.isCreate) {
         fd.tag_id = this.cateValidate.id;
         url = "/api/template/tag/update";

@@ -20,7 +20,7 @@
         </FormItem>
         <FormItem label="分类" prop="tag_id">
           <Select v-model="cateValidate.tag_id" placeholder="请选择模版分类">
-            <Option v-for="(i, j) in cate" :key="j" :value="i.id">{{ i.name }}</Option>
+            <Option v-for="(i, j) in cate" :key="j" :value="i.id+''">{{ i.name }}</Option>
           </Select>
         </FormItem>
         <FormItem label="描述" prop="desc">
