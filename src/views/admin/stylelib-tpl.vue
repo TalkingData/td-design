@@ -3,7 +3,7 @@
     <div class="opr">
       <Button @click="createCate" type="primary">创建模版</Button>
       <Select v-model="search.keyType" style="width: 160px" @on-change="searchTpl">
-        <Option v-for="(i, j) in searchCate" :key="j" :value="i.id">{{ i.name }}</Option>
+        <Option v-for="(i, j) in searchCate" :key="j" :value="i.id+''">{{ i.name }}</Option>
       </Select>
     </div>
     <Table border :loading="loading" :columns="cateColumns" :data="cateList">
@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     searchCate() {
-      return [{ name: "全部", id: 0 }, ...this.cate];
+      return [{ name: "全部", id: "0" }, ...this.cate];
     }
   },
   data() {
@@ -65,7 +65,7 @@ export default {
       // searchCate: [],
       search: {
         keyWord: "",
-        keyType: 0
+        keyType: "0"
       },
       cateColumns: [
         {
@@ -212,6 +212,7 @@ export default {
   methods: {
     // 获取模版
     async getCate(tag_id) {
+      if (tag_id === "0") tag_id = 0;
       this.loading = true;
       let res = await ajax({
         urlKey: "/api/template/item/list",
