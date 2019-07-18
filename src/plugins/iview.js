@@ -9,6 +9,10 @@ Vue.use(iView, {
   },
   datePicker: {
     customIcon: "i-td i-td-date"
+  },
+  menu: {
+    customArrow: "i-td i-td-keyboard_arrow_down_",
+    arrowSize: 24
   }
 });
 Vue.use(iEditor);
