@@ -213,7 +213,14 @@ export default {
               child: []
             }
           ]
-        }
+        },
+        {
+          id: "2-4",
+          name: "资源下载",
+          englishName: "Download",
+          href: "assets-download",
+          child: []
+        },
       ]
     },
     {
