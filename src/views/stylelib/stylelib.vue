@@ -36,14 +36,16 @@
       <div class="tpl-box clearfix">
         <ul>
           <li v-for="(i, j) in tplList" :key="j">
-            <img :src="'http://design.talkingdata.com/' + i.cover" alt />
-            <!-- <a :to="'stylelib-detail/stylelib/'+i.id" class="info clearfix"> -->
-            <a @click="goDetail(i.id)" class="info clearfix">
-              <span class="title fl">{{ i.title }}</span>
-              <span class="data fr">
-                <Icon size="16" custom="i-td i-td-visibility_px"></Icon>
-                <em>{{ i.hot }}</em>
-              </span>
+            <a @click="goDetail(i.id)">
+              <img :src="'http://design.talkingdata.com/' + i.cover" alt />
+              <!-- <a :to="'stylelib-detail/stylelib/'+i.id" class="info clearfix"> -->
+              <div class="info clearfix">
+                <span class="title fl">{{ i.title }}</span>
+                <span class="data fr">
+                  <Icon size="16" custom="i-td i-td-visibility_px"></Icon>
+                  <em>{{ i.hot }}</em>
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -207,10 +209,16 @@ export default {
           border-radius: 4px;
           box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.2);
           overflow: hidden;
-          background: #dcdee2;
+          background: #fff;
           // background-size: 100% auto;
           // background: url(https://cdn.nlark.com/yuque/0/2019/jpeg/85443/1561519927798-2b96e404-60df-4845-86b1-9a30471980e3.jpeg)
           //   center no-repeat;
+          a {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            line-height: 320px;
+          }
           .info {
             position: absolute;
             left: 0;
@@ -235,6 +243,7 @@ export default {
           }
           img {
             width: 100%;
+            vertical-align: middle;
           }
         }
       }

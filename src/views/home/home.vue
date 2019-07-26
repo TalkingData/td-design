@@ -18,29 +18,24 @@
             v-for="(row, i) in col.child"
             :key="i"
           >
-            <div class="nav-title">
-              <router-link
-                :to="row.link"
-                :class="row.extra && row.extra.disabled ? 'disabled' : ''"
-              >
-                <span :class="['nav', cpType(row.type, row.extra)]">
-                  {{ row.type }}
-                </span>
+            <router-link :to="row.link" :class="row.extra && row.extra.disabled ? 'disabled' : ''">
+              <div class="nav-title">
+                <span :class="['nav', cpType(row.type, row.extra)]">{{ row.type }}</span>
                 <span>{{ row.title }}</span>
-              </router-link>
-            </div>
-            <div class="nav-con" v-if="row.content">{{ row.content }}</div>
-            <div
-              class="nav-pic"
-              v-if="row.pic"
-              :style="{
+              </div>
+              <div class="nav-con" v-if="row.content">{{ row.content }}</div>
+              <div
+                class="nav-pic"
+                v-if="row.pic"
+                :style="{
                 background: row.bg,
                 padding:
                   row.extra && row.extra.padding ? row.extra.padding : '25px 0'
               }"
-            >
-              <img :src="row.pic" alt />
-            </div>
+              >
+                <img :src="row.pic" alt />
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -124,6 +119,15 @@ export default {
             0 3px 14px 2px rgba(0, 0, 0, 0.12),
             0 5px 5px -3px rgba(0, 0, 0, 0.2);
         }
+        a {
+          color: #17233d;
+          &:hover {
+            color: #2d8cf0;
+          }
+          &.disabled {
+            cursor: default;
+          }
+        }
         .nav-title {
           height: 65px;
           line-height: 65px;
@@ -131,12 +135,6 @@ export default {
           font-family: PingFangSC-Medium;
           font-size: 20px;
           text-align: left;
-          a {
-            color: #17233d;
-            &.disabled {
-              cursor: default;
-            }
-          }
           .nav {
             display: inline-block;
             margin-right: 18px;
