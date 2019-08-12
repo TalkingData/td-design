@@ -170,7 +170,8 @@ export default {
             }).then(res => {
                 if (res.status === 1) {
                     this.usage = res.data.length ? res.data[0].content : '';
-                    if (!this.usage) {
+                    // 无用法 && 当前选中的是用法
+                    if (!this.usage && this.tabName === 'usage') {
                         this.tabName = 'file';
                     }
                 } else {

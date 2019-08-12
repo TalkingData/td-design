@@ -39,9 +39,9 @@ export default {
             photo: require("../../assets/img/yjn.png")
           },
           {
-            name: "梁灏",
-            info: "hao.liang ( 前端工程师 )",
-            photo: require("../../assets/img/lh.png")
+            name: "刘鹏飞",
+            info: "pengfei.liu ( 前端工程师 )",
+            photo: require("../../assets/img/lpf.png")
           }
         ],
         [
@@ -59,13 +59,13 @@ export default {
         [
           {
             name: "王扬波",
-            info: "yangbo.wang( UI设计师 )",
+            info: "yangbo.wang ( UI设计师 )",
             photo: require("../../assets/img/wyb.png")
           },
           {
-            name: "刘鹏飞",
-            info: "pengfei.liu ( 前端工程师  )",
-            photo: require("../../assets/img/lpf.png")
+            name: "许鹏程",
+            info: "pengcheng.xu ( 前端工程师  )",
+            photo: require("../../assets/img/xpc.png")
           }
         ]
       ]

@@ -1,5 +1,5 @@
 module.exports = {
   lintOnSave: undefined,
-  runtimeCompiler: true
-  // publicPath: "https://file.iviewui.com/td-design-dist/"
+  runtimeCompiler: true,
+  publicPath: "http://design.talkingdata.com/td-design-dist/"
 };

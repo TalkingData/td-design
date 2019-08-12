@@ -8,19 +8,19 @@
         <span>更新时间：{{ detail.updated_at | moment }}</span>
       </p>
       <div class="slib-opr">
-        <Button custom-icon="i-td i-td-visibility_px" @click="preview(detail.preview)">预览</Button>
-        <Button
+        <Button custom-icon="i-td i-td-visibility_px" @click="preview(detail.preview)" style='margin-right:0'>预览</Button>
+        <!-- <Button
           custom-icon="i-td i-td-visibility_px"
           type="primary"
           @click="goCode(detail.url)"
-        >查看代码</Button>
+        >查看代码</Button> -->
       </div>
     </div>
-    <div class="previewBox">
-      <img :src="detail.src" alt />
+    <div class="previewBox" ref='imgViewRef'>
+      <img :src="detail.src" alt :style="{'width':width}" v-if='width'/>
     </div>
     <!-- preview -->
-    <stylelib-preview :preview="previews" :url="url" :bread="bread"></stylelib-preview>
+    <stylelib-preview :preview="previews" :url="url" :bread="bread" @onImgWidth='onimgWidthChange'></stylelib-preview>
   </div>
 </template>
 
@@ -33,7 +33,8 @@ export default {
       previews: false,
       url: "",
       bread: [],
-      detail: {}
+      detail: {},
+      width:'',
     };
   },
   components: {
@@ -60,8 +61,16 @@ export default {
       if (res && res.status == 1) {
         res.data.src = "http://design.talkingdata.com/" + res.data.cover;
         this.detail = res.data;
+        this.url = this.detail.preview;
         this.getTplMenu(this.detail);
       }
+    },
+    onimgWidthChange(data){
+        if(data>=this.$refs.imgViewRef.offsetWidth){
+          this.width='100%'
+        }else{
+          this.width=data+'px'
+        }
     },
     // 获取分类菜单模版
     async getTplMenu(detail) {
@@ -153,7 +162,7 @@ export default {
   .previewBox {
     margin-top: 35px;
     img {
-      width: 100%;
+      // width: 50%;
     }
   }
 }
