@@ -8,19 +8,23 @@
         <span>更新时间：{{ detail.updated_at | moment }}</span>
       </p>
       <div class="slib-opr">
-        <Button custom-icon="i-td i-td-visibility_px" @click="preview(detail.preview)" style='margin-right:0'>预览</Button>
+        <Button
+          custom-icon="i-td i-td-visibility_px"
+          @click="preview(detail.preview)"
+          style="margin-right:0"
+        >预览</Button>
         <!-- <Button
           custom-icon="i-td i-td-visibility_px"
           type="primary"
           @click="goCode(detail.url)"
-        >查看代码</Button> -->
+        >查看代码</Button>-->
       </div>
     </div>
-    <div class="previewBox" ref='imgViewRef'>
-      <img :src="detail.src" alt :style="{'width':width}" v-if='width'/>
+    <div class="previewBox" ref="imgViewRef">
+      <img :src="detail.src" alt :style="{'width':width}" v-if="width" />
     </div>
     <!-- preview -->
-    <stylelib-preview :preview="previews" :url="url" :bread="bread" @onImgWidth='onimgWidthChange'></stylelib-preview>
+    <stylelib-preview :preview="previews" :url="url" :bread="bread" @onImgWidth="onimgWidthChange"></stylelib-preview>
   </div>
 </template>
 
@@ -34,7 +38,7 @@ export default {
       url: "",
       bread: [],
       detail: {},
-      width:'',
+      width: ""
     };
   },
   components: {
@@ -65,12 +69,12 @@ export default {
         this.getTplMenu(this.detail);
       }
     },
-    onimgWidthChange(data){
-        if(data>=this.$refs.imgViewRef.offsetWidth){
-          this.width='100%'
-        }else{
-          this.width=data+'px'
-        }
+    onimgWidthChange(data) {
+      if (data >= this.$refs.imgViewRef.offsetWidth) {
+        this.width = "100%";
+      } else {
+        this.width = data + "px";
+      }
     },
     // 获取分类菜单模版
     async getTplMenu(detail) {
@@ -84,9 +88,13 @@ export default {
       });
       if (res && res.status == 1) {
         this.tplList = res.data;
+        let radiuType = this.$route.params.radiuType;
         this.bread = [
-          { name: "样式库", to: "/stylelib" },
-          { name: detail.title, to: `/stylelib-detail/stylelib/${detail.id}` }
+          { name: "样式库", to: `/stylelib/${radiuType}` },
+          {
+            name: detail.title,
+            to: `/stylelib-detail/${radiuType}/stylelib/${detail.id}`
+          }
         ];
         // 分发详情数据
         let tdata = {
@@ -107,11 +115,12 @@ export default {
           child: []
         }
       ];
+      let radiuType = this.$route.params.radiuType;
       mu[0].child = d.map(i => {
         const it = {
           id: i.id,
           name: i.title,
-          to: `/stylelib-detail/stylelib/${i.id}`
+          to: `/stylelib-detail/${radiuType}/stylelib/${i.id}`
         };
         return it;
       });

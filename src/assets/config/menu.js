@@ -1,13 +1,11 @@
 export default {
   name: "一级菜单",
-  child: [
-    {
+  child: [{
       id: "1",
       name: "品牌",
       path: "brand",
       search: true,
-      child: [
-        {
+      child: [{
           id: "1-1",
           name: "概述",
           englishName: "",
@@ -24,8 +22,7 @@ export default {
         {
           id: "1-3",
           name: "基础系统",
-          child: [
-            {
+          child: [{
               id: "1-3-1",
               name: "品牌标志",
               englishName: "",
@@ -65,8 +62,7 @@ export default {
         {
           id: "1-4",
           name: "应用系统",
-          child: [
-            {
+          child: [{
               id: "1-4-1",
               name: "传播物料",
               englishName: "",
@@ -92,8 +88,7 @@ export default {
         {
           id: "1-5",
           name: "插图",
-          child: [
-            {
+          child: [{
               id: "1-5-1",
               name: "概述",
               englishName: "",
@@ -137,8 +132,7 @@ export default {
       name: "设计",
       path: "design",
       search: true,
-      child: [
-        {
+      child: [{
           id: "2-1",
           name: "概述",
           englishName: "Overview",
@@ -155,8 +149,7 @@ export default {
         {
           id: "2-3",
           name: "设计基础",
-          child: [
-            {
+          child: [{
               id: "2-3-1",
               name: "色彩",
               englishName: "Color",
@@ -228,8 +221,7 @@ export default {
       name: "组件",
       path: "components",
       search: true,
-      child: [
-        {
+      child: [{
           id: "3-1",
           name: "使用说明",
           englishName: "Use",
@@ -248,12 +240,10 @@ export default {
       name: "图表",
       path: "chart",
       search: true,
-      child: [
-        {
+      child: [{
           id: "4-1",
           name: "基础",
-          child: [
-            {
+          child: [{
               id: "4-1-1",
               name: "色彩",
               englishName: "Color",
@@ -272,8 +262,7 @@ export default {
         {
           id: "4-2",
           name: "图表",
-          child: [
-            {
+          child: [{
               id: "4-2-1",
               name: "图表示例",
               englishName: "Demo Chart",

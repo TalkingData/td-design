@@ -14,9 +14,12 @@
     </div>
     <!-- 编辑 -->
     <Modal v-model="update" title="分类" footer-hide>
-      <Form ref="cateValidate" :model="cateValidate" :rules="cateRuleValidate" :label-width="80">
+      <Form ref="cateValidate" :model="cateValidate" :rules="cateRuleValidate" :label-width="120">
         <FormItem label="分类名称" prop="name">
           <Input v-model="cateValidate.name" placeholder="输入分类名称" />
+        </FormItem>
+        <FormItem label="分类名称(英文)" prop="enname">
+          <Input v-model="cateValidate.enname" placeholder="输入分类名称" />
         </FormItem>
         <FormItem label="排序" prop="hot">
           <Input v-model="cateValidate.hot" placeholder="输入序号" />
@@ -44,6 +47,16 @@ export default {
     tpl
   },
   data() {
+    const validateEnglishName = (rule, value, callback) => {
+      let re = new RegExp("^[a-zA-Z]+$");
+      if (value === "") {
+        callback(new Error("请输入分类名称"));
+      } else if (!re.test(value)) {
+        callback(new Error("请输入英文"));
+      } else {
+        callback();
+      }
+    };
     return {
       update: false,
       cateColumns: [
@@ -64,6 +77,10 @@ export default {
               h("strong", params.row.name)
             ]);
           }
+        },
+        {
+          title: "英文名称",
+          key: "enname"
         },
         {
           title: "排序",
@@ -116,6 +133,7 @@ export default {
       cateList: [],
       cateValidate: {
         name: "",
+        enname: "",
         hot: null
       },
       cateRuleValidate: {
@@ -127,6 +145,9 @@ export default {
             min: 2,
             max: 8
           }
+        ],
+        enname: [
+          { required: true, validator: validateEnglishName, trigger: "blur" }
         ]
       },
       isCreate: false
@@ -187,6 +208,7 @@ export default {
       let url = "/api/template/tag/create";
       fd.name = this.cateValidate.name;
       fd.hot = this.cateValidate.hot || 1;
+      fd.enname = this.cateValidate.enname;
       if (!this.isCreate) {
         fd.tag_id = this.cateValidate.id;
         url = "/api/template/tag/update";

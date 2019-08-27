@@ -24,35 +24,11 @@
           </Menu>
         </nav>
         <!-- 搜索组件 -->
-        <!-- <div class="layout-nav-search fr">
-          <Select
-            :placeholder="placeholder"
-            v-model="selectedValue"
-            clearable
-            filterable
-            remote
-            :remote-method="remoteMethod"
-            :loading="loading"
-            @on-open-change="onSearch"
-            class="search-box"
-          >
-            <Option
-              v-for="(option, index) in options"
-              :value="option.value"
-              :key="index"
-            >{{ option.label }}</Option>
-          </Select>
-          <Icon type="md-search"/>
-        </div>-->
+        <div class="layout-nav-search fr">123</div>
       </div>
       <!-- 内部操作 -->
       <div class="layout-dropdown">
-        <Dropdown
-          class="drp"
-          trigger="click"
-          placement="bottom-end"
-          @on-click="operation"
-        >
+        <Dropdown class="drp" trigger="click" placement="bottom-end" @on-click="operation">
           <Icon custom="i-td i-td-account_circle_px" />
           <DropdownMenu slot="list">
             <DropdownItem name="updatePassword">
@@ -84,15 +60,13 @@
                   name="/admin/upload/assets"
                   to="/admin/upload/assets"
                   target="_blank"
-                  >上传资源</DropdownItem
-                >
+                >上传资源</DropdownItem>
                 <DropdownItem
                   name="/admin/stylelib"
                   to="/admin/stylelib"
                   target="_blank"
                   divided
-                  >模版管理</DropdownItem
-                >
+                >模版管理</DropdownItem>
               </DropdownMenu>
             </Dropdown>
 
@@ -106,46 +80,27 @@
                   name="/admin/component/menu"
                   to="/admin/component/menu"
                   target="_blank"
-                  >创建/删除组件</DropdownItem
-                >
+                >创建/删除组件</DropdownItem>
                 <DropdownItem
                   name="/admin/document/add"
                   to="/admin/document/add"
                   target="_blank"
                   divided
-                  >添加文档</DropdownItem
-                >
-                <DropdownItem
-                  name="/admin/usage/add"
-                  to="/admin/usage/add"
-                  target="_blank"
-                  >添加用法</DropdownItem
-                >
-                <DropdownItem
-                  name="/admin/code/add"
-                  to="/admin/code/add"
-                  target="_blank"
-                  >添加示例</DropdownItem
-                >
+                >添加文档</DropdownItem>
+                <DropdownItem name="/admin/usage/add" to="/admin/usage/add" target="_blank">添加用法</DropdownItem>
+                <DropdownItem name="/admin/code/add" to="/admin/code/add" target="_blank">添加示例</DropdownItem>
                 <DropdownItem
                   name="/admin/document/update"
                   to="/admin/document/update"
                   target="_blank"
                   divided
-                  >修改文档</DropdownItem
-                >
+                >修改文档</DropdownItem>
                 <DropdownItem
                   name="/admin/usage/update"
                   to="/admin/usage/update"
                   target="_blank"
-                  >修改用法</DropdownItem
-                >
-                <DropdownItem
-                  name="/admin/code/update"
-                  to="/admin/code/update"
-                  target="_blank"
-                  >修改示例</DropdownItem
-                >
+                >修改用法</DropdownItem>
+                <DropdownItem name="/admin/code/update" to="/admin/code/update" target="_blank">修改示例</DropdownItem>
               </DropdownMenu>
             </Dropdown>
             <Dropdown placement="right-start">
@@ -154,18 +109,12 @@
                 <Icon type="ios-arrow-forward"></Icon>
               </DropdownItem>
               <DropdownMenu slot="list">
-                <DropdownItem
-                  name="/admin/article/add"
-                  to="/admin/article/add"
-                  target="_blank"
-                  >添加文章</DropdownItem
-                >
+                <DropdownItem name="/admin/article/add" to="/admin/article/add" target="_blank">添加文章</DropdownItem>
                 <DropdownItem
                   name="/admin/article/update"
                   to="/admin/article/update"
                   target="_blank"
-                  >修改文章</DropdownItem
-                >
+                >修改文章</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </DropdownMenu>
@@ -192,13 +141,7 @@ export default {
     return {
       data: JSON.parse(JSON.stringify(menu.child)),
       activeName: 1,
-      acitveCityName: "",
-      cityList: [],
-      selectedValue: "",
-      loading: false,
-      options: [],
-      list: [],
-      placeholder: "搜索"
+      acitveCityName: ""
     };
   },
   watch: {
@@ -323,34 +266,6 @@ export default {
 
     logOff() {
       this.$router.push("/login");
-    },
-
-    remoteMethod(query) {
-      if (query !== "") {
-        this.loading = true;
-        setTimeout(() => {
-          this.loading = false;
-          const list = this.list.map(item => {
-            return {
-              value: item,
-              label: item
-            };
-          });
-          this.options = list.filter(
-            item => item.label.toLowerCase().indexOf(query.toLowerCase()) > -1
-          );
-        }, 200);
-      } else {
-        this.options = [];
-      }
-    },
-    onSearch(data) {
-      console.log(data);
-      // if (data) {
-      //   this.placeholder = "搜索组件...";
-      // } else {
-      //   this.placeholder = "";
-      // }
     },
     operation(data) {
       if (data === "logOff") {

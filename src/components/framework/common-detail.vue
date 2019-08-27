@@ -5,21 +5,10 @@
     </div>
     <!-- 左侧菜单 -->
     <div class="layout-left">
-      <Menu
-        width="auto"
-        :active-name="activeName"
-        :open-names="openNames"
-        ref="lmu"
-      >
+      <Menu width="auto" :active-name="activeName" :open-names="openNames" ref="lmu">
         <Submenu v-for="(i, j) in menu" :key="j" :name="i.id">
           <template slot="title">{{ i.name }}</template>
-          <MenuItem
-            v-for="(s, k) in i.child"
-            :key="k"
-            :to="s.to"
-            :name="s.id"
-            >{{ s.name }}</MenuItem
-          >
+          <MenuItem v-for="(s, k) in i.child" :key="k" :to="s.to" :name="s.id">{{ s.name }}</MenuItem>
         </Submenu>
       </Menu>
     </div>

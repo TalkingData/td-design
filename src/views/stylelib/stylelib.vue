@@ -17,7 +17,10 @@
       <div class="cate-head clearfix">
         <div class="cate-title">{{ selCate }} ({{ tplList.length }})</div>
         <div class="cate-desc">
-          <Dropdown @on-click="descCate">
+          <RadioGroup v-model="selSort" @on-change="filterCate" type="button">
+            <Radio v-for="(i, j) in sorts" :key="j" :label="i.name"></Radio>
+          </RadioGroup>
+          <!-- <Dropdown @on-click="descCate">
             <a href="javascript:void(0)">
               {{ selSort }}
               <Icon size="24" custom="i-td i-td-arrow_drop_down_px"></Icon>
@@ -29,7 +32,7 @@
                 }}
               </DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown>-->
         </div>
       </div>
       <!-- 模版内容 -->
@@ -60,20 +63,27 @@ export default {
   data() {
     return {
       selCate: "全部",
-      selSort: "最受欢迎",
+      selSort: "浏览最多",
       sorts: [
-        { name: "最受欢迎", id: 0, key: "hot" },
-        { name: "创建时间", id: 1, key: "created_at" }
+        { name: "浏览最多", id: 0, key: "hot" },
+        { name: "点赞最多", id: 2, key: "hot" },
+        { name: "更新时间", id: 1, key: "created_at" }
       ],
-      cateList: [{ name: "全部", id: 0 }],
+      cateList: [{ name: "全部", id: 0, enname: "all" }],
       tplList: []
     };
   },
   created() {
     this.getCate();
-    this.getTpl();
   },
   methods: {
+    setSelCate() {
+      let type = this.$route.params.radiuType;
+      if (type) {
+        this.selCate = this.getDataType("enname", type, "name");
+      }
+      this.getTpl();
+    },
     // 获取分类
     async getCate() {
       let res = await ajax({
@@ -83,6 +93,7 @@ export default {
       });
       if (res && res.status == 1) {
         this.cateList = this.cateList.concat(res.data);
+        this.setSelCate();
       } else {
         this.$Message.error(res.data);
       }
@@ -90,9 +101,7 @@ export default {
     // 获取模版
     async getTpl() {
       let fd = {};
-      fd.tag_id = this.cateList.filter(
-        item => item.name === this.selCate
-      )[0].id;
+      fd.tag_id = this.getDataType("name", this.selCate, "id");
       fd.order = this.sorts.filter(item => item.name === this.selSort)[0].key;
       let res = await ajax({
         urlKey: "/api/template/item/list",
@@ -104,6 +113,13 @@ export default {
       }
     },
     filterCate() {
+      let type = this.getDataType("name", this.selCate, "enname");
+      let rou = `/stylelib`;
+      if (type) {
+        rou = rou + `/${type}`;
+      }
+
+      this.$router.push(rou);
       this.getTpl();
     },
     descCate(name) {
@@ -115,8 +131,12 @@ export default {
       //  let tag_id = this.cateList.filter(
       //     item => item.name === this.selCate
       //   )[0].id;
-      let rou = `/stylelib-detail/stylelib/${id}`;
+      let type = this.getDataType("name", this.selCate, "enname");
+      let rou = `/stylelib-detail/${type}/stylelib/${id}`;
       this.$router.push(rou);
+    },
+    getDataType(name, value, type) {
+      return this.cateList.filter(item => item[name] === value)[0][type];
     }
   }
 };
@@ -163,7 +183,7 @@ export default {
     font-family: PingFangSC-Regular;
     .ivu-radio-wrapper {
       margin-right: 10px;
-      border-radius: 0;
+      border-radius: 1px;
       border: 0;
       height: 32px;
       line-height: 32px;
@@ -175,6 +195,7 @@ export default {
     .ivu-radio-group-button .ivu-radio-wrapper-checked {
       background: #deebfa;
       color: #2185f0;
+      box-shadow: none;
     }
   }
 
@@ -190,11 +211,21 @@ export default {
       .cate-desc {
         float: right;
         line-height: 24px;
-        .ivu-dropdown-rel {
-          a {
-            color: #17233dbb;
-            font-weight: 500;
-          }
+        .ivu-radio-wrapper {
+          margin-right: 10px;
+          border-radius: 15px;
+          border: 0;
+          height: 32px;
+          line-height: 32px;
+        }
+        .ivu-radio-group-button .ivu-radio-wrapper:after,
+        .ivu-radio-group-button .ivu-radio-wrapper:before {
+          display: none;
+        }
+        .ivu-radio-group-button .ivu-radio-wrapper-checked {
+          background: rgba(33, 133, 240, 0.06);
+          color: #2185f0;
+          box-shadow: none;
         }
       }
     }

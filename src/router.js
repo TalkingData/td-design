@@ -3,14 +3,12 @@ import Vue from "vue";
 
 Vue.use(Router);
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "index",
       redirect: "/home",
       components: require("@/views/index.vue"),
-      children: [
-        {
+      children: [{
           path: "/components/:id",
           name: "components",
           components: require("@/views/assembly/assembly.vue")
@@ -55,26 +53,43 @@ export default new Router({
           path: "/stylelib",
           name: "stylelib",
           components: require("@/views/stylelib/stylelib.vue"),
-          meta: { uncommon: true }
+          meta: {
+            uncommon: true
+          }
+        },
+        {
+          path: "/stylelib/:radiuType",
+          name: "stylelib",
+          components: require("@/views/stylelib/stylelib.vue"),
+          meta: {
+            uncommon: true
+          }
         },
         {
           path: "/common",
           name: "common-detail",
           components: require("@/components/framework/common-detail.vue"),
-          props: { default: true },
-          meta: { uncommon: true },
-          children: [
-            {
-              path: "/stylelib-detail/:dtype/:id",
+          props: {
+            default: true
+          },
+          meta: {
+            uncommon: true
+          },
+          children: [{
+              path: "/stylelib-detail/:radiuType/:dtype/:id",
               name: "stylelib-detail",
               components: require("@/views/stylelib/stylelib-detail.vue"),
-              meta: { uncommon: true }
+              meta: {
+                uncommon: true
+              }
             },
             {
               path: "/chart-detail/:dtype/:id",
               name: "chart-detail",
               components: require("@/views/chart/chart-detail.vue"),
-              meta: { uncommon: true }
+              meta: {
+                uncommon: true
+              }
             }
           ]
         }
@@ -84,7 +99,9 @@ export default new Router({
       path: "/home",
       name: "home",
       components: require("@/views/home/home.vue"),
-      meta: { index: true }
+      meta: {
+        index: true
+      }
     },
     {
       path: "/login",

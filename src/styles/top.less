@@ -4,12 +4,10 @@
   top: 0;
   right: 0;
   z-index: 1000;
-  background-image: linear-gradient(
-    143deg,
-    #2945cb 20%,
-    #2c83f9 81%,
-    #3a9dff 100%
-  );
+  background-image: linear-gradient(143deg,
+      #2945cb 20%,
+      #2c83f9 81%,
+      #3a9dff 100%);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   min-width: 700px;
@@ -18,6 +16,7 @@
     width: 256px;
     float: left;
   }
+
   .top-right {
     width: calc(100% - 256px);
     float: right;
@@ -33,7 +32,7 @@
     color: #ffffff;
     letter-spacing: 0.55px;
     text-align: left;
-    padding:20px 0 0 20px;
+    padding: 20px 0 0 20px;
 
     img {
       height: 50%;
@@ -95,24 +94,6 @@
 
     &-search {
       padding-top: 22px;
-      position: relative;
-      width: 160px;
-      margin-right: 16px;
-
-      .ivu-select {
-        position: absolute;
-        left: 0;
-        z-index: 2;
-      }
-
-      & > i {
-        position: absolute;
-        right: 0px;
-        top: 26px;
-        font-size: 23px;
-        color: #fff;
-        z-index: 1;
-      }
     }
   }
 
@@ -126,6 +107,7 @@
     }
 
     .ivu-dropdown-item {
+
       //padding: 7px 16px 7px 10px;
       i {
         color: #5697f1;
@@ -179,34 +161,3 @@
   background: #2149ab;
   box-shadow: none;
 }
-
-.search-box {
-  // background: #fff;
-  // color: #ddd
-}
-
-// @font-face {
-//     font-family: 'icomoon';
-//     src:  url('../icon-font/icomoon.eot?p6qa6i');
-//     src:  url('../icon-font/icomoon.eot?p6qa6i#iefix') format('embedded-opentype'),
-//     url('../icon-font/icomoon.ttf?p6qa6i') format('truetype'),
-//     url('../icon-font/icomoon.woff?p6qa6i') format('woff'),
-//     url('../icon-font/icomoon.svg?p6qa6i#icomoon') format('svg');
-//     font-weight: normal;
-//     font-style: normal;
-// }
-
-// [class^="icon-"], [class*=" icon-"] {
-//     /* use !important to prevent issues with browser extensions that change fonts */
-//     font-family: 'icomoon' !important;
-//     speak: none;
-//     font-style: normal;
-//     font-weight: normal;
-//     font-variant: normal;
-//     text-transform: none;
-//     line-height: 1;
-
-//     /* Better Font Rendering =========== */
-//     -webkit-font-smoothing: antialiased;
-//     -moz-osx-font-smoothing: grayscale;
-// }
