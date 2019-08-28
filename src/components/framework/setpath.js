@@ -39,6 +39,7 @@ export default {
     // for (let i = 0; i < data.length; i++) {
     if (!fname || !Array.isArray(data)) return _menu;
     const _data = data.filter(item => item.path == fname)[0];
+    if (!_data) return _menu;
     _menu.firstCurrent = _data.id;
     if (!path) {
       return _menu;

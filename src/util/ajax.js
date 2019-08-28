@@ -1,12 +1,15 @@
 import axios from "axios";
 import cookies from "js-cookie";
-import { baseUrl } from "../config/config";
+import {
+  baseUrl
+} from "../config/config";
 
 const baseAjax = (() => {
   axios.defaults.headers = {
     "Content-Type": "application/json;charset=UTF-8" //"application/x-www-form-urlencoded" //'application/json'
   };
   // 带cookie请求
+
   axios.defaults.withCredentials = false;
   const token = ""; //cookies.get("token") || "";
 
@@ -15,6 +18,11 @@ const baseAjax = (() => {
   }
 
   return options => {
+
+    if (options.sendHeader) {
+      axios.defaults.withCredentials = true;
+    }
+
     const methods = (options.methods || "get").toUpperCase();
     const urlKey = options.urlKey || "";
     const otherUrl = options.otherUrl ? options.otherUrl : "";
@@ -46,9 +54,9 @@ const baseAjax = (() => {
       if (methods === "GET" || options.data2string) {
         if (typeof options.data === "string") {
           url =
-            options.data.indexOf("?") === 0
-              ? `${url}${options.data}`
-              : `${url}/${options.data}`;
+            options.data.indexOf("?") === 0 ?
+            `${url}${options.data}` :
+            `${url}/${options.data}`;
           options.data = "";
         } else {
           let dataStr = Object.entries(options.data)

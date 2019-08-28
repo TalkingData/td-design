@@ -44,9 +44,18 @@
               <!-- <a :to="'stylelib-detail/stylelib/'+i.id" class="info clearfix"> -->
               <div class="info clearfix">
                 <span class="title fl">{{ i.title }}</span>
+
                 <span class="data fr">
                   <Icon size="16" custom="i-td i-td-visibility_px"></Icon>
                   <em>{{ i.hot }}</em>
+                </span>
+                <span
+                  class="data fabulousIcon fr"
+                  style="padding-right: 25px"
+                  @click.stop="onFabulous(i.id)"
+                >
+                  <Icon size="16" custom="i-td i-td-social_thumb_up_alt"></Icon>
+                  <em>{{ i.likes }}</em>
                 </span>
               </div>
             </a>
@@ -137,6 +146,21 @@ export default {
     },
     getDataType(name, value, type) {
       return this.cateList.filter(item => item[name] === value)[0][type];
+    },
+    async onFabulous(id) {
+      let res = await ajax({
+        urlKey: "/api/template/item/likes",
+        methods: "POST",
+        data: {
+          template_id: id
+        },
+        sendHeader: true
+      });
+      if (res && res.status == 1) {
+        this.getTpl();
+      } else {
+        this.$Message.error(res.data);
+      }
     }
   }
 };
@@ -196,6 +220,7 @@ export default {
       background: #deebfa;
       color: #2185f0;
       box-shadow: none;
+      font-weight: 400;
     }
   }
 
@@ -226,6 +251,7 @@ export default {
           background: rgba(33, 133, 240, 0.06);
           color: #2185f0;
           box-shadow: none;
+          font-weight: 400;
         }
       }
     }
@@ -278,6 +304,16 @@ export default {
           }
         }
       }
+    }
+  }
+
+  .fabulousIcon i {
+    transition: 0.1s linear;
+
+    &:hover {
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+      color: #2185f0 !important;
     }
   }
 }

@@ -92,7 +92,15 @@ export default new Router({
               }
             }
           ]
-        }
+        },
+        {
+          path: "searchPage",
+          name: "searchPage",
+          components: require("@/views/search-page/index.vue"),
+          meta: {
+            uncommon: true
+          }
+        },
       ]
     },
     {

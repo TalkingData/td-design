@@ -8,6 +8,10 @@
       </div>
     </div>
     <div class="top-right">
+      <div class="fl" style="width: calc(100% - 520px);padding-top: 20px;">
+        <overallSearch></overallSearch>
+      </div>
+
       <div class="layout-nav">
         <!-- 导航 -->
         <nav class="fr">
@@ -24,7 +28,9 @@
           </Menu>
         </nav>
         <!-- 搜索组件 -->
-        <div class="layout-nav-search fr">123</div>
+        <!-- <div class="layout-nav-search fl">
+          <overallSearch></overallSearch>
+        </div>-->
       </div>
       <!-- 内部操作 -->
       <div class="layout-dropdown">
@@ -126,10 +132,14 @@
 <script>
 import menu from "@/assets/config/menu.js";
 import filterPath from "./setpath";
+import overallSearch from "./overall-search.vue";
 import { ajax } from "@/util/ajax";
 import { mapActions } from "vuex";
 
 export default {
+  components: {
+    overallSearch
+  },
   inject: ["app"],
   props: {
     isHome: {
