@@ -58,8 +58,6 @@ export default {
   methods: {
     ...mapActions(["setSearchValue"]),
     submit() {
-      console.log("start");
-      // this.$bus.$emit("on-search-value", this.value);
       this.setSearchValue(this.value);
       this.$router.push("/searchPage");
     }

@@ -175,15 +175,13 @@ export default {
       // });
     }
   },
-  created() {
-    this.setMenuData(this.data);
-  },
+  created() {},
   mounted() {
     // // let list = ["components"];
     // let name = this.$router.currentRoute.name;
     this.getTabularData().then(() => {
       this.$bus.$emit("top-getData-end", this.data);
-      // this.setMenuData(this.data);
+      this.setMenuData(this.data);
       this.init();
     });
   },

@@ -49,12 +49,12 @@
                   <Icon size="16" custom="i-td i-td-visibility_px"></Icon>
                   <em>{{ i.hot }}</em>
                 </span>
-                <span
-                  class="data fabulousIcon fr"
-                  style="padding-right: 25px"
-                  @click.stop="onFabulous(i.id)"
-                >
-                  <Icon size="16" custom="i-td i-td-social_thumb_up_alt"></Icon>
+                <span class="data fabulousIcon fr" style="padding-right: 25px">
+                  <Icon
+                    size="16"
+                    custom="i-td i-td-social_thumb_up_alt"
+                    @click.stop="onFabulous(i.id)"
+                  ></Icon>
                   <em>{{ i.likes }}</em>
                 </span>
               </div>

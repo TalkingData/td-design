@@ -43,38 +43,114 @@
 </style>
 <template>
   <main class="main">
-    <h2>“{{ searchValue }}”的搜索结果（{{ searchLength }}）</h2>
+    <h2>“{{ searchValue }}”的搜索结果（{{ sorts[0]&&sorts[0].value }}）</h2>
     <div class="main-tabs">
-      <!-- <RadioGroup v-model="selSort" @on-change="filterCate" type="button">
+      <RadioGroup v-model="selSort" type="button">
         <Radio v-for="(i, j) in sorts" :key="j" :label="i.name">{{ i.name }} {{ i.value }}</Radio>
-      </RadioGroup>-->
-      {{ sorts|json }}
+      </RadioGroup>
+    </div>
+    <div class="main-conent">
+      <card-details
+        :data="option"
+        :name="searchValue"
+        v-for="(option,index) of details"
+        :key="index"
+      ></card-details>
     </div>
   </main>
 </template>
 <script>
 import { ajax } from "@/util/ajax";
 
-import menu from "@/assets/config/menu.js";
+import cardDetails from "./card-details";
 export default {
+  components: { cardDetails },
+  inject: ["app"],
   data() {
     return {
-      //   searchValue: "",
-      searchLength: 0,
       // 单选
       selSort: "全部",
       all: [{ name: "全部", value: 0 }],
-      sorts: []
+      sorts: [],
+      //   details: [
+      //     {
+      //       parent: "设计",
+      //       children: "组件",
+      //       describe:
+      //         "按钮允许用户采取行动，并做出选择。1、文字按钮（低强调）：文字按钮通常用于不太重要的操作。2、描边按钮（中强调）：描边 Button 通常比文字按钮重要。3、填充按钮（高强调）：填充按钮是页面中高强调的操作按"
+      //     }
+      //   ],
+      resData: []
     };
   },
   computed: {
     searchValue() {
       return this.$store.state.searchValue;
+    },
+    menuData() {
+      return this.$store.state.menuData;
+    },
+    details() {
+      let list = [];
+      // 列表数据或者请求数据没有返回空数组
+      if (!this.sorts.length || !this.resData.length) return list;
+      let index = this.sorts.findIndex(item => {
+        return item.name === this.selSort;
+      });
+      if (!index) {
+        // 全部
+        list = [];
+        this.resData.forEach((option, i) => {
+          if (option.length) {
+            list = list.concat(this.filterData(i, option));
+          }
+          //   if (i !== 2) {
+          //     option.forEach(item => {
+          //       list.push({
+          //         parent: "组件",
+          //         children: "按钮 Button",
+          //         describe: item.content
+          //       });
+          //     });
+          //   } else {
+          //     this.getComponentsData(option).forEach(item => {
+          //       list.push({
+          //         parent: "组件",
+          //         children: "按钮 Button",
+          //         describe: item.content
+          //       });
+          //     });
+          //   }
+        });
+      } else {
+        // if (index - 1 !== 2) {
+        //   this.resData[index - 1].forEach(item => {
+        //     list.push({
+        //       parent: "组件",
+        //       children: "按钮 Button",
+        //       describe: item.content
+        //     });
+        //   });
+        // } else {
+        //   this.getComponentsData(this.resData[index - 1]).forEach(item => {
+        //     list.push({
+        //       parent: "组件",
+        //       children: "按钮 Button",
+        //       describe: item.content
+        //     });
+        //   });
+        // }
+        list = this.filterData(index - 1, this.resData[index - 1]);
+      }
+      return list;
     }
   },
   watch: {
     searchValue: function() {
       this.getAjax();
+    },
+    menuData: function() {
+      this.init();
     }
   },
   mounted() {
@@ -83,7 +159,8 @@ export default {
   },
   methods: {
     init() {
-      let list = menu.child.map(option => {
+      if (!this.menuData || !Object.keys(this.menuData).length) return false;
+      let list = this.menuData.map(option => {
         return {
           name: option.name,
           value: 0
@@ -91,15 +168,66 @@ export default {
       });
       this.sorts = this.all.concat(list);
     },
-    filterCate() {
-      //   let type = this.getDataType("name", this.selCate, "enname");
-      //   let rou = `/stylelib`;
-      //   if (type) {
-      //     rou = rou + `/${type}`;
-      //   }
-      //   this.$router.push(rou);
-      //   this.getTpl();
+    // 过滤数据
+    filterData(index, arr) {
+      let list = [];
+      // 2 组件
+      let clildren = this.menuData[index];
+      if (clildren.name === "组件") {
+        this.getComponentsData(arr).forEach(item => {
+          let mac = [];
+          this.getChildName(item.text, clildren.child, mac);
+          list.push({
+            parent: clildren.name, ///"大标题"
+            children: mac[0], // 左侧菜单标题
+            describe: item.content // 模糊查询到的内容
+          });
+        });
+      } else {
+        arr.forEach(item => {
+          let mac = [];
+          this.getChildName(item.name, clildren.child, mac);
+          list.push({
+            parent: clildren.name, //"大标题"
+            children: mac[0], // 左侧菜单标题
+            // 样式库取desc字段 其他取content字段
+            describe: clildren.name === "样式库" ? item.desc : item.content // 模糊查询到的内容
+          });
+        });
+      }
+      return list;
     },
+    /**
+     *  递归查询
+     *  根据查询到数据的href字段，到静态menuJSON,对应path查询name,因为库里没有存name字段
+     *  params : href 对应字段， data menuJSON对应的节点，list存储查询到的name
+     */
+    getChildName(href, data, list) {
+      let idx = false;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].href === href) {
+          list.push(data[i].name);
+          idx = true;
+        } else if (data[i].child.length && !idx) {
+          this.getChildName(href, data[i].child, list);
+        }
+      }
+    },
+    /**
+     * 针对组件 对数据进行拍平[[],[],[]]=>[{}]
+     */
+    getComponentsData(data) {
+      let list = [];
+      data.forEach(item => {
+        item.forEach(option => {
+          list.push(option);
+        });
+      });
+      return list;
+    },
+    /**
+     * 获取数据
+     */
     getAjax() {
       ajax({
         urlKey: "/api/resource/query",
@@ -108,49 +236,61 @@ export default {
           key: this.searchValue
         }
       }).then(res => {
-        console.log(res);
         if (res.status === 1) {
-          this.filterData(res.data);
+          this.resData = res.data;
+          this.setData(res.data);
         } else {
-          console.log("");
+          // 清空数据
+          this.onClearData();
         }
       });
     },
-    filterData(data) {
-      let list = JSON.parse(JSON.stringify(this.sorts.slice(1)));
-      if (data.length !== list.length) {
-        this.$Message.error("请重新请求数据");
-        return;
-      }
-      list.forEach((item, index) => {
-        let option = data[index];
-        if (!option.length) {
-          item.value = 0;
-        } else {
-          let i = this.getLength(option, index);
-          item.value = i;
-        }
+    /**
+     * 清空数据
+     */
+    onClearData() {
+      this.sorts.forEach(item => {
+        item.value = 0;
       });
+    },
+    /**
+     *  请求到数据后对 tabs 灌入数据
+     *  这里注意数据更新与视图层更新
+     */
+    setData(data) {
+      let arr = [];
       let len = 0;
-      list.forEach(item => {
-        len = len + item.value;
+      data.forEach((item, index) => {
+        let i = 0;
+        if (!item.length) {
+          i = 0;
+        } else {
+          i = this.getLength(item, index);
+        }
+        arr.push(i);
+        len = len + i;
       });
-      this.all[0].value = len;
-      //let arr = this.all.concat(list);
-      // this.$set(this.sorts, arr);
-      //this.$set(this.sorts, [123]);
-      //this.$set(this.arr, 1, 'x');
-      //console.log(this.sorts);
+      // 添加全部
+      arr.unshift(len);
+      this.sorts.forEach((item, i) => {
+        item.value = arr[i];
+      });
     },
+    /**
+     *  返回查询的数量
+     *  后端在这里直接返回的[[],[],[[],[],[]],[],[]]  [品牌,设计,[文档,代码,用法],图表,样式库]；
+     *  组件较为特殊，数组套数组
+     *  parsms:  data搜索到的数据，index索引（这里只能根据索引，因为后端返回的[]）
+     */
     getLength(data, index) {
-      if (index !== 2) {
-        return data.length;
-      } else {
+      if (index === 2) {
         let i = 0;
         data.forEach(k => {
           i = i + k.length;
         });
         return i;
+      } else {
+        return data.length;
       }
     }
   }
