@@ -22,7 +22,6 @@
     font-family: PingFangSC-Regular;
     font-size: 14px;
     color: rgba(23, 35, 61, 0.75);
-    text-align: justify;
     line-height: 24px;
     text-overflow: -o-ellipsis-lastline;
     overflow: hidden;
@@ -31,26 +30,28 @@
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
-    em {
-      color: #3399ff;
-      font-style: normal;
-    }
   }
 }
 </style>
+<style lang="less">
+.TDD-card-details em {
+  color: #3399ff;
+  font-style: normal;
+}
+</style>
 <template>
-  <main class="card">
+  <main class="card TDD-card-details">
     <div class="card-title">
       {{ data.parent }}
       <Icon custom="i-td i-td-keyboard_arrow_right" />
       {{ data.children }}
     </div>
     <h2>{{ name }}</h2>
-    <p>{{ data.describe }}</p>
+    <!-- <p>{{ data.describe }}</p> -->
+    <p v-html="data.describe"></p>
   </main>
 </template>
 <script>
-// import menu from "@/assets/config/menu.js";
 export default {
   props: {
     data: {
@@ -60,17 +61,6 @@ export default {
       type: String,
       default: ""
     }
-  },
-  data() {
-    return {
-      //   title: {
-      //     parent: "设计",
-      //     children: "组件"
-      //   }
-    };
-  },
-  computed: {},
-  watch: {},
-  mounted() {}
+  }
 };
 </script>

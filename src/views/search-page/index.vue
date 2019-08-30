@@ -39,6 +39,16 @@
       line-height: 32px;
     }
   }
+  &-conent {
+    cursor: pointer;
+  }
+  &-empty {
+    padding: 30px 16px;
+    color: #8c8c8c;
+    text-align: center;
+    // border: 1px solid rgba(23, 35, 61, 0.15);
+    // border-top: none;
+  }
 }
 </style>
 <template>
@@ -49,7 +59,7 @@
         <Radio v-for="(i, j) in sorts" :key="j" :label="i.name">{{ i.name }} {{ i.value }}</Radio>
       </RadioGroup>
     </div>
-    <div class="main-conent">
+    <div class="main-conent" v-if="details.length">
       <card-details
         :data="option"
         :name="searchValue"
@@ -57,12 +67,15 @@
         :key="index"
       ></card-details>
     </div>
+    <div v-else class="main-empty">未能找到相关内容</div>
   </main>
 </template>
 <script>
 import { ajax } from "@/util/ajax";
 
 import cardDetails from "./card-details";
+import Util from "@/util/util.js";
+
 export default {
   components: { cardDetails },
   inject: ["app"],
@@ -72,24 +85,20 @@ export default {
       selSort: "全部",
       all: [{ name: "全部", value: 0 }],
       sorts: [],
-      //   details: [
-      //     {
-      //       parent: "设计",
-      //       children: "组件",
-      //       describe:
-      //         "按钮允许用户采取行动，并做出选择。1、文字按钮（低强调）：文字按钮通常用于不太重要的操作。2、描边按钮（中强调）：描边 Button 通常比文字按钮重要。3、填充按钮（高强调）：填充按钮是页面中高强调的操作按"
-      //     }
-      //   ],
       resData: []
     };
   },
   computed: {
     searchValue() {
-      return this.$store.state.searchValue;
+      return Util.getInterceptValue(
+        this.$route.fullPath,
+        "/searchPage/search?q="
+      );
     },
     menuData() {
       return this.$store.state.menuData;
     },
+    // 显示模糊查询到的内容
     details() {
       let list = [];
       // 列表数据或者请求数据没有返回空数组
@@ -104,50 +113,20 @@ export default {
           if (option.length) {
             list = list.concat(this.filterData(i, option));
           }
-          //   if (i !== 2) {
-          //     option.forEach(item => {
-          //       list.push({
-          //         parent: "组件",
-          //         children: "按钮 Button",
-          //         describe: item.content
-          //       });
-          //     });
-          //   } else {
-          //     this.getComponentsData(option).forEach(item => {
-          //       list.push({
-          //         parent: "组件",
-          //         children: "按钮 Button",
-          //         describe: item.content
-          //       });
-          //     });
-          //   }
         });
       } else {
-        // if (index - 1 !== 2) {
-        //   this.resData[index - 1].forEach(item => {
-        //     list.push({
-        //       parent: "组件",
-        //       children: "按钮 Button",
-        //       describe: item.content
-        //     });
-        //   });
-        // } else {
-        //   this.getComponentsData(this.resData[index - 1]).forEach(item => {
-        //     list.push({
-        //       parent: "组件",
-        //       children: "按钮 Button",
-        //       describe: item.content
-        //     });
-        //   });
-        // }
         list = this.filterData(index - 1, this.resData[index - 1]);
       }
       return list;
     }
   },
   watch: {
-    searchValue: function() {
-      this.getAjax();
+    // 监听搜索的内容
+    "$route.params.search": {
+      handler() {
+        this.getAjax();
+      },
+      deep: true
     },
     menuData: function() {
       this.init();
@@ -173,7 +152,7 @@ export default {
       let list = [];
       // 2 组件
       let clildren = this.menuData[index];
-      if (clildren.name === "组件") {
+      if (clildren && clildren.name === "组件") {
         this.getComponentsData(arr).forEach(item => {
           let mac = [];
           this.getChildName(item.text, clildren.child, mac);
@@ -183,7 +162,7 @@ export default {
             describe: item.content // 模糊查询到的内容
           });
         });
-      } else {
+      } else if (clildren) {
         arr.forEach(item => {
           let mac = [];
           this.getChildName(item.name, clildren.child, mac);
@@ -191,7 +170,7 @@ export default {
             parent: clildren.name, //"大标题"
             children: mac[0], // 左侧菜单标题
             // 样式库取desc字段 其他取content字段
-            describe: clildren.name === "样式库" ? item.desc : item.content // 模糊查询到的内容
+            describe: clildren.name === "样式库" ? item.title : item.content // 模糊查询到的内容
           });
         });
       }
@@ -229,6 +208,7 @@ export default {
      * 获取数据
      */
     getAjax() {
+      this.selSort = "全部";
       ajax({
         urlKey: "/api/resource/query",
         methods: "POST",
@@ -252,6 +232,7 @@ export default {
       this.sorts.forEach(item => {
         item.value = 0;
       });
+      this.resData = [];
     },
     /**
      *  请求到数据后对 tabs 灌入数据

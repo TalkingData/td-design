@@ -46,7 +46,8 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import Util from "@/util/util.js";
+
 export default {
   data() {
     return {
@@ -55,11 +56,22 @@ export default {
     };
   },
   watch: {},
+  mounted() {
+    // 搜索页开启搜索控件
+    this.onOpenSearchControl();
+  },
   methods: {
-    ...mapActions(["setSearchValue"]),
+    onOpenSearchControl() {
+      if (this.$route.meta.searchOpen) {
+        this.open = true;
+        this.value = Util.getInterceptValue(
+          this.$route.fullPath,
+          "/searchPage/search?q="
+        );
+      }
+    },
     submit() {
-      this.setSearchValue(this.value);
-      this.$router.push("/searchPage");
+      this.$router.push(`/searchPage/search?q=${this.value}`);
     }
   }
 };

@@ -94,13 +94,14 @@ export default new Router({
           ]
         },
         {
-          path: "searchPage",
+          path: "/searchPage/:search",
           name: "searchPage",
           components: require("@/views/search-page/index.vue"),
           meta: {
-            uncommon: true
+            uncommon: true,
+            searchOpen: true
           }
-        },
+        }
       ]
     },
     {
