@@ -153,7 +153,7 @@ export default {
       // 2 组件
       let clildren = this.menuData[index];
       if (clildren) {
-        this.getComponentsData(arr).forEach(item => {
+        this.getArrangementData(arr).forEach(item => {
           list.push({
             parent: clildren.name, ///"大标题"
             children: clildren.name === "样式库" ? item.name : item.label, //mac[0], // 左侧菜单标题
@@ -165,7 +165,6 @@ export default {
     },
     /**
      *  递归查询
-     *  根据查询到数据的href字段，到静态menuJSON,对应path查询name,因为库里没有存name字段
      *  params : href 对应字段， data menuJSON对应的节点，list存储查询到的name
      *  // let mac = [];
         // this.getChildName(item.name, clildren.child, mac);
@@ -182,9 +181,9 @@ export default {
     //   }
     // },
     /**
-     * 针对组件 对数据进行拍平[[],[],[]]=>[{}]
+     * 整理数据 对数据进行拍平[[],[],[]]=>[{}]
      */
-    getComponentsData(data) {
+    getArrangementData(data) {
       let list = [];
       data.forEach(item => {
         if (item instanceof Array) {
@@ -197,15 +196,6 @@ export default {
       });
       return list;
     },
-    // getComponentsData(data) {
-    //   let list = [];
-    //   data.forEach(item => {
-    //     item.forEach(option => {
-    //       list.push(option);
-    //     });
-    //   });
-    //   return list;
-    // },
     /**
      * 获取数据
      */
