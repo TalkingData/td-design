@@ -39,22 +39,31 @@
       <div class="tpl-box clearfix">
         <ul>
           <li v-for="(i, j) in tplList" :key="j">
-            <a @click="goDetail(i.id)">
-              <img :src="'http://design.talkingdata.com/' + i.cover" alt />
+            <a>
+              <section class="tpl-box-content" @click="goDetail(i.id)">
+                <img :src="'http://design.talkingdata.com/' + i.cover" alt />
+              </section>
               <!-- <a :to="'stylelib-detail/stylelib/'+i.id" class="info clearfix"> -->
               <div class="info clearfix">
                 <span class="title fl">{{ i.title }}</span>
 
                 <span class="data fr">
+                  <!-- 浏览量 -->
                   <Icon size="16" custom="i-td i-td-visibility_px"></Icon>
                   <em>{{ i.hot }}</em>
                 </span>
-                <span class="data fabulousIcon fr" style="padding-right: 25px">
+                <span
+                  class="data fabulousIcon fr"
+                  style="padding-right: 25px"
+                  :class="{'fabulousIcon-praised':i.praised}"
+                >
                   <Icon
                     size="16"
                     custom="i-td i-td-social_thumb_up_alt"
+                    style="cursor:pointer"
                     @click.stop="onFabulous(i.id)"
                   ></Icon>
+                  <!-- 点赞 -->
                   <em>{{ i.likes }}</em>
                 </span>
               </div>
@@ -68,6 +77,7 @@
 
 <script>
 import { ajax } from "@/util/ajax";
+import Util from "@/util/util";
 export default {
   data() {
     return {
@@ -75,7 +85,7 @@ export default {
       selSort: "浏览最多",
       sorts: [
         { name: "浏览最多", id: 0, key: "hot" },
-        { name: "点赞最多", id: 2, key: "hot" },
+        { name: "点赞最多", id: 2, key: "likes" },
         { name: "更新时间", id: 1, key: "created_at" }
       ],
       cateList: [{ name: "全部", id: 0, enname: "all" }],
@@ -119,6 +129,7 @@ export default {
       });
       if (res && res.status == 1) {
         this.tplList = res.data;
+        this.onGiveTheThumbsUp();
       }
     },
     filterCate() {
@@ -161,6 +172,23 @@ export default {
       } else {
         this.$Message.error(res.data);
       }
+    },
+    /**
+     * 设置点赞
+     */
+    onGiveTheThumbsUp() {
+      if (!this.tplList.length) return false;
+      let list = Util.getCookie("stylelibIds").split(",");
+      if (!list.length) return false;
+      this.tplList.forEach(option => {
+        // 点赞
+        option["praised"] = false;
+        list.forEach(item => {
+          if (option.id === item) {
+            option.praised = true;
+          }
+        });
+      });
     }
   }
 };
@@ -275,6 +303,7 @@ export default {
             width: 100%;
             height: 100%;
             line-height: 320px;
+            cursor: auto;
           }
           .info {
             position: absolute;
@@ -304,6 +333,10 @@ export default {
           }
         }
       }
+      &-content {
+        height: calc(100% - 40px);
+        cursor: pointer;
+      }
     }
   }
 
@@ -315,6 +348,9 @@ export default {
       transform: scale(1.2);
       color: #2185f0 !important;
     }
+  }
+  .fabulousIcon-praised i {
+    color: #2185f0 !important;
   }
 }
 </style>
