@@ -13,7 +13,7 @@
         <template v-for="obj in val.child">
           <!-- single -->
           <template v-if="!obj.child.length">
-            <Menu-item :name="obj.id" :key="obj.id" :to="'/'+val.path+'/'+obj.href">
+            <Menu-item :name="obj.id" :key="obj.id" :to="'/'+val.path+'/'+obj.href+secondLevelType">
               <span>{{ obj.name }}</span>
               <span class="layout-left-span">{{ obj.englishName }}</span>
             </Menu-item>
@@ -27,7 +27,11 @@
               </template>
               <template v-for="item in obj.child">
                 <template v-if="!item.child.length">
-                  <Menu-item :name="item.id" :key="item.id" :to="'/'+val.path+'/'+item.href">
+                  <Menu-item
+                    :name="item.id"
+                    :key="item.id"
+                    :to="'/'+val.path+'/'+item.href+ secondLevelType"
+                  >
                     <span>{{ item.name }}</span>
                     <span class="layout-left-span">{{ item.englishName }}</span>
                   </Menu-item>
@@ -66,7 +70,6 @@ export default {
   inject: ["app"],
   data() {
     return {
-      //data: {},
       activeMenu: "",
       activeName: "",
       //第三层菜单选中
@@ -79,6 +82,17 @@ export default {
   computed: {
     data() {
       return this.$store.state.menuData;
+    },
+    // 二级导航参数 例如组件中的文档和代码和用法
+    secondLevelType() {
+      let i = "";
+      if (
+        this.$route.name === "components" &&
+        this.$route.params.id !== "components-use"
+      ) {
+        i = this.$route.params.type ? `/${this.$route.params.type}` : "/file";
+      }
+      return i;
     }
   },
   watch: {
@@ -96,7 +110,6 @@ export default {
     data: {
       handler(data) {
         if (data.length) {
-          //this.data = data;
           this.init();
         }
       },
