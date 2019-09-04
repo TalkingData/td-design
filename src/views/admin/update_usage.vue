@@ -28,10 +28,10 @@ export default {
         this.$Message.error("component_id 不能为空");
         return;
       }
-      if (this.content === "") {
-        this.$Message.error("content 不能为空");
-        return;
-      }
+      // if (this.content === "") {
+      //   this.$Message.error("content 不能为空");
+      //   return;
+      // }
       ajax({
         urlKey: "/api/usage/update",
         methods: "POST",

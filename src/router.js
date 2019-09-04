@@ -14,6 +14,11 @@ export default new Router({
           components: require("@/views/assembly/assembly.vue")
         },
         {
+          path: "/components/:id/:type",
+          name: "components",
+          components: require("@/views/assembly/assembly.vue")
+        },
+        {
           path: "/chart/:id",
           name: "chart",
           components: require("@/views/brand/brand.vue")
@@ -34,11 +39,11 @@ export default new Router({
           name: "plate",
           components: require("@/views/plate/plate.vue")
         },
-        {
-          path: "/components/:id/addAssembly",
-          name: "/components",
-          components: require("@/views/assembly/add-assembly.vue")
-        },
+        // {
+        //   path: "/components/:id/addAssembly",
+        //   name: "/components",
+        //   components: require("@/views/assembly/add-assembly.vue")
+        // },
         {
           path: "/design/:id",
           name: "design",

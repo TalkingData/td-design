@@ -13,7 +13,7 @@
         <template v-for="obj in val.child">
           <!-- single -->
           <template v-if="!obj.child.length">
-            <Menu-item :name="obj.id" :key="obj.id" :to="obj.href">
+            <Menu-item :name="obj.id" :key="obj.id" :to="'/'+val.path+'/'+obj.href">
               <span>{{ obj.name }}</span>
               <span class="layout-left-span">{{ obj.englishName }}</span>
             </Menu-item>
@@ -27,7 +27,7 @@
               </template>
               <template v-for="item in obj.child">
                 <template v-if="!item.child.length">
-                  <Menu-item :name="item.id" :key="item.id" :to="item.href">
+                  <Menu-item :name="item.id" :key="item.id" :to="'/'+val.path+'/'+item.href">
                     <span>{{ item.name }}</span>
                     <span class="layout-left-span">{{ item.englishName }}</span>
                   </Menu-item>
@@ -77,37 +77,38 @@ export default {
     };
   },
   watch: {
-    $route(to, from) {
-      //set sub menu actived
-      if (to.name === from.name) {
-        const sta = filterPath.setPath(to.params.id, this.data, to.name);
-        this.activeName = sta.leftCurrent;
-      }
-    }
+    // $route(to) {
+    //   //$route(to, from) {
+    //   //set sub menu actived
+    //   //if (to.name === from.name) {
+    //   const sta = filterPath.setPath(to.params.id, this.data, to.name);
+    //   this.activeName = sta.leftCurrent;
+    //   //}
+    // }
   },
   mounted() {
     // 获取菜单数据
     this.$bus.$on("top-getData-end", data => {
-      if (Array.isArray(this.data) && this.data.length) return;
+      //if (Array.isArray(this.data) && this.data.length) return;
       this.data = data;
       this.init();
     });
     // 处理菜单切换状态
-    this.$bus.$on("menu-change", key => {
-      const data = this.isChild(key - 1);
-      this.setActiveName(data.id);
-      const path = this.$router.currentRoute.params.id;
-      let fname = this.$router.currentRoute.name;
-      if (fname && fname.indexOf("/") > -1) {
-        fname = fname.substring(1);
-      }
-      const current = filterPath.setPath(path, this.data, fname);
-      this.activeMenu = key;
-      this.subActiveName = current.openNames;
-      this.firstNav = current.firstNav;
-      // this.searchList = current.searchList;
-      this.searchOpen = current.searchOpen;
-    });
+    // this.$bus.$on("menu-change", key => {
+    //   const data = this.isChild(key - 1);
+    //   this.setActiveName(data.id);
+    //   const path = this.$router.currentRoute.params.id;
+    //   let fname = this.$router.currentRoute.name;
+    //   if (fname && fname.indexOf("/") > -1) {
+    //     fname = fname.substring(1);
+    //   }
+    //   const current = filterPath.setPath(path, this.data, fname);
+    //   this.activeMenu = key;
+    //   this.subActiveName = current.openNames;
+    //   this.firstNav = current.firstNav;
+    //   // this.searchList = current.searchList;
+    //   this.searchOpen = current.searchOpen;
+    // });
   },
   destroyed() {
     this.$bus.$off("top-getData-end");
@@ -126,8 +127,11 @@ export default {
       // this.searchList = current.searchList;
       this.searchOpen = current.searchOpen;
       this.subActiveName = current.openNames;
-      if (!current.childCurrent) this.setActiveName(current.leftCurrent);
-      else this.setActiveName(current.childCurrent);
+      if (!current.childCurrent) {
+        this.setActiveName(current.leftCurrent);
+      } else {
+        this.setActiveName(current.childCurrent);
+      }
     },
     isChild(index) {
       let id = "";

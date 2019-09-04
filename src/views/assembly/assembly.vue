@@ -128,15 +128,13 @@ export default {
         onTagsChange(data) {
             this.anchorLink = false;
             this.tabName = data;
-            this.$router.push(
-                `/components/${this.$router.currentRoute.params.id}`
-            );
+            this.$router.push(`/components/${this.$route.params.id}/${data}`);
         },
-        add() {
-            this.$router.push(
-                `/components/${this.$router.currentRoute.params.id}/addAssembly`
-            );
-        },
+        // add() {
+        //     this.$router.push(
+        //         `/components/${this.$router.currentRoute.params.id}/addAssembly`
+        //     );
+        // },
         /**
          * 请求文档
          */

@@ -170,8 +170,8 @@ export default {
       if (to.meta.uncommon) return;
       // this.$nextTick(() => {
       this.$bus.$emit("top-getData-end", this.data);
-      const key = this.data.filter(item => item.path === to.name)[0].id;
-      this.$bus.$emit("menu-change", key);
+      // const key = this.data.filter(item => item.path === to.name)[0].id;
+      // this.$bus.$emit("menu-change", key);
       // });
     }
   },

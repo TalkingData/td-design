@@ -41,14 +41,15 @@
 </style>
 <template>
   <main class="card TDD-card-details">
-    <div class="card-title">
-      {{ data.parent }}
-      <Icon custom="i-td i-td-keyboard_arrow_right" />
-      {{ data.children }}
-    </div>
-    <h2>{{ name }}</h2>
-    <!-- <p>{{ data.describe }}</p> -->
-    <p v-html="data.describe"></p>
+    <router-link :to="data.path">
+      <div class="card-title">
+        {{ data.parent }}
+        <Icon custom="i-td i-td-keyboard_arrow_right" />
+        {{ data.children }}
+      </div>
+      <h2>{{ name }}</h2>
+      <p v-html="data.describe"></p>
+    </router-link>
   </main>
 </template>
 <script>

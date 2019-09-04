@@ -154,10 +154,19 @@ export default {
       let clildren = this.menuData[index];
       if (clildren) {
         this.getArrangementData(arr).forEach(item => {
+          let path = `/${clildren.path}/`;
+          if (clildren.name === "组件") {
+            path = path + item.text;
+          } else if (clildren.name === "样式库") {
+            path = `/stylelib-detail/${item.enname}/stylelib/${item.id}`;
+          } else {
+            path = path + item.name;
+          }
           list.push({
-            parent: clildren.name, ///"大标题"
+            parent: clildren.name, // "大标题"
             children: clildren.name === "样式库" ? item.name : item.label, //mac[0], // 左侧菜单标题
-            describe: clildren.name === "样式库" ? item.title : item.content // 模糊查询到的内容
+            describe: clildren.name === "样式库" ? item.title : item.content, // 模糊查询到的内容
+            path
           });
         });
       }
