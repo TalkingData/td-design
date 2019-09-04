@@ -66,7 +66,7 @@ export default {
   inject: ["app"],
   data() {
     return {
-      data: {},
+      //data: {},
       activeMenu: "",
       activeName: "",
       //第三层菜单选中
@@ -75,6 +75,11 @@ export default {
       // searchList: [],
       searchOpen: false
     };
+  },
+  computed: {
+    data() {
+      return this.$store.state.menuData;
+    }
   },
   watch: {
     // $route(to) {
@@ -85,12 +90,23 @@ export default {
     //   this.activeName = sta.leftCurrent;
     //   //}
     // }
+    /**
+     * 组件menu数据请求回来后重新执行
+     */
+    data: {
+      handler(data) {
+        if (data.length) {
+          //this.data = data;
+          this.init();
+        }
+      },
+      deep: true
+    }
   },
   mounted() {
     // 获取菜单数据
-    this.$bus.$on("top-getData-end", data => {
+    this.$bus.$on("on-top-menu-change", () => {
       //if (Array.isArray(this.data) && this.data.length) return;
-      this.data = data;
       this.init();
     });
     // 处理菜单切换状态
@@ -109,10 +125,6 @@ export default {
     //   // this.searchList = current.searchList;
     //   this.searchOpen = current.searchOpen;
     // });
-  },
-  destroyed() {
-    this.$bus.$off("top-getData-end");
-    this.$bus.$off("menu-change");
   },
   methods: {
     init() {
@@ -133,22 +145,22 @@ export default {
         this.setActiveName(current.childCurrent);
       }
     },
-    isChild(index) {
-      let id = "";
-      // if (!this.data[index]) {
-      // }
-      const data = this.data[index].child;
-      const firstId = data[0].id;
-      if (data[0].child.length) {
-        id = data[0].child[0].id;
-      } else {
-        id = data[0].id;
-      }
-      return {
-        id: id,
-        firstId: firstId
-      };
-    },
+    // isChild(index) {
+    //   let id = "";
+    //   // if (!this.data[index]) {
+    //   // }
+    //   const data = this.data[index].child;
+    //   const firstId = data[0].id;
+    //   if (data[0].child.length) {
+    //     id = data[0].child[0].id;
+    //   } else {
+    //     id = data[0].id;
+    //   }
+    //   return {
+    //     id: id,
+    //     firstId: firstId
+    //   };
+    // },
     setActiveName(activeName) {
       document.documentElement.scrollTop = 0;
       this.$bus.$emit("init-Anchor-scrollTop-notice", false);
@@ -156,6 +168,11 @@ export default {
         this.activeName = activeName;
       }
     }
+  },
+  destroyed() {
+    this.$bus.$off("on-top-menu-change");
+    // this.$bus.$off("top-getData-end");
+    // this.$bus.$off("menu-change");
   }
 };
 </script>

@@ -44,7 +44,7 @@ export default {
   mounted() {},
   methods: {
     handlerCommon(meta) {
-      if (meta.uncommon) {
+      if (!meta.uncommon) {
         this.isCommon = false;
       } else {
         this.isCommon = true;

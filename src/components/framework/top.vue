@@ -167,9 +167,10 @@ export default {
       const sta = filterPath.setPath(to.params.id, this.data, topName);
       this.activeName = sta.firstCurrent;
       // 其它布局不需要分发菜单数据
-      if (to.meta.uncommon) return;
+      if (!to.meta.uncommon) return;
       // this.$nextTick(() => {
-      this.$bus.$emit("top-getData-end", this.data);
+      // this.$bus.$emit("top-getData-end", this.data);
+      this.$bus.$emit("on-top-menu-change", true);
       // const key = this.data.filter(item => item.path === to.name)[0].id;
       // this.$bus.$emit("menu-change", key);
       // });
@@ -180,7 +181,7 @@ export default {
     // // let list = ["components"];
     // let name = this.$router.currentRoute.name;
     this.getTabularData().then(() => {
-      this.$bus.$emit("top-getData-end", this.data);
+      // this.$bus.$emit("top-getData-end", this.data);
       this.setMenuData(this.data);
       this.init();
     });

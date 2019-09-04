@@ -11,17 +11,26 @@ export default new Router({
       children: [{
           path: "/components/:id",
           name: "components",
-          components: require("@/views/assembly/assembly.vue")
+          components: require("@/views/assembly/assembly.vue"),
+          meta: {
+            uncommon: true
+          }
         },
         {
           path: "/components/:id/:type",
           name: "components",
-          components: require("@/views/assembly/assembly.vue")
+          components: require("@/views/assembly/assembly.vue"),
+          meta: {
+            uncommon: true
+          }
         },
         {
           path: "/chart/:id",
           name: "chart",
-          components: require("@/views/brand/brand.vue")
+          components: require("@/views/brand/brand.vue"),
+          meta: {
+            uncommon: true
+          }
         },
         // {
         //   path: "/chart",
@@ -29,16 +38,6 @@ export default new Router({
         //   components: require("@/views/chart/chart.vue"),
         //   meta: { uncommon: true }
         // },
-        {
-          path: "/modular/:id",
-          name: "modular",
-          components: require("@/views/modular/modular.vue")
-        },
-        {
-          path: "/plate/:id",
-          name: "plate",
-          components: require("@/views/plate/plate.vue")
-        },
         // {
         //   path: "/components/:id/addAssembly",
         //   name: "/components",
@@ -47,28 +46,31 @@ export default new Router({
         {
           path: "/design/:id",
           name: "design",
-          components: require("@/views/brand/brand.vue")
+          components: require("@/views/brand/brand.vue"),
+          meta: {
+            uncommon: true
+          }
         },
+        // 品牌
         {
           path: "/brand/:id",
           name: "brand",
-          components: require("@/views/brand/brand.vue")
+          components: require("@/views/brand/brand.vue"),
+          meta: {
+            uncommon: true
+          }
         },
         {
           path: "/stylelib",
           name: "stylelib",
           components: require("@/views/stylelib/stylelib.vue"),
-          meta: {
-            uncommon: true
-          }
+
         },
         {
           path: "/stylelib/:radiuType",
           name: "stylelib",
           components: require("@/views/stylelib/stylelib.vue"),
-          meta: {
-            uncommon: true
-          }
+
         },
         {
           path: "/common",
@@ -77,24 +79,18 @@ export default new Router({
           props: {
             default: true
           },
-          meta: {
-            uncommon: true
-          },
+
           children: [{
               path: "/stylelib-detail/:radiuType/:dtype/:id",
               name: "stylelib-detail",
               components: require("@/views/stylelib/stylelib-detail.vue"),
-              meta: {
-                uncommon: true
-              }
+
             },
             {
               path: "/chart-detail/:dtype/:id",
               name: "chart-detail",
               components: require("@/views/chart/chart-detail.vue"),
-              meta: {
-                uncommon: true
-              }
+
             }
           ]
         },
@@ -102,10 +98,6 @@ export default new Router({
           path: "/searchPage/:search",
           name: "searchPage",
           components: require("@/views/search-page/index.vue"),
-          meta: {
-            uncommon: true,
-            searchOpen: true
-          }
         }
       ]
     },
