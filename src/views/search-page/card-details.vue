@@ -1,10 +1,16 @@
 <style lang="less" scoped>
 .card {
   width: 100%;
-  height: 168px;
-  padding: 24px 160px 0 0;
+  height: auto;
+  padding: 24px 160px 24px 0;
   background: #ffffff;
   box-shadow: inset 0 -1px 0 0 #e7e9eb;
+  transition: transform 0.4s ease 0s;
+  &:hover {
+    transform: translateX(-5px);
+    -webkit-transform: translateX(-5px); /*兼容-webkit-引擎浏览器*/
+    -moz-transform: translateX(-5px);
+  }
   &-title {
     font-family: PingFangSC-Regular;
     font-size: 14px;
@@ -44,10 +50,12 @@
     <router-link :to="data.path">
       <div class="card-title">
         {{ data.parent }}
-        <Icon custom="i-td i-td-keyboard_arrow_right" />
-        {{ data.children }}
+        <template v-if="data.children">
+          <Icon custom="i-td i-td-keyboard_arrow_right" />
+          {{ data.children }}
+        </template>
       </div>
-      <h2>{{ name }}</h2>
+      <h2 v-html="data.name"></h2>
       <p v-html="data.describe"></p>
     </router-link>
   </main>
@@ -57,10 +65,6 @@ export default {
   props: {
     data: {
       type: Object
-    },
-    name: {
-      type: String,
-      default: ""
     }
   }
 };

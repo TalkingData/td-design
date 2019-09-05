@@ -90,14 +90,17 @@ export default new Router({
               path: "/chart-detail/:dtype/:id",
               name: "chart-detail",
               components: require("@/views/chart/chart-detail.vue"),
-
             }
           ]
         },
         {
-          path: "/searchPage/:search",
-          name: "searchPage",
+          // path: "/searchPage/:search",
+          path: "/search",
+          name: "search",
           components: require("@/views/search-page/index.vue"),
+          meta: {
+            searchOpen: true
+          }
         }
       ]
     },

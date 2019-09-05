@@ -31,7 +31,6 @@
 <template>
   <div class="main">
     <Icon custom="i-td i-td-search_px" class="main-search fr" v-if="!open" @click="open=true"></Icon>
-    <!-- <input @keyup.enter="submit" /> -->
     <Input
       placeholder="搜索"
       style="width: 100%"
@@ -46,8 +45,6 @@
   </div>
 </template>
 <script>
-import Util from "@/util/util.js";
-
 export default {
   data() {
     return {
@@ -64,14 +61,16 @@ export default {
     onOpenSearchControl() {
       if (this.$route.meta.searchOpen) {
         this.open = true;
-        this.value = Util.getInterceptValue(
-          this.$route.fullPath,
-          "/searchPage/search?q="
-        );
+        this.value = this.$route.query.q;
       }
     },
     submit() {
-      this.$router.push(`/searchPage/search?q=${this.value}`);
+      this.$router.push({
+        path: "/search",
+        query: {
+          q: this.value
+        }
+      });
     }
   }
 };

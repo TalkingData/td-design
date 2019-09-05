@@ -60,12 +60,7 @@
       </RadioGroup>
     </div>
     <div class="main-conent" v-if="details.length">
-      <card-details
-        :data="option"
-        :name="searchValue"
-        v-for="(option,index) of details"
-        :key="index"
-      ></card-details>
+      <card-details :data="option" v-for="(option,index) of details" :key="index"></card-details>
     </div>
     <div v-else class="main-empty">未能找到相关内容</div>
   </main>
@@ -74,7 +69,6 @@
 import { ajax } from "@/util/ajax";
 
 import cardDetails from "./card-details";
-import Util from "@/util/util.js";
 
 export default {
   components: { cardDetails },
@@ -85,15 +79,27 @@ export default {
       selSort: "全部",
       all: [{ name: "全部", value: 0 }],
       sorts: [],
-      resData: []
+      resData: [],
+      // "文档", "代码", "用法"
+      componentsTagType: [
+        {
+          label: "文档",
+          value: "file"
+        },
+        {
+          label: "代码",
+          value: "code"
+        },
+        {
+          label: "用法",
+          value: "usage"
+        }
+      ]
     };
   },
   computed: {
     searchValue() {
-      return Util.getInterceptValue(
-        this.$route.fullPath,
-        "/searchPage/search?q="
-      );
+      return this.$route.query.q;
     },
     menuData() {
       return this.$store.state.menuData;
@@ -155,17 +161,37 @@ export default {
       if (clildren) {
         this.getArrangementData(arr).forEach(item => {
           let path = `/${clildren.path}/`;
-          if (clildren.name === "组件") {
-            path = path + item.text;
-          } else if (clildren.name === "样式库") {
-            path = `/stylelib-detail/${item.enname}/stylelib/${item.id}`;
-          } else {
-            path = path + item.name;
+          let secondLevel = "";
+          let name = "";
+          let describe = "";
+          switch (clildren.name) {
+            case "样式库":
+              path = `/stylelib-detail/${item.enname}/stylelib/${item.id}`;
+              secondLevel = item.name;
+              name = item.title;
+              describe = item.desc;
+              break;
+            case "组件":
+              path =
+                path +
+                item.text +
+                "/" +
+                this.componentsTagType[item.tagTypeIndex].value;
+              secondLevel = this.componentsTagType[item.tagTypeIndex].label;
+              name = item.label + (item.text || "");
+              describe = item.content;
+              break;
+            default:
+              path = path + item.name;
+              secondLevel = "";
+              name = item.label + (item.text || "");
+              describe = item.content;
           }
           list.push({
             parent: clildren.name, // "大标题"
-            children: clildren.name === "样式库" ? item.name : item.label, //mac[0], // 左侧菜单标题
-            describe: clildren.name === "样式库" ? item.title : item.content, // 模糊查询到的内容
+            children: secondLevel, // 二级菜单
+            name, // 左侧菜单标题
+            describe, // 模糊查询到的内容
             path
           });
         });
@@ -194,9 +220,10 @@ export default {
      */
     getArrangementData(data) {
       let list = [];
-      data.forEach(item => {
+      data.forEach((item, index) => {
         if (item instanceof Array) {
           item.forEach(option => {
+            option.tagTypeIndex = index;
             list.push(option);
           });
         } else {
